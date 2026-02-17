@@ -1,0 +1,1813 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ramazan PS5 FIFA Turnuvası — Puan Durumları</title>
+
+  <style>
+    :root{
+      --bg:#070b18;
+      --cardA: rgba(18,26,51,.78);
+      --cardB: rgba(18,26,51,.62);
+      --muted:#9bb0de;
+      --text:#eef4ff;
+
+      --accent:#5eead4;
+      --accent2:#60a5fa;
+      --pink:#fb7185;
+
+      --ok:#34d399;
+      --warn:#fbbf24;
+
+      --line:rgba(255,255,255,.09);
+      --line2:rgba(255,255,255,.14);
+
+      --shadow: 0 18px 55px rgba(0,0,0,.38);
+      --shadow2: 0 10px 25px rgba(0,0,0,.35);
+
+      --radius: 18px;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1100px 780px at 12% 10%, rgba(94,234,212,.16), transparent 58%),
+        radial-gradient(980px 720px at 86% 20%, rgba(96,165,250,.16), transparent 58%),
+        radial-gradient(900px 700px at 55% 100%, rgba(251,113,133,.12), transparent 60%),
+        linear-gradient(180deg, rgba(7,11,24,1), rgba(7,11,24,.92)),
+        var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* top bar */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(7,11,24,.92), rgba(7,11,24,.60));
+      border-bottom:1px solid var(--line);
+    }
+    .wrap{max-width:1160px;margin:0 auto;padding:18px 16px}
+    .top{
+      display:flex;gap:14px;
+      align-items:center;justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:260px}
+    .badge{
+      width:44px;height:44px;border-radius:14px;
+      display:grid;place-items:center;
+      font-weight:900; letter-spacing:.5px;
+      color:var(--accent);
+      border:1px solid transparent;
+      background:
+        linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55), rgba(251,113,133,.35)) border-box;
+      box-shadow: var(--shadow2);
+    }
+    h1{font-size:16px;margin:0}
+    .sub{margin:2px 0 0;color:var(--muted);font-size:12px;line-height:1.25}
+
+    .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    button{
+      border:1px solid var(--line);
+      background: rgba(18,26,51,.55);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.15s transform, .15s background, .15s border-color;
+      font-weight:800;
+    }
+    button:hover{
+      transform:translateY(-1px);
+      background: rgba(18,26,51,.85);
+      border-color: var(--line2);
+    }
+    button:active{transform:translateY(0)}
+    .btnPrimary{
+      border:1px solid transparent;
+      background:
+        linear-gradient(rgba(18,26,51,.45), rgba(18,26,51,.45)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55)) border-box;
+    }
+
+    /* ✅ Filters row */
+    .filtersRow{
+      margin-top:12px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .segWrap{
+      display:flex;
+      gap:8px;
+      flex-wrap:nowrap;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom:4px;
+      max-width:100%;
+    }
+    .segBtn{
+      border:1px solid var(--line);
+      background: rgba(18,26,51,.35);
+      padding:8px 10px;
+      border-radius:999px;
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+      transition:.15s transform, .15s background, .15s border-color;
+    }
+    .segBtn:hover{transform: translateY(-1px); background: rgba(18,26,51,.55); border-color: var(--line2)}
+    .segBtn.active{
+      color: var(--text);
+      border:1px solid transparent;
+      background:
+        linear-gradient(rgba(18,26,51,.45), rgba(18,26,51,.45)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55)) border-box;
+      box-shadow: 0 8px 20px rgba(0,0,0,.22);
+    }
+
+    .searchWrap{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex: 1 1 360px;
+      justify-content:flex-end;
+      min-width: 240px;
+    }
+    .search{
+      position:relative;
+      flex:1;
+      max-width:520px;
+    }
+    .search input{
+      width:100%;
+      padding:10px 12px 10px 36px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(18,26,51,.42);
+      color: var(--text);
+      outline:none;
+      transition:.15s border-color, .15s background;
+      font-weight:800;
+    }
+    .search input::placeholder{color: rgba(155,176,222,.75); font-weight:700}
+    .search input:focus{
+      border-color: rgba(96,165,250,.55);
+      background: rgba(18,26,51,.62);
+    }
+    .searchIcon{
+      position:absolute;
+      left:12px; top:50%;
+      transform: translateY(-50%);
+      color: rgba(155,176,222,.85);
+      font-size:14px;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    /* ✅ Favorites row */
+    .favRow{
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(0,0,0,.10);
+    }
+    .favLeft{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      min-width:240px;
+    }
+    .favTitle{
+      font-weight:1000;
+      letter-spacing:.2px;
+      color: var(--text);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .favHint{color:var(--muted); font-size:12px}
+    .favChips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .favChip{
+      cursor:pointer;
+      user-select:none;
+      border:1px solid transparent;
+      border-radius:999px;
+      padding:8px 10px;
+      font-family:var(--mono);
+      font-size:12px;
+      font-weight:900;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(18,26,51,.40), rgba(18,26,51,.40)) padding-box,
+        linear-gradient(135deg, rgba(251,191,36,.55), rgba(96,165,250,.35)) border-box;
+      transition:.15s transform, .15s filter;
+    }
+    .favChip:hover{transform: translateY(-1px); filter: brightness(1.05)}
+    .favChip:active{transform: translateY(0)}
+    .favChip small{opacity:.8; font-weight:900}
+
+    /* layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap:16px;
+      margin-top:16px;
+      align-items:start;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+
+    /* cards */
+    .card{
+      border:1px solid transparent;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, var(--cardA), var(--cardB)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.28), rgba(96,165,250,.28), rgba(251,113,133,.20)) border-box;
+    }
+    .card .hd{
+      padding:14px 14px 12px;
+      border-bottom:1px solid var(--line);
+      display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    }
+    .card .hd h2{margin:0;font-size:14px;letter-spacing:.2px}
+    .card .hd small{color:var(--muted)}
+    .card .bd{padding:14px}
+
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-family:var(--mono);
+      font-size:12px;
+      background: rgba(0,0,0,.12);
+    }
+    .pill b{color:var(--text);font-family:var(--sans)}
+    .pill.ok{border-color: rgba(52,211,153,.35); background: rgba(52,211,153,.10); color:#c7ffe9}
+    .pill.warn{border-color: rgba(251,191,36,.35); background: rgba(251,191,36,.10); color:#fff0c7}
+
+    .statusLine{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
+    .pulseDot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--accent2);
+      box-shadow: 0 0 0 0 rgba(96,165,250,.4);
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse{
+      0%{box-shadow: 0 0 0 0 rgba(96,165,250,.35)}
+      70%{box-shadow: 0 0 0 10px rgba(96,165,250,0)}
+      100%{box-shadow: 0 0 0 0 rgba(96,165,250,0)}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .pulseDot{animation:none}
+      *{scroll-behavior:auto}
+    }
+
+    /* groups (details) */
+    details.group{
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background: rgba(0,0,0,.10);
+      margin-bottom:12px;
+      transition:.18s background, .18s border-color;
+    }
+    details.group[open]{background: rgba(0,0,0,.18); border-color: var(--line2)}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:12px 12px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      border-bottom:1px solid var(--line);
+      user-select:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    summary:focus-visible{outline:2px solid rgba(96,165,250,.65); outline-offset:2px; border-radius:14px}
+    .gtitle{display:flex;align-items:center;gap:10px;font-weight:1000;}
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--accent2);
+      box-shadow: 0 0 0 7px rgba(96,165,250,.11);
+    }
+    .mini{color:var(--muted);font-size:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+
+    /* table */
+    .tableWrap{
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.08);
+    }
+    table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px;}
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:center;
+      white-space:nowrap;
+    }
+    th{color:var(--muted);font-weight:900;letter-spacing:.2px}
+    td.name{text-align:left;font-weight:1000}
+    td.rank{color:var(--muted);font-family:var(--mono);font-weight:900}
+    tr:last-child td{border-bottom:0}
+
+    tr.top2 td{
+      background: linear-gradient(90deg, rgba(52,211,153,.12), rgba(52,211,153,.04));
+    }
+    tr.top2 td.name::before{
+      content:"✓ ";
+      color:var(--ok);
+      font-weight:1000;
+    }
+
+    /* ✅ clickable team */
+    .teamBtn{
+      all:unset;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 8px;
+      border-radius:10px;
+      transition:.15s background, .15s transform;
+    }
+    .teamBtn:hover{
+      background: rgba(96,165,250,.12);
+      transform: translateY(-1px);
+    }
+    .teamBtn:focus-visible{
+      outline:2px solid rgba(96,165,250,.7);
+      outline-offset:2px;
+    }
+
+    /* fixtures */
+    .fixture{
+      display:grid;
+      grid-template-columns: 92px 1fr 170px 1fr; /* ✅ time | home | score | away */
+      gap:12px;
+      align-items:stretch;
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.10);
+      position:relative;
+      margin:10px 0;
+    }
+    .fixture.upcoming{
+      border-color: rgba(251,191,36,.22);
+      background: rgba(251,191,36,.08);
+    }
+    .fixture.played{
+      border-color: rgba(52,211,153,.18);
+      background: rgba(52,211,153,.06);
+    }
+    .fixture.nextUp{
+      border-color: rgba(96,165,250,.35);
+      box-shadow: 0 0 0 1px rgba(96,165,250,.18) inset, 0 14px 40px rgba(0,0,0,.22);
+      background: rgba(96,165,250,.08);
+    }
+
+    /* ✅ time pill (saat ortalı) */
+    .timeSlot{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(7,11,24,.55);
+      box-shadow: 0 10px 26px rgba(0,0,0,.16);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center; /* ✅ dikey ortalama */
+      gap:4px;
+      padding:10px 10px;
+      font-family: var(--mono);
+      font-weight:1000;
+      letter-spacing:.2px;
+      min-width:0;
+      text-align:center;
+    }
+    .timeSlot .tMain{font-size:12px; color: var(--text); line-height:1}
+    .timeSlot .tSub{font-size:10px; color: var(--muted); font-weight:900; opacity:.95}
+    .timeSlot .tDot{
+      width:8px;height:8px;border-radius:50%;
+      background: rgba(155,176,222,.55);
+      box-shadow: 0 0 0 6px rgba(155,176,222,.10);
+    }
+    .timeSlot.played .tDot{background: rgba(52,211,153,.95); box-shadow: 0 0 0 6px rgba(52,211,153,.12)}
+    .timeSlot.upcoming .tDot{background: rgba(251,191,36,.95); box-shadow: 0 0 0 6px rgba(251,191,36,.12)}
+    .timeSlot.nextUp .tDot{background: rgba(96,165,250,.95); box-shadow: 0 0 0 6px rgba(96,165,250,.14)}
+
+    .home,.away{
+      display:flex;gap:10px;align-items:center;
+      justify-content:flex-end;
+      font-weight:1000;
+      min-width:0;
+    }
+    .home span, .away span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .away{justify-content:flex-start}
+    .scoreBadge{
+      display:flex;align-items:center;justify-content:center;
+      gap:10px;
+      font-family:var(--mono);
+      font-size:13px;color:var(--text);
+      flex-wrap:wrap;
+    }
+    .sb{
+      min-width:42px;text-align:center;
+      padding:8px 10px;border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      font-weight:1000;
+    }
+    .sb.empty{color: var(--muted);background: rgba(0,0,0,.10);}
+    .sep{color:var(--muted);font-family:var(--mono)}
+    .hint{color:var(--muted);font-size:12px;line-height:1.5;}
+    .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .kbd{
+      font-family:var(--mono);
+      font-size:12px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:6px 8px;
+      color:var(--muted);
+      background: rgba(0,0,0,.12);
+      white-space:nowrap;
+    }
+    .footer{color:var(--muted);text-align:center;padding:18px 12px 26px;font-size:12px;}
+
+    /* date block */
+    .dateBlock{
+      margin:12px 0 10px;
+      padding:10px 10px 6px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(0,0,0,.10);
+    }
+    .dateTitle{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:10px;
+      font-weight:1000;
+      margin-bottom:10px;
+      letter-spacing:.2px;
+    }
+    .dateTitle small{color:var(--muted); font-weight:900}
+
+    /* ✅ Modal */
+    .modalOverlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(12px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:14px;
+      z-index:9999;
+    }
+    .modalOverlay.show{display:flex;}
+    .modal{
+      width:min(900px, 100%);
+      border:1px solid transparent;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      transform: translateY(10px);
+      opacity: 0;
+      animation: pop .18s ease-out forwards;
+      background:
+        linear-gradient(180deg, rgba(18,26,51,.95), rgba(18,26,51,.88)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.32), rgba(96,165,250,.32), rgba(251,113,133,.22)) border-box;
+    }
+    @keyframes pop{ to{transform: translateY(0); opacity:1} }
+    .modalHd{
+      padding:14px 14px 12px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .modalHd h3{margin:0;font-size:15px;line-height:1.2;letter-spacing:.2px}
+    .modalHd .meta{
+      margin-top:8px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+      font-family:var(--mono);
+    }
+    .modalHdRight{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .xBtn{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color:var(--text);
+      width:40px;height:40px;
+      border-radius:14px;
+      cursor:pointer;
+      display:grid;place-items:center;
+      font-weight:1000;
+      transition:.15s transform, .15s background, .15s border-color;
+    }
+    .xBtn:hover{background: rgba(0,0,0,.28); transform: translateY(-1px); border-color: var(--line2)}
+    .starBtn{
+      width:auto;
+      padding:10px 12px;
+      border-radius:14px;
+      font-family:var(--mono);
+      font-weight:1000;
+      letter-spacing:.2px;
+    }
+    .starBtn.on{
+      border:1px solid transparent;
+      background:
+        linear-gradient(rgba(18,26,51,.45), rgba(18,26,51,.45)) padding-box,
+        linear-gradient(135deg, rgba(251,191,36,.60), rgba(96,165,250,.40)) border-box;
+    }
+
+    .modalBd{padding:14px;}
+
+    .twoCols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .panel{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(0,0,0,.10);
+      overflow:hidden;
+    }
+    .panelHd{
+      padding:10px 12px;
+      border-bottom:1px solid var(--line);
+      display:flex;align-items:center;justify-content:space-between;
+      gap:10px;
+      font-weight:1000;
+      letter-spacing:.15px;
+    }
+    .panelBd{padding:10px 12px;}
+
+    .nextPanel{
+      border:1px solid rgba(96,165,250,.24);
+      background: rgba(96,165,250,.08);
+      border-radius:16px;
+      padding:12px;
+      margin-bottom:12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .nextPanelTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:1000;
+      margin-bottom:8px;
+    }
+    .nextLine{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      color: var(--text);
+      font-weight:900;
+    }
+    .nextLine small{
+      color: var(--muted);
+      font-weight:900;
+      font-family: var(--mono);
+    }
+
+    .mRow{
+      display:grid;
+      grid-template-columns: 92px 1fr 140px;
+      gap:10px;
+      align-items:center;
+      padding:10px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .mRow:last-child{border-bottom:0}
+    .mWhen{color:var(--muted);font-family:var(--mono);font-size:12px;}
+    .mVs{font-weight:1000;min-width:0}
+    .mVs small{display:block;color:var(--muted);font-weight:900}
+    .mScore{
+      justify-self:end;
+      display:flex;align-items:center;gap:8px;
+      font-family:var(--mono);
+      font-size:13px;
+    }
+    .chip{
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:12px;
+      color:var(--muted);
+      background: rgba(0,0,0,.12);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-family:var(--mono);
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .chip.ok{border-color: rgba(52,211,153,.35); background: rgba(52,211,153,.10); color:#c7ffe9}
+    .chip.warn{border-color: rgba(251,191,36,.35); background: rgba(251,191,36,.10); color:#fff0c7}
+    .chip.bad{border-color: rgba(251,113,133,.35); background: rgba(251,113,133,.10); color:#ffd1da}
+    .chip.info{border-color: rgba(96,165,250,.30); background: rgba(96,165,250,.10); color:#d5e8ff}
+
+    /* ✅ Jump to next match */
+    .jumpNext{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 60;
+      border:1px solid transparent;
+      background:
+        linear-gradient(rgba(18,26,51,.45), rgba(18,26,51,.45)) padding-box,
+        linear-gradient(135deg, rgba(96,165,250,.60), rgba(94,234,212,.45)) border-box;
+      box-shadow: 0 14px 40px rgba(0,0,0,.30);
+      display:none;
+    }
+    .jumpNext.show{display:inline-flex}
+    .jumpNext:hover{filter: brightness(1.05)}
+
+    /* ✅ Mobile responsiveness */
+    @media (max-width: 680px){
+      .wrap{padding:14px 12px}
+      .brand{min-width:auto}
+      .sub{max-width: 70ch}
+      .filtersRow{gap:10px}
+      .searchWrap{justify-content:stretch}
+      .search{max-width:none}
+      .card .bd{padding:12px}
+      .card .hd{padding:12px}
+      .legend .kbd{font-size:11px}
+      .fixture{
+        grid-template-columns: 1fr;
+        gap:10px;
+      }
+      .timeSlot{
+        flex-direction:row;
+        justify-content:flex-start;
+        gap:10px;
+        padding:8px 10px;
+        width: fit-content;
+      }
+      .home,.away{justify-content:flex-start}
+      .scoreBadge{justify-content:flex-start}
+      .twoCols{grid-template-columns:1fr}
+      .mRow{grid-template-columns: 1fr; gap:8px}
+      .mScore{justify-self:start}
+      .jumpNext{right:12px; bottom:12px}
+    }
+
+    /* ✅ Table -> cards on very small screens */
+    @media (max-width: 560px){
+      .tableWrap{border:0;background:transparent; overflow:visible}
+      table{min-width:0}
+      thead{display:none}
+      tbody tr{
+        display:block;
+        border:1px solid var(--line);
+        border-radius:16px;
+        background: rgba(0,0,0,.10);
+        margin:10px 0;
+        overflow:hidden;
+      }
+      tbody tr.top2{border-color: rgba(52,211,153,.22)}
+      tbody td{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        text-align:left;
+        border-bottom:1px solid var(--line);
+        padding:10px 12px;
+        white-space:normal;
+      }
+      tbody td:last-child{border-bottom:0}
+      tbody td::before{
+        content: attr(data-label);
+        color: var(--muted);
+        font-weight:1000;
+        font-family: var(--mono);
+        margin-right:10px;
+      }
+      td.name{order:-1}
+      td.name::before{content:"Takım";}
+      td.rank{display:none}
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="badge">PS5</div>
+        <div>
+          <h1>Ramazan Kantin FIFA Turnuvası</h1>
+          <p class="sub">32 kişi — 8 grup (A–H) — Puan Durumları (Sadece Takip)</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="btnRefresh" class="btnPrimary">Yenile</button>
+      </div>
+    </div>
+
+    <!-- ✅ Grup seçici + Takım arama -->
+    <div class="filtersRow">
+      <div class="segWrap" id="groupSeg"></div>
+
+      <div class="searchWrap">
+        <div class="search">
+          <span class="searchIcon">🔎</span>
+          <input id="teamSearch" type="text" inputmode="search" autocomplete="off"
+                 placeholder="Takım ara… (puan + maçlar filtrelenir)">
+        </div>
+        <button id="btnClear" title="Aramayı temizle">Temizle</button>
+      </div>
+    </div>
+
+    <!-- ✅ Favoriler -->
+    <div class="favRow">
+      <div class="favLeft">
+        <div class="favTitle">⭐ Favoriler</div>
+        <div class="favHint" id="favHint">Takım modalından ⭐ ile ekleyebilirsin.</div>
+      </div>
+      <div class="favChips" id="favBar"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <!-- LEFT -->
+    <section class="card">
+      <div class="hd">
+        <div>
+          <h2>Gruplar — Puan Durumları</h2>
+          <small>İlk 2 ✓ → Son 16</small>
+        </div>
+        <span class="pill">Tie-break: <b>Mini Averaj</b> → <b>GD</b> → <b>GF</b></span>
+      </div>
+      <div class="bd">
+        <div class="statusLine" id="statusLeft">
+          <span class="pulseDot"></span>
+          Google Sheet’ten veriler yükleniyor...
+        </div>
+        <div style="height:10px"></div>
+        <div id="groups"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <aside class="card">
+      <div class="hd">
+        <div>
+          <h2>Maçlar</h2>
+          <small>Skorlar sadece organizatör tarafından girilir</small>
+        </div>
+        <span class="pill">Kaynak: <b>Google Sheets</b></span>
+      </div>
+      <div class="bd">
+        <p class="hint">
+          Skorlar Google Sheet’ten gelir. Bu sayfada <b>hiç kimse sonuç değiştiremez</b>.
+          <br>👆 Bir takım adına tıklayın → tüm maçları modalda görün.
+          <br><span class="hint">İpucu: <span class="kbd">/</span> ile aramaya odaklan.</span>
+        </p>
+        <div class="legend">
+          <span class="kbd">P: Oyn</span>
+          <span class="kbd">W: G</span>
+          <span class="kbd">D: B</span>
+          <span class="kbd">L: M</span>
+          <span class="kbd">GF/GA</span>
+          <span class="kbd">GD</span>
+          <span class="kbd">Pts</span>
+          <span class="kbd">🟡 Yaklaşan</span>
+          <span class="kbd">🟢 Oynandı</span>
+          <span class="kbd">⏭ Sonraki maç</span>
+        </div>
+
+        <div style="height:12px"></div>
+        <div id="fixtures"></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="footer">
+    Tek sayfa • Sadece takip • Skorlar Google Sheet’ten güncellenir.
+  </div>
+</main>
+
+<button class="jumpNext" id="btnJumpNext" title="Sonraki maça git">⏭ Sonraki Maç</button>
+
+<!-- ✅ TEAM MODAL -->
+<div class="modalOverlay" id="teamModalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="teamModalTitle">
+    <div class="modalHd">
+      <div>
+        <h3 id="teamModalTitle">Takım</h3>
+        <div class="meta" id="teamModalMeta"></div>
+      </div>
+
+      <div class="modalHdRight">
+        <button class="xBtn starBtn" id="favToggle" title="Favorilere ekle/çıkar">☆</button>
+        <button class="xBtn" id="teamModalClose" aria-label="Kapat">✕</button>
+      </div>
+    </div>
+    <div class="modalBd" id="teamModalBody"></div>
+  </div>
+</div>
+
+<script>
+/** ✅ publish key */
+const SHEET_PUB_KEY = "2PACX-1vTpmP3ySVA56yUD5mGcBBvOyxclZ3TnsALVamAj7gsKj-ve_DWZqDd3XsUbiNssM3XiAXPeXuSef0AQ";
+/** ✅ gid */
+const TEAMS_GID   = "0";
+const MATCHES_GID = "1436904924";
+
+/** state */
+let state = { groups: {}, matches: {} };
+
+/** ui state */
+const ui = {
+  group: localStorage.getItem("selectedGroup") || "ALL", // ALL veya A-H
+  query: localStorage.getItem("teamQuery") || "",
+  favorites: new Set(JSON.parse(localStorage.getItem("favTeams") || "[]")),
+  currentModalTeam: null,
+  currentModalGroup: null,
+};
+
+init();
+
+/* ---------------- Google Sheets CSV fetch (gid ile) ---------------- */
+async function fetchSheetAsObjectsByGid(gid){
+  const url = `https://docs.google.com/spreadsheets/d/e/${SHEET_PUB_KEY}/pub?output=csv&gid=${gid}&single=true`;
+  const res = await fetch(url, { cache: "no-store" });
+  if(!res.ok) throw new Error("CSV okunamadı (gid=" + gid + ")");
+  const csv = await res.text();
+  return csvToObjects(csv);
+}
+
+/* --- CSV parse --- */
+function csvToObjects(csvText){
+  const rows = parseCSV(csvText);
+  if(rows.length === 0) return [];
+
+  const headers = rows[0].map((h, idx) => {
+    let s = String(h || "").trim();
+    if(idx === 0) s = s.replace(/^\uFEFF/, ""); // BOM
+    return s;
+  });
+
+  return rows.slice(1)
+    .filter(r => r.some(v => String(v ?? "").trim() !== ""))
+    .map(r => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = (r[i] ?? null));
+      return obj;
+    });
+}
+function parseCSV(text){
+  const out = [];
+  let row = [];
+  let cur = "";
+  let inQuotes = false;
+
+  for(let i=0;i<text.length;i++){
+    const c = text[i];
+    const n = text[i+1];
+
+    if(c === '"' && inQuotes && n === '"'){ cur += '"'; i++; continue; }
+    if(c === '"'){ inQuotes = !inQuotes; continue; }
+
+    if(c === ',' && !inQuotes){ row.push(cur); cur=""; continue; }
+    if((c === '\n' || c === '\r') && !inQuotes){
+      if(c === '\r' && n === '\n') i++;
+      row.push(cur);
+      out.push(row);
+      row = [];
+      cur = "";
+      continue;
+    }
+    cur += c;
+  }
+  if(cur.length || row.length){
+    row.push(cur);
+    out.push(row);
+  }
+  return out;
+}
+
+/* ---------------- helpers ---------------- */
+function normalizeStr(v){ return (v === null || v === undefined) ? "" : String(v).trim(); }
+function toIntOrNull(v){
+  if(v === null || v === undefined) return null;
+  const s = String(v).trim();
+  if(s === "") return null;
+  const n = parseInt(s, 10);
+  return Number.isFinite(n) ? n : null;
+}
+function parseDateTimeLoose(s){
+  const t = String(s || "").trim();
+  if(!t) return null;
+  const iso = t.includes("T") ? t : t.replace(" ", "T");
+  const d = new Date(iso);
+  return Number.isFinite(d.getTime()) ? d : null;
+}
+function formatDateTR(d){
+  const opts = { day:"2-digit", month:"long", year:"numeric", weekday:"long" };
+  return d.toLocaleDateString("tr-TR", opts);
+}
+function formatTimeTR(d){
+  return d.toLocaleTimeString("tr-TR", { hour:"2-digit", minute:"2-digit" });
+}
+function escapeHtml(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+function isPlayed(m){ return Number.isInteger(m.hs) && Number.isInteger(m.as); }
+
+function includesQ(text, q){
+  if(!q) return true;
+  return String(text || "").toLocaleLowerCase("tr-TR").includes(q.toLocaleLowerCase("tr-TR"));
+}
+
+/* ---------------- load ---------------- */
+async function loadFromSheets(){
+  const teamsRows = await fetchSheetAsObjectsByGid(TEAMS_GID);
+  const matchRows = await fetchSheetAsObjectsByGid(MATCHES_GID);
+
+  const groups = {};
+  for(const r of teamsRows){
+    const g = normalizeStr(r["Group"]);
+    const t = normalizeStr(r["Team"]);
+    if(!g || !t) continue;
+    if(t.toLowerCase() === "team") continue;
+    if(!groups[g]) groups[g] = [];
+    groups[g].push({ name: t });
+  }
+
+  const matches = {};
+  for(const r of matchRows){
+    const g = normalizeStr(r["Group"]);
+    if(!g) continue;
+    if(!matches[g]) matches[g] = [];
+    matches[g].push({
+      group: g,
+      datetime: normalizeStr(r["DateTime"]),
+      home: normalizeStr(r["Home"]),
+      away: normalizeStr(r["Away"]),
+      hs: toIntOrNull(r["HS"]),
+      as: toIntOrNull(r["AS"]),
+    });
+  }
+
+  for(const g of Object.keys(matches)){
+    matches[g].sort((a,b) => {
+      const da = parseDateTimeLoose(a.datetime);
+      const db = parseDateTimeLoose(b.datetime);
+      const aOk = !!da, bOk = !!db;
+      if(aOk && bOk) return da - db;
+      if(aOk && !bOk) return -1;
+      if(!aOk && bOk) return 1;
+      return 0;
+    });
+  }
+
+  state = { groups, matches };
+}
+function getGroupLetters(){
+  return Object.keys(state.groups).sort((a,b)=>a.localeCompare(b, "tr"));
+}
+function getVisibleGroups(){
+  const groups = getGroupLetters();
+  if(ui.group === "ALL") return groups;
+  return groups.includes(ui.group) ? [ui.group] : groups;
+}
+
+/* ---------------- standings ---------------- */
+function computeTable(groupLetter){
+  const teams = (state.groups[groupLetter] || []).map(t => t.name);
+  const matches = state.matches[groupLetter] || [];
+
+  const stats = {};
+  for(const t of teams){
+    stats[t] = { team:t, P:0,W:0,D:0,L:0,GF:0,GA:0,GD:0,Pts:0 };
+  }
+
+  for(const m of matches){
+    if(!isPlayed(m)) continue;
+    const {home,away,hs,as} = m;
+    const H = stats[home], A = stats[away];
+    if(!H || !A) continue;
+
+    H.P++; A.P++;
+    H.GF += hs; H.GA += as;
+    A.GF += as; A.GA += hs;
+
+    if(hs > as){ H.W++; A.L++; H.Pts += 3; }
+    else if(hs < as){ A.W++; H.L++; A.Pts += 3; }
+    else { H.D++; A.D++; H.Pts += 1; A.Pts += 1; }
+  }
+
+  for(const t of teams) stats[t].GD = stats[t].GF - stats[t].GA;
+
+  const list = teams.map(t => stats[t]);
+  list.sort((a,b) => compareTeams(groupLetter, a.team, b.team, stats));
+
+  const ptsCounts = {};
+  list.forEach(x => ptsCounts[x.Pts] = (ptsCounts[x.Pts] || 0) + 1);
+  const miniActive = Object.values(ptsCounts).some(c => c >= 2);
+
+  return { list, stats, miniActive };
+}
+
+function compareTeams(groupLetter, teamA, teamB, globalStats){
+  const a = globalStats[teamA];
+  const b = globalStats[teamB];
+
+  if(b.Pts !== a.Pts) return b.Pts - a.Pts;
+
+  const tiedTeams = Object.values(globalStats)
+    .filter(x => x.Pts === a.Pts)
+    .map(x => x.team);
+
+  if(tiedTeams.length >= 2){
+    const mini = computeMiniTable(groupLetter, tiedTeams);
+    const ma = mini[teamA];
+    const mb = mini[teamB];
+
+    if(mb.Pts !== ma.Pts) return mb.Pts - ma.Pts;
+    if(mb.GD !== ma.GD) return mb.GD - ma.GD;
+    if(mb.GF !== ma.GF) return mb.GF - ma.GF;
+  }
+
+  if(b.GD !== a.GD) return b.GD - a.GD;
+  if(b.GF !== a.GF) return b.GF - a.GF;
+
+  return stableHash(teamA) - stableHash(teamB);
+}
+
+function computeMiniTable(groupLetter, tiedTeams){
+  const matches = state.matches[groupLetter] || [];
+  const mini = {};
+  for(const t of tiedTeams) mini[t] = { team:t, Pts:0, GF:0, GA:0, GD:0 };
+
+  for(const m of matches){
+    if(!isPlayed(m)) continue;
+    if(!mini[m.home] || !mini[m.away]) continue;
+
+    mini[m.home].GF += m.hs; mini[m.home].GA += m.as;
+    mini[m.away].GF += m.as; mini[m.away].GA += m.hs;
+
+    if(m.hs > m.as) mini[m.home].Pts += 3;
+    else if(m.hs < m.as) mini[m.away].Pts += 3;
+    else { mini[m.home].Pts += 1; mini[m.away].Pts += 1; }
+  }
+  for(const t of tiedTeams) mini[t].GD = mini[t].GF - mini[t].GA;
+  return mini;
+}
+
+function stableHash(str){
+  let h = 2166136261;
+  for(let i=0;i<str.length;i++){
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+/* ---------------- Favorites ---------------- */
+function saveFavorites(){
+  localStorage.setItem("favTeams", JSON.stringify([...ui.favorites]));
+  renderFavoritesBar();
+  syncFavButton();
+}
+function isFav(team){ return ui.favorites.has(team); }
+function toggleFav(team){
+  if(!team) return;
+  if(ui.favorites.has(team)) ui.favorites.delete(team);
+  else ui.favorites.add(team);
+  saveFavorites();
+}
+function findTeamGroup(team){
+  const groups = getGroupLetters();
+  for(const g of groups){
+    if((state.groups[g] || []).some(x => x.name === team)) return g;
+  }
+  return null;
+}
+function renderFavoritesBar(){
+  const bar = document.getElementById("favBar");
+  const hint = document.getElementById("favHint");
+  bar.innerHTML = "";
+
+  const list = [...ui.favorites].filter(Boolean).sort((a,b)=>a.localeCompare(b,"tr"));
+  if(list.length === 0){
+    hint.textContent = "Takım modalından ⭐ ile ekleyebilirsin.";
+    return;
+  }
+  hint.textContent = "Tıkla → takım detayını aç.";
+  list.forEach(team => {
+    const g = findTeamGroup(team);
+    const el = document.createElement("div");
+    el.className = "favChip";
+    el.innerHTML = `★ ${escapeHtml(team)} ${g ? `<small>(G${escapeHtml(g)})</small>` : ""}`;
+    el.onclick = () => {
+      const gg = g || findTeamGroup(team);
+      if(gg) openTeamModal(team, gg);
+    };
+    bar.appendChild(el);
+  });
+}
+
+/* ---------------- Group selector render ---------------- */
+function renderGroupSelector(){
+  const seg = document.getElementById("groupSeg");
+  const groups = getGroupLetters();
+
+  if(ui.group !== "ALL" && !groups.includes(ui.group)){
+    ui.group = "ALL";
+    localStorage.setItem("selectedGroup", ui.group);
+  }
+
+  const mk = (label, value) => {
+    const el = document.createElement("div");
+    el.className = "segBtn" + (ui.group === value ? " active" : "");
+    el.textContent = label;
+    el.onclick = () => {
+      ui.group = value;
+      localStorage.setItem("selectedGroup", ui.group);
+      renderAll();
+      renderGroupSelector();
+      el.scrollIntoView({ inline:"center", block:"nearest", behavior:"smooth" });
+    };
+    return el;
+  };
+
+  seg.innerHTML = "";
+  seg.appendChild(mk("Tümü", "ALL"));
+  groups.forEach(g => seg.appendChild(mk("Grup " + g, g)));
+}
+
+/* ---------------- render ---------------- */
+function renderAll(){
+  renderGroups();
+  renderFixtures();
+  wireAccordion();
+}
+
+function renderGroups(){
+  const root = document.getElementById("groups");
+  root.innerHTML = "";
+
+  const q = ui.query.trim();
+  const groups = getVisibleGroups();
+
+  let shownAny = false;
+
+  for(const g of groups){
+    const { list: table, miniActive } = computeTable(g);
+    const playedCount = (state.matches[g] || []).filter(isPlayed).length;
+    const totalCount = (state.matches[g] || []).length;
+
+    const filtered = q ? table.filter(r => includesQ(r.team, q)) : table;
+    if(ui.group === "ALL" && q && filtered.length === 0) continue;
+
+    shownAny = true;
+
+    const details = document.createElement("details");
+    details.className = "group";
+    details.open = (ui.group !== "ALL") ? true : (g === groups[0]);
+
+    const summary = document.createElement("summary");
+    summary.innerHTML = `
+      <div class="gtitle"><span class="dot"></span> Grup ${escapeHtml(g)}</div>
+      <div class="mini">
+        <span class="pill">Maç: <b>${playedCount}/${totalCount || "-"}</b></span>
+        <span class="pill">İlk 2: <b>Yeşil</b></span>
+        <span class="pill ${miniActive ? "warn" : ""}">Mini Averaj: <b>${miniActive ? "Aktif" : "Yok"}</b></span>
+      </div>
+    `;
+    details.appendChild(summary);
+
+    const wrap = document.createElement("div");
+    wrap.style.padding = "10px 12px 12px";
+
+    if(filtered.length === 0){
+      const empty = document.createElement("div");
+      empty.className = "hint";
+      empty.textContent = "Bu aramaya uygun takım bulunamadı.";
+      wrap.appendChild(empty);
+      details.appendChild(wrap);
+      root.appendChild(details);
+      continue;
+    }
+
+    const tableWrap = document.createElement("div");
+    tableWrap.className = "tableWrap";
+
+    const t = document.createElement("table");
+    t.innerHTML = `
+      <thead>
+        <tr>
+          <th>#</th>
+          <th style="text-align:left">Takım</th>
+          <th>P</th><th>W</th><th>D</th><th>L</th>
+          <th>GF</th><th>GA</th><th>GD</th>
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    `;
+
+    const tbody = t.querySelector("tbody");
+    filtered.forEach((row, idx) => {
+      const rank = (table.findIndex(x => x.team === row.team) + 1) || (idx+1);
+      const tr = document.createElement("tr");
+      if(rank <= 2) tr.classList.add("top2");
+
+      tr.innerHTML = `
+        <td class="rank" data-label="#">${rank}</td>
+        <td class="name" data-label="Takım">
+          <button class="teamBtn" data-team="${escapeHtml(row.team)}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
+            ${escapeHtml(row.team)}
+          </button>
+        </td>
+        <td data-label="P">${row.P}</td>
+        <td data-label="W">${row.W}</td>
+        <td data-label="D">${row.D}</td>
+        <td data-label="L">${row.L}</td>
+        <td data-label="GF">${row.GF}</td>
+        <td data-label="GA">${row.GA}</td>
+        <td data-label="GD">${row.GD}</td>
+        <td data-label="Pts"><b>${row.Pts}</b></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    tableWrap.appendChild(t);
+    wrap.appendChild(tableWrap);
+    details.appendChild(wrap);
+    root.appendChild(details);
+  }
+
+  if(!shownAny){
+    root.innerHTML = `<div class="hint">Aramaya uygun grup/takım bulunamadı.</div>`;
+  }
+}
+
+function renderFixtures(){
+  const root = document.getElementById("fixtures");
+  root.innerHTML = "";
+
+  const q = ui.query.trim();
+  const groups = getVisibleGroups();
+
+  let firstNextEl = null;
+
+  for(const g of groups){
+    const allMatches = state.matches[g] || [];
+    const matches = q
+      ? allMatches.filter(m => includesQ(m.home, q) || includesQ(m.away, q))
+      : allMatches;
+
+    if(ui.group === "ALL" && q && matches.length === 0) continue;
+
+    const card = document.createElement("div");
+    card.style.border = "1px solid var(--line)";
+    card.style.borderRadius = "16px";
+    card.style.padding = "12px";
+    card.style.marginBottom = "12px";
+    card.style.background = "rgba(0,0,0,.10)";
+
+    const playedCount = matches.filter(isPlayed).length;
+    const upcomingCount = matches.length - playedCount;
+
+    const nextUp = findNextUpcomingMatch(matches, g);
+
+    const title = document.createElement("div");
+    title.style.display = "flex";
+    title.style.justifyContent = "space-between";
+    title.style.alignItems = "center";
+    title.style.gap = "10px";
+    title.style.marginBottom = "10px";
+    title.innerHTML = `
+      <div style="font-weight:1000;letter-spacing:.2px">Grup ${escapeHtml(g)} Maçları</div>
+      <div class="pill">
+        <b>${matches.length || 0}</b> maç •
+        <span style="color:#c7ffe9">🟢 ${playedCount}</span> •
+        <span style="color:#fff0c7">🟡 ${upcomingCount}</span>
+      </div>
+    `;
+    card.appendChild(title);
+
+    if(matches.length === 0){
+      const empty = document.createElement("div");
+      empty.className = "hint";
+      empty.textContent = q
+        ? "Arama filtresine uygun maç yok."
+        : "Bu grupta henüz maç verisi yok. Matches sayfasını kontrol edin.";
+      card.appendChild(empty);
+      root.appendChild(card);
+      continue;
+    }
+
+    const byDateKey = new Map();
+    matches.forEach((m, idx) => {
+      const d = parseDateTimeLoose(m.datetime);
+      const key = d ? d.toISOString().slice(0,10) : "Tarih Yok";
+      if(!byDateKey.has(key)) byDateKey.set(key, []);
+      byDateKey.get(key).push({ m, idx, d });
+    });
+
+    const keys = Array.from(byDateKey.keys()).sort((a,b)=>{
+      if(a === "Tarih Yok") return 1;
+      if(b === "Tarih Yok") return -1;
+      return a.localeCompare(b);
+    });
+
+    keys.forEach(key => {
+      const list = byDateKey.get(key);
+
+      const block = document.createElement("div");
+      block.className = "dateBlock";
+
+      const head = document.createElement("div");
+      head.className = "dateTitle";
+
+      let headText = "Tarih Yok";
+      let headSmall = "";
+      if(key !== "Tarih Yok"){
+        const d0 = new Date(key + "T00:00");
+        headText = formatDateTR(d0);
+        const playedInDay = list.filter(x => isPlayed(x.m)).length;
+        headSmall = `${playedInDay}/${list.length} oynandı`;
+      } else {
+        headSmall = `${list.length} maç`;
+      }
+
+      head.innerHTML = `
+        <div>${escapeHtml(headText)}</div>
+        <small>${escapeHtml(headSmall)}</small>
+      `;
+      block.appendChild(head);
+
+      list.forEach(({m, idx, d}) => {
+        const row = document.createElement("div");
+        const played = isPlayed(m);
+        const isNext = nextUp && nextUp._key === matchKey(m, g);
+
+        row.className = "fixture " + (played ? "played" : "upcoming") + (isNext ? " nextUp" : "");
+
+        // ✅ time pill (ortalanmış)
+        const timeSlot = document.createElement("div");
+        timeSlot.className = "timeSlot " + (played ? "played" : (isNext ? "nextUp" : "upcoming"));
+
+        const timeMain = d ? formatTimeTR(d) : "—";
+        const timeSub  = d ? `M${idx+1}` : (m.datetime && m.datetime.trim() ? m.datetime.trim() : `M${idx+1}`);
+
+        timeSlot.innerHTML = `
+          <div class="tDot"></div>
+          <div class="tMain">${escapeHtml(timeMain)}${isNext ? " ⏭" : ""}</div>
+          <div class="tSub">${escapeHtml(timeSub)}</div>
+        `;
+
+        const home = document.createElement("div");
+        home.className = "home";
+        home.innerHTML = `
+          <button class="teamBtn" data-team="${escapeHtml(m.home || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
+            <span>${escapeHtml(m.home || "-")}</span>
+          </button>
+        `;
+
+        const away = document.createElement("div");
+        away.className = "away";
+        away.innerHTML = `
+          <button class="teamBtn" data-team="${escapeHtml(m.away || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
+            <span>${escapeHtml(m.away || "-")}</span>
+          </button>
+        `;
+
+        const score = document.createElement("div");
+        score.className = "scoreBadge";
+
+        const hs = document.createElement("div");
+        hs.className = "sb" + (m.hs === null ? " empty" : "");
+        hs.textContent = (m.hs === null ? "-" : m.hs);
+
+        const sep = document.createElement("span");
+        sep.className = "sep";
+        sep.textContent = "-";
+
+        const as = document.createElement("div");
+        as.className = "sb" + (m.as === null ? " empty" : "");
+        as.textContent = (m.as === null ? "-" : m.as);
+
+        const statusPill = document.createElement("span");
+        statusPill.className = "pill " + (played ? "ok" : (isNext ? "" : "warn"));
+        statusPill.innerHTML = played ? "🟢 <b>Oynandı</b>" : (isNext ? "⏭ <b>Sonraki</b>" : "🟡 <b>Yaklaşan</b>");
+
+        score.appendChild(hs);
+        score.appendChild(sep);
+        score.appendChild(as);
+        score.appendChild(statusPill);
+
+        row.appendChild(timeSlot);
+        row.appendChild(home);
+        row.appendChild(score);
+        row.appendChild(away);
+
+        block.appendChild(row);
+
+        if(isNext && !firstNextEl) firstNextEl = row;
+      });
+
+      card.appendChild(block);
+    });
+
+    root.appendChild(card);
+  }
+
+  if(root.children.length === 0){
+    root.innerHTML = `<div class="hint">Arama filtresine uygun maç bulunamadı.</div>`;
+  }
+
+  // ✅ jump next button
+  const btn = document.getElementById("btnJumpNext");
+  if(firstNextEl){
+    btn.classList.add("show");
+    btn.onclick = () => firstNextEl.scrollIntoView({ behavior:"smooth", block:"center" });
+  }else{
+    btn.classList.remove("show");
+    btn.onclick = null;
+  }
+}
+
+/* ✅ accordion: ALL modda sadece bir grup açık kalsın */
+function wireAccordion(){
+  const root = document.getElementById("groups");
+  const details = [...root.querySelectorAll("details.group")];
+  details.forEach(d => {
+    d.addEventListener("toggle", () => {
+      if(ui.group !== "ALL") return;
+      if(d.open){
+        details.forEach(other => { if(other !== d) other.open = false; });
+      }
+    });
+  });
+}
+
+/* ---------------- ✅ Next upcoming logic ---------------- */
+function matchKey(m, g){
+  return `${g}|${m.datetime}|${m.home}|${m.away}|${m.hs ?? ""}|${m.as ?? ""}`;
+}
+function findNextUpcomingMatch(matches, group){
+  const now = new Date();
+  const upcoming = matches
+    .filter(m => !isPlayed(m))
+    .map(m => ({ m, d: parseDateTimeLoose(m.datetime), k: matchKey(m, group) }));
+
+  const dated = upcoming.filter(x => x.d && Number.isFinite(x.d.getTime()));
+  dated.sort((a,b) => a.d - b.d);
+
+  const future = dated.find(x => x.d >= now);
+  if(future) return { ...future.m, _key: future.k, _d: future.d };
+
+  if(dated[0]) return { ...dated[0].m, _key: dated[0].k, _d: dated[0].d };
+
+  if(upcoming[0]) return { ...upcoming[0].m, _key: upcoming[0].k, _d: upcoming[0].d };
+  return null;
+}
+
+/* ---------------- ✅ TEAM MODAL LOGIC ---------------- */
+const modalOverlay = document.getElementById("teamModalOverlay");
+const modalCloseBtn = document.getElementById("teamModalClose");
+const modalTitle = document.getElementById("teamModalTitle");
+const modalMeta = document.getElementById("teamModalMeta");
+const modalBody = document.getElementById("teamModalBody");
+const favToggleBtn = document.getElementById("favToggle");
+
+function syncFavButton(){
+  const t = ui.currentModalTeam;
+  if(!t){
+    favToggleBtn.textContent = "☆";
+    favToggleBtn.classList.remove("on");
+    return;
+  }
+  const on = isFav(t);
+  favToggleBtn.textContent = on ? "★" : "☆";
+  favToggleBtn.classList.toggle("on", on);
+  favToggleBtn.title = on ? "Favorilerden çıkar" : "Favorilere ekle";
+}
+
+function openTeamModal(team, group){
+  const g = group;
+  const t = team;
+
+  ui.currentModalTeam = t;
+  ui.currentModalGroup = g;
+
+  const { stats } = computeTable(g);
+  const st = stats[t] || { P:0,W:0,D:0,L:0,GF:0,GA:0,GD:0,Pts:0 };
+
+  const matches = (state.matches[g] || [])
+    .filter(m => m.home === t || m.away === t)
+    .map(m => {
+      const d = parseDateTimeLoose(m.datetime);
+      return { ...m, _d: d, _played: isPlayed(m) };
+    });
+
+  matches.sort((a,b) => {
+    const da = a._d ? a._d.getTime() : Number.POSITIVE_INFINITY;
+    const db = b._d ? b._d.getTime() : Number.POSITIVE_INFINITY;
+    if(da !== db) return da - db;
+    return (b._played ? 1 : 0) - (a._played ? 1 : 0);
+  });
+
+  const played = matches.filter(m => m._played);
+  let upcoming = matches.filter(m => !m._played);
+
+  const next = findNextUpcomingMatch(matches, g);
+  if(next){
+    const nk = matchKey(next, g);
+    upcoming = upcoming.sort((a,b) => {
+      const ak = matchKey(a, g), bk = matchKey(b, g);
+      if(ak === nk) return -1;
+      if(bk === nk) return 1;
+      return 0;
+    });
+  }
+
+  modalTitle.textContent = `${t} — Grup ${g}`;
+
+  let nextText = "Yok";
+  if(next){
+    const d = parseDateTimeLoose(next.datetime);
+    const when = d ? `${formatDateTR(new Date(d.toISOString().slice(0,10) + "T00:00"))} • ${formatTimeTR(d)}`
+                   : (next.datetime || "Tarih Yok");
+    const isHome = (next.home === t);
+    const opp = isHome ? next.away : next.home;
+    nextText = `${when} • vs ${opp || "-"}`;
+  }
+
+  modalMeta.innerHTML = `
+    <span class="chip">P: <b style="color:var(--text)">${st.P}</b></span>
+    <span class="chip">W: <b style="color:var(--text)">${st.W}</b></span>
+    <span class="chip">D: <b style="color:var(--text)">${st.D}</b></span>
+    <span class="chip">L: <b style="color:var(--text)">${st.L}</b></span>
+    <span class="chip">GF/GA: <b style="color:var(--text)">${st.GF}/${st.GA}</b></span>
+    <span class="chip">GD: <b style="color:var(--text)">${st.GD}</b></span>
+    <span class="chip ok">Pts: <b style="color:var(--text)">${st.Pts}</b></span>
+    <span class="chip info">⏭ <b style="color:var(--text)">${escapeHtml(nextText)}</b></span>
+  `;
+
+  const nextPanelHTML = next ? (() => {
+    const d = parseDateTimeLoose(next.datetime);
+    const when = d ? `${formatDateTR(new Date(d.toISOString().slice(0,10) + "T00:00"))} • ${formatTimeTR(d)}`
+                   : (next.datetime || "Tarih Yok");
+    const isHome = (next.home === t);
+    const opp = isHome ? next.away : next.home;
+    return `
+      <div class="nextPanel">
+        <div class="nextPanelTitle">
+          <div>⏭ Sonraki Maç</div>
+          <span class="pill warn">🟡 <b>Yaklaşan</b></span>
+        </div>
+        <div class="nextLine">
+          <span>${escapeHtml(t)}</span>
+          <span style="opacity:.8">vs</span>
+          <span>${escapeHtml(opp || "-")}</span>
+          <small>${escapeHtml(when)}</small>
+        </div>
+      </div>
+    `;
+  })() : `
+    <div class="nextPanel" style="border-color: var(--line); background: rgba(0,0,0,.10)">
+      <div class="nextPanelTitle">
+        <div>⏭ Sonraki Maç</div>
+        <span class="pill">—</span>
+      </div>
+      <div class="hint">Bu takım için oynanmamış maç görünmüyor.</div>
+    </div>
+  `;
+
+  modalBody.innerHTML = `
+    ${nextPanelHTML}
+    <div class="twoCols">
+      <div class="panel">
+        <div class="panelHd">
+          <span>🟢 Oynanan Maçlar</span>
+          <span class="chip ok">${played.length}</span>
+        </div>
+        <div class="panelBd" id="playedList"></div>
+      </div>
+      <div class="panel">
+        <div class="panelHd">
+          <span>🟡 Yapılacak Maçlar</span>
+          <span class="chip warn">${upcoming.length}</span>
+        </div>
+        <div class="panelBd" id="upcomingList"></div>
+      </div>
+    </div>
+  `;
+
+  renderMatchList(document.getElementById("playedList"), played, t, g, next);
+  renderMatchList(document.getElementById("upcomingList"), upcoming, t, g, next);
+
+  modalOverlay.classList.add("show");
+  modalOverlay.setAttribute("aria-hidden", "false");
+
+  syncFavButton();
+  modalCloseBtn.focus();
+}
+
+function renderMatchList(container, list, team, group, nextMatch){
+  if(!list.length){
+    container.innerHTML = `<div class="hint">Henüz veri yok.</div>`;
+    return;
+  }
+
+  const nextKey = nextMatch ? matchKey(nextMatch, group) : null;
+
+  container.innerHTML = "";
+  list.forEach(m => {
+    const d = m._d;
+    const when = d ? `${formatTimeTR(d)}` : (m.datetime || "-");
+    const date = d ? `${formatDateTR(new Date(d.toISOString().slice(0,10) + "T00:00"))}` : "";
+
+    const isHome = (m.home === team);
+    const opp = isHome ? m.away : m.home;
+
+    let resChip = "";
+    if(m._played){
+      const my = isHome ? m.hs : m.as;
+      const op = isHome ? m.as : m.hs;
+      if(my > op) resChip = `<span class="chip ok">W</span>`;
+      else if(my < op) resChip = `<span class="chip bad">L</span>`;
+      else resChip = `<span class="chip warn">D</span>`;
+    } else {
+      const isNext = nextKey && (matchKey(m, group) === nextKey);
+      resChip = isNext ? `<span class="chip info">⏭</span>` : `<span class="chip warn">⏳</span>`;
+    }
+
+    const scoreText = m._played ? `${m.hs} - ${m.as}` : `- -`;
+
+    const row = document.createElement("div");
+    row.className = "mRow";
+    row.innerHTML = `
+      <div class="mWhen">
+        ${escapeHtml(when)}
+        ${date ? `<div style="margin-top:4px; opacity:.9">${escapeHtml(date.split(",")[0])}</div>` : ""}
+      </div>
+      <div class="mVs">
+        ${escapeHtml(isHome ? "Ev" : "Deplasman")} • ${escapeHtml(team)}
+        <small>vs ${escapeHtml(opp || "-")}</small>
+      </div>
+      <div class="mScore">
+        ${resChip}
+        <span class="sb ${m._played ? "" : "empty"}" style="min-width:82px">${escapeHtml(scoreText)}</span>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function closeTeamModal(){
+  modalOverlay.classList.remove("show");
+  modalOverlay.setAttribute("aria-hidden", "true");
+  ui.currentModalTeam = null;
+  ui.currentModalGroup = null;
+}
+
+/* ✅ click handlers (event delegation) */
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".teamBtn");
+  if(btn){
+    const team = btn.getAttribute("data-team");
+    const group = btn.getAttribute("data-group");
+    if(team && group && team !== "-"){
+      openTeamModal(team, group);
+    }
+    return;
+  }
+  if(e.target === modalOverlay){
+    closeTeamModal();
+  }
+});
+modalCloseBtn.addEventListener("click", closeTeamModal);
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Escape" && modalOverlay.classList.contains("show")){
+    closeTeamModal();
+  }
+  // ✅ quick focus search
+  if(e.key === "/" && !modalOverlay.classList.contains("show")){
+    e.preventDefault();
+    document.getElementById("teamSearch").focus();
+  }
+});
+
+favToggleBtn.addEventListener("click", () => {
+  if(ui.currentModalTeam){
+    toggleFav(ui.currentModalTeam);
+  }
+});
+
+/* ---------------- app init / refresh ---------------- */
+async function init(){
+  wireButtons();
+  const inp = document.getElementById("teamSearch");
+  inp.value = ui.query;
+
+  // favorites initial
+  renderFavoritesBar();
+
+  await refreshData();
+  setInterval(refreshData, 60000);
+}
+
+function wireButtons(){
+  document.getElementById("btnRefresh").onclick = refreshData;
+
+  const inp = document.getElementById("teamSearch");
+  let tmr = null;
+  inp.addEventListener("input", () => {
+    clearTimeout(tmr);
+    tmr = setTimeout(() => {
+      ui.query = inp.value || "";
+      localStorage.setItem("teamQuery", ui.query);
+      renderAll();
+    }, 80);
+  });
+
+  document.getElementById("btnClear").onclick = () => {
+    ui.query = "";
+    localStorage.setItem("teamQuery", ui.query);
+    inp.value = "";
+    renderAll();
+    inp.focus();
+  };
+}
+
+async function refreshData(){
+  const status = document.getElementById("statusLeft");
+  try{
+    status.innerHTML = `<span class="pulseDot"></span> Google Sheet’ten veriler çekiliyor...`;
+    await loadFromSheets();
+
+    renderGroupSelector();
+    renderFavoritesBar();
+
+    renderAll();
+    const now = new Date();
+    status.textContent = `Güncellendi: ${now.toLocaleString("tr-TR")}`;
+  }catch(e){
+    console.error(e);
+    status.textContent = "Hata: Sheet verileri okunamadı. Publish ayarını ve gid değerlerini kontrol edin.";
+  }
+}
+</script>
+</body>
+</html>
