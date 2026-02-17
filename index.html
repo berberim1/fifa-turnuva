@@ -82,7 +82,7 @@
       padding:10px 12px;
       border-radius:12px;
       cursor:pointer;
-      transition:.15s transform, .15s background, .15s border-color;
+      transition:.15s transform, .15s background, .15s border-color, .15s filter;
       font-weight:800;
     }
     button:hover{
@@ -98,7 +98,7 @@
         linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55)) border-box;
     }
 
-    /* ✅ Filters row */
+    /* Filters row */
     .filtersRow{
       margin-top:12px;
       display:flex;
@@ -178,7 +178,7 @@
       pointer-events:none;
     }
 
-    /* ✅ Favorites row */
+    /* Favorites row */
     .favRow{
       margin-top:10px;
       display:flex;
@@ -324,7 +324,7 @@
     }
     .mini{color:var(--muted);font-size:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
 
-    /* table */
+    /* ✅ table (PC görünümü mobilde de korunur) */
     .tableWrap{
       overflow:auto;
       -webkit-overflow-scrolling: touch;
@@ -332,7 +332,23 @@
       border:1px solid var(--line);
       background: rgba(0,0,0,.08);
     }
-    table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px;}
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      font-size:13px;
+      min-width: 640px; /* ✅ mobilde yatay kaydırma için */
+    }
+
+    thead th{
+      position: sticky; /* ✅ başlık sabit */
+      top: 0;
+      z-index: 2;
+      background: rgba(7,11,24,.92);
+      backdrop-filter: blur(10px);
+    }
+
     th, td{
       padding:10px 10px;
       border-bottom:1px solid var(--line);
@@ -353,7 +369,7 @@
       font-weight:1000;
     }
 
-    /* ✅ clickable team */
+    /* clickable team */
     .teamBtn{
       all:unset;
       cursor:pointer;
@@ -376,7 +392,7 @@
     /* fixtures */
     .fixture{
       display:grid;
-      grid-template-columns: 92px 1fr 170px 1fr; /* ✅ time | home | score | away */
+      grid-template-columns: 92px 1fr 170px 1fr; /* time | home | score | away */
       gap:12px;
       align-items:stretch;
       padding:12px;
@@ -400,7 +416,7 @@
       background: rgba(96,165,250,.08);
     }
 
-    /* ✅ time pill (saat ortalı) */
+    /* time pill */
     .timeSlot{
       border:1px solid var(--line);
       border-radius: 14px;
@@ -409,7 +425,7 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center; /* ✅ dikey ortalama */
+      justify-content:center;
       gap:4px;
       padding:10px 10px;
       font-family: var(--mono);
@@ -484,7 +500,7 @@
     }
     .dateTitle small{color:var(--muted); font-weight:900}
 
-    /* ✅ Modal */
+    /* Modal */
     .modalOverlay{
       position:fixed; inset:0;
       background: rgba(0,0,0,.62);
@@ -650,7 +666,7 @@
     .chip.bad{border-color: rgba(251,113,133,.35); background: rgba(251,113,133,.10); color:#ffd1da}
     .chip.info{border-color: rgba(96,165,250,.30); background: rgba(96,165,250,.10); color:#d5e8ff}
 
-    /* ✅ Jump to next match */
+    /* Jump to next match */
     .jumpNext{
       position: fixed;
       right: 16px;
@@ -666,7 +682,7 @@
     .jumpNext.show{display:inline-flex}
     .jumpNext:hover{filter: brightness(1.05)}
 
-    /* ✅ Mobile responsiveness */
+    /* Mobile responsiveness */
     @media (max-width: 680px){
       .wrap{padding:14px 12px}
       .brand{min-width:auto}
@@ -677,10 +693,12 @@
       .card .bd{padding:12px}
       .card .hd{padding:12px}
       .legend .kbd{font-size:11px}
-      .fixture{
-        grid-template-columns: 1fr;
-        gap:10px;
-      }
+
+      /* ✅ mobil tablo PC gibi kalsın ama sıkışsın */
+      table{font-size:12px; min-width: 620px;}
+      th,td{padding:9px 8px}
+
+      .fixture{grid-template-columns: 1fr; gap:10px;}
       .timeSlot{
         flex-direction:row;
         justify-content:flex-start;
@@ -694,42 +712,6 @@
       .mRow{grid-template-columns: 1fr; gap:8px}
       .mScore{justify-self:start}
       .jumpNext{right:12px; bottom:12px}
-    }
-
-    /* ✅ Table -> cards on very small screens */
-    @media (max-width: 560px){
-      .tableWrap{border:0;background:transparent; overflow:visible}
-      table{min-width:0}
-      thead{display:none}
-      tbody tr{
-        display:block;
-        border:1px solid var(--line);
-        border-radius:16px;
-        background: rgba(0,0,0,.10);
-        margin:10px 0;
-        overflow:hidden;
-      }
-      tbody tr.top2{border-color: rgba(52,211,153,.22)}
-      tbody td{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        text-align:left;
-        border-bottom:1px solid var(--line);
-        padding:10px 12px;
-        white-space:normal;
-      }
-      tbody td:last-child{border-bottom:0}
-      tbody td::before{
-        content: attr(data-label);
-        color: var(--muted);
-        font-weight:1000;
-        font-family: var(--mono);
-        margin-right:10px;
-      }
-      td.name{order:-1}
-      td.name::before{content:"Takım";}
-      td.rank{display:none}
     }
   </style>
 </head>
@@ -751,7 +733,6 @@
       </div>
     </div>
 
-    <!-- ✅ Grup seçici + Takım arama -->
     <div class="filtersRow">
       <div class="segWrap" id="groupSeg"></div>
 
@@ -765,7 +746,6 @@
       </div>
     </div>
 
-    <!-- ✅ Favoriler -->
     <div class="favRow">
       <div class="favLeft">
         <div class="favTitle">⭐ Favoriler</div>
@@ -778,7 +758,6 @@
 
 <main class="wrap">
   <div class="grid">
-    <!-- LEFT -->
     <section class="card">
       <div class="hd">
         <div>
@@ -797,7 +776,6 @@
       </div>
     </section>
 
-    <!-- RIGHT -->
     <aside class="card">
       <div class="hd">
         <div>
@@ -838,7 +816,6 @@
 
 <button class="jumpNext" id="btnJumpNext" title="Sonraki maça git">⏭ Sonraki Maç</button>
 
-<!-- ✅ TEAM MODAL -->
 <div class="modalOverlay" id="teamModalOverlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="teamModalTitle">
     <div class="modalHd">
@@ -857,9 +834,9 @@
 </div>
 
 <script>
-/** ✅ publish key */
+/** publish key */
 const SHEET_PUB_KEY = "2PACX-1vTpmP3ySVA56yUD5mGcBBvOyxclZ3TnsALVamAj7gsKj-ve_DWZqDd3XsUbiNssM3XiAXPeXuSef0AQ";
-/** ✅ gid */
+/** gid */
 const TEAMS_GID   = "0";
 const MATCHES_GID = "1436904924";
 
@@ -868,7 +845,7 @@ let state = { groups: {}, matches: {} };
 
 /** ui state */
 const ui = {
-  group: localStorage.getItem("selectedGroup") || "ALL", // ALL veya A-H
+  group: localStorage.getItem("selectedGroup") || "ALL",
   query: localStorage.getItem("teamQuery") || "",
   favorites: new Set(JSON.parse(localStorage.getItem("favTeams") || "[]")),
   currentModalTeam: null,
@@ -877,7 +854,7 @@ const ui = {
 
 init();
 
-/* ---------------- Google Sheets CSV fetch (gid ile) ---------------- */
+/* Google Sheets CSV fetch (gid ile) */
 async function fetchSheetAsObjectsByGid(gid){
   const url = `https://docs.google.com/spreadsheets/d/e/${SHEET_PUB_KEY}/pub?output=csv&gid=${gid}&single=true`;
   const res = await fetch(url, { cache: "no-store" });
@@ -886,14 +863,14 @@ async function fetchSheetAsObjectsByGid(gid){
   return csvToObjects(csv);
 }
 
-/* --- CSV parse --- */
+/* CSV parse */
 function csvToObjects(csvText){
   const rows = parseCSV(csvText);
   if(rows.length === 0) return [];
 
   const headers = rows[0].map((h, idx) => {
     let s = String(h || "").trim();
-    if(idx === 0) s = s.replace(/^\uFEFF/, ""); // BOM
+    if(idx === 0) s = s.replace(/^\uFEFF/, "");
     return s;
   });
 
@@ -936,7 +913,7 @@ function parseCSV(text){
   return out;
 }
 
-/* ---------------- helpers ---------------- */
+/* helpers */
 function normalizeStr(v){ return (v === null || v === undefined) ? "" : String(v).trim(); }
 function toIntOrNull(v){
   if(v === null || v === undefined) return null;
@@ -968,13 +945,12 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 function isPlayed(m){ return Number.isInteger(m.hs) && Number.isInteger(m.as); }
-
 function includesQ(text, q){
   if(!q) return true;
   return String(text || "").toLocaleLowerCase("tr-TR").includes(q.toLocaleLowerCase("tr-TR"));
 }
 
-/* ---------------- load ---------------- */
+/* load */
 async function loadFromSheets(){
   const teamsRows = await fetchSheetAsObjectsByGid(TEAMS_GID);
   const matchRows = await fetchSheetAsObjectsByGid(MATCHES_GID);
@@ -1027,7 +1003,7 @@ function getVisibleGroups(){
   return groups.includes(ui.group) ? [ui.group] : groups;
 }
 
-/* ---------------- standings ---------------- */
+/* standings */
 function computeTable(groupLetter){
   const teams = (state.groups[groupLetter] || []).map(t => t.name);
   const matches = state.matches[groupLetter] || [];
@@ -1119,7 +1095,7 @@ function stableHash(str){
   return h >>> 0;
 }
 
-/* ---------------- Favorites ---------------- */
+/* Favorites */
 function saveFavorites(){
   localStorage.setItem("favTeams", JSON.stringify([...ui.favorites]));
   renderFavoritesBar();
@@ -1163,7 +1139,7 @@ function renderFavoritesBar(){
   });
 }
 
-/* ---------------- Group selector render ---------------- */
+/* Group selector render */
 function renderGroupSelector(){
   const seg = document.getElementById("groupSeg");
   const groups = getGroupLetters();
@@ -1192,7 +1168,7 @@ function renderGroupSelector(){
   groups.forEach(g => seg.appendChild(mk("Grup " + g, g)));
 }
 
-/* ---------------- render ---------------- */
+/* render */
 function renderAll(){
   renderGroups();
   renderFixtures();
@@ -1270,20 +1246,20 @@ function renderGroups(){
       if(rank <= 2) tr.classList.add("top2");
 
       tr.innerHTML = `
-        <td class="rank" data-label="#">${rank}</td>
-        <td class="name" data-label="Takım">
+        <td class="rank">${rank}</td>
+        <td class="name">
           <button class="teamBtn" data-team="${escapeHtml(row.team)}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
             ${escapeHtml(row.team)}
           </button>
         </td>
-        <td data-label="P">${row.P}</td>
-        <td data-label="W">${row.W}</td>
-        <td data-label="D">${row.D}</td>
-        <td data-label="L">${row.L}</td>
-        <td data-label="GF">${row.GF}</td>
-        <td data-label="GA">${row.GA}</td>
-        <td data-label="GD">${row.GD}</td>
-        <td data-label="Pts"><b>${row.Pts}</b></td>
+        <td>${row.P}</td>
+        <td>${row.W}</td>
+        <td>${row.D}</td>
+        <td>${row.L}</td>
+        <td>${row.GF}</td>
+        <td>${row.GA}</td>
+        <td>${row.GD}</td>
+        <td><b>${row.Pts}</b></td>
       `;
       tbody.appendChild(tr);
     });
@@ -1402,7 +1378,6 @@ function renderFixtures(){
 
         row.className = "fixture " + (played ? "played" : "upcoming") + (isNext ? " nextUp" : "");
 
-        // ✅ time pill (ortalanmış)
         const timeSlot = document.createElement("div");
         timeSlot.className = "timeSlot " + (played ? "played" : (isNext ? "nextUp" : "upcoming"));
 
@@ -1475,7 +1450,6 @@ function renderFixtures(){
     root.innerHTML = `<div class="hint">Arama filtresine uygun maç bulunamadı.</div>`;
   }
 
-  // ✅ jump next button
   const btn = document.getElementById("btnJumpNext");
   if(firstNextEl){
     btn.classList.add("show");
@@ -1486,7 +1460,7 @@ function renderFixtures(){
   }
 }
 
-/* ✅ accordion: ALL modda sadece bir grup açık kalsın */
+/* accordion */
 function wireAccordion(){
   const root = document.getElementById("groups");
   const details = [...root.querySelectorAll("details.group")];
@@ -1500,7 +1474,7 @@ function wireAccordion(){
   });
 }
 
-/* ---------------- ✅ Next upcoming logic ---------------- */
+/* next upcoming logic */
 function matchKey(m, g){
   return `${g}|${m.datetime}|${m.home}|${m.away}|${m.hs ?? ""}|${m.as ?? ""}`;
 }
@@ -1522,7 +1496,7 @@ function findNextUpcomingMatch(matches, group){
   return null;
 }
 
-/* ---------------- ✅ TEAM MODAL LOGIC ---------------- */
+/* TEAM MODAL */
 const modalOverlay = document.getElementById("teamModalOverlay");
 const modalCloseBtn = document.getElementById("teamModalClose");
 const modalTitle = document.getElementById("teamModalTitle");
@@ -1722,7 +1696,6 @@ function closeTeamModal(){
   ui.currentModalGroup = null;
 }
 
-/* ✅ click handlers (event delegation) */
 document.addEventListener("click", (e) => {
   const btn = e.target.closest(".teamBtn");
   if(btn){
@@ -1742,7 +1715,6 @@ document.addEventListener("keydown", (e)=>{
   if(e.key === "Escape" && modalOverlay.classList.contains("show")){
     closeTeamModal();
   }
-  // ✅ quick focus search
   if(e.key === "/" && !modalOverlay.classList.contains("show")){
     e.preventDefault();
     document.getElementById("teamSearch").focus();
@@ -1755,13 +1727,12 @@ favToggleBtn.addEventListener("click", () => {
   }
 });
 
-/* ---------------- app init / refresh ---------------- */
+/* app init / refresh */
 async function init(){
   wireButtons();
   const inp = document.getElementById("teamSearch");
   inp.value = ui.query;
 
-  // favorites initial
   renderFavoritesBar();
 
   await refreshData();
