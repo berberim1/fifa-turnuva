@@ -30,7 +30,11 @@
 
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+
+      /* ✅ sticky sütun genişliği */
+      --rankW: 46px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -82,7 +86,7 @@
       padding:10px 12px;
       border-radius:12px;
       cursor:pointer;
-      transition:.15s transform, .15s background, .15s border-color, .15s filter;
+      transition:.15s transform, .15s background, .15s border-color;
       font-weight:800;
     }
     button:hover{
@@ -98,7 +102,7 @@
         linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55)) border-box;
     }
 
-    /* Filters row */
+    /* ✅ Filters row */
     .filtersRow{
       margin-top:12px;
       display:flex;
@@ -178,7 +182,7 @@
       pointer-events:none;
     }
 
-    /* Favorites row */
+    /* ✅ Favorites row */
     .favRow{
       margin-top:10px;
       display:flex;
@@ -324,29 +328,35 @@
     }
     .mini{color:var(--muted);font-size:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
 
-    /* ✅ table (PC görünümü mobilde de korunur) */
+    /* ✅ swipe hint sadece mobil */
+    .swipeHint{display:none}
+    @media (max-width: 640px){
+      .swipeHint{display:inline-flex}
+    }
+
+    /* ✅ TABLE (Modern + Mobile same) */
     .tableWrap{
       overflow:auto;
       -webkit-overflow-scrolling: touch;
       border-radius:14px;
       border:1px solid var(--line);
       background: rgba(0,0,0,.08);
+      position:relative;
+      overscroll-behavior: contain;
     }
+
+    /* scrollbar */
+    .tableWrap::-webkit-scrollbar{height:10px}
+    .tableWrap::-webkit-scrollbar-track{background: rgba(255,255,255,.06); border-radius:999px}
+    .tableWrap::-webkit-scrollbar-thumb{background: rgba(96,165,250,.25); border-radius:999px}
+    .tableWrap::-webkit-scrollbar-thumb:hover{background: rgba(96,165,250,.35)}
 
     table{
       width:100%;
       border-collapse:separate;
       border-spacing:0;
       font-size:13px;
-      min-width: 640px; /* ✅ mobilde yatay kaydırma için */
-    }
-
-    thead th{
-      position: sticky; /* ✅ başlık sabit */
-      top: 0;
-      z-index: 2;
-      background: rgba(7,11,24,.92);
-      backdrop-filter: blur(10px);
+      min-width:720px; /* ✅ mobilde de satır satır, yatay kaydırma ile */
     }
 
     th, td{
@@ -355,21 +365,84 @@
       text-align:center;
       white-space:nowrap;
     }
-    th{color:var(--muted);font-weight:900;letter-spacing:.2px}
+
+    thead th{
+      color:var(--muted);
+      font-weight:900;
+      letter-spacing:.2px;
+
+      /* ✅ sticky header */
+      position:sticky;
+      top:0;
+      z-index:6;
+      background: rgba(7,11,24,.92);
+      backdrop-filter: blur(10px);
+    }
+
+    /* row backgrounds */
+    tbody tr{
+      background: rgba(0,0,0,.06);
+      transition: background .15s ease, transform .15s ease;
+    }
+    tbody tr:nth-child(even){
+      background: rgba(0,0,0,.10);
+    }
+    tbody tr:hover{
+      background: rgba(96,165,250,.10);
+    }
+
+    /* ✅ top2 highlight (row bazlı) */
+    tr.top2{
+      background: linear-gradient(90deg, rgba(52,211,153,.18), rgba(52,211,153,.05));
+    }
+    tr.top2:hover{
+      background: linear-gradient(90deg, rgba(52,211,153,.22), rgba(96,165,250,.08));
+    }
+
+    /* ✅ favorite row highlight */
+    tr.fav{
+      box-shadow: inset 0 0 0 1px rgba(251,191,36,.18);
+    }
+
     td.name{text-align:left;font-weight:1000}
     td.rank{color:var(--muted);font-family:var(--mono);font-weight:900}
     tr:last-child td{border-bottom:0}
 
-    tr.top2 td{
-      background: linear-gradient(90deg, rgba(52,211,153,.12), rgba(52,211,153,.04));
+    /* ✅ sticky columns: # ve takım */
+    thead th:first-child,
+    tbody td.rank{
+      position: sticky;
+      left: 0;
+      z-index: 8;
+      min-width: var(--rankW);
+      width: var(--rankW);
+      background: rgba(7,11,24,.92);
     }
+    thead th:nth-child(2),
+    tbody td.name{
+      position: sticky;
+      left: var(--rankW);
+      z-index: 7;
+      min-width: 220px;
+      background: rgba(7,11,24,.92);
+      box-shadow: 12px 0 18px rgba(0,0,0,.22);
+    }
+
+    /* ✅ body sticky cell background row ile uyumlu */
+    tbody td.rank,
+    tbody td.name{
+      background: inherit;
+      backdrop-filter: blur(8px);
+    }
+
+    /* top2 tick */
     tr.top2 td.name::before{
       content:"✓ ";
       color:var(--ok);
       font-weight:1000;
     }
 
-    /* clickable team */
+    /* ✅ clickable team */
     .teamBtn{
       all:unset;
       cursor:pointer;
@@ -388,11 +461,18 @@
       outline:2px solid rgba(96,165,250,.7);
       outline-offset:2px;
     }
+    .teamBtn.isFav .favMark{display:inline-flex}
+    .favMark{
+      display:none;
+      color: var(--warn);
+      font-size:12px;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
+    }
 
     /* fixtures */
     .fixture{
       display:grid;
-      grid-template-columns: 92px 1fr 170px 1fr; /* time | home | score | away */
+      grid-template-columns: 92px 1fr 170px 1fr; /* ✅ time | home | score | away */
       gap:12px;
       align-items:stretch;
       padding:12px;
@@ -416,7 +496,7 @@
       background: rgba(96,165,250,.08);
     }
 
-    /* time pill */
+    /* ✅ time pill (saat ortalı) */
     .timeSlot{
       border:1px solid var(--line);
       border-radius: 14px;
@@ -425,7 +505,7 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center;
+      justify-content:center; /* ✅ dikey ortalama */
       gap:4px;
       padding:10px 10px;
       font-family: var(--mono);
@@ -500,7 +580,7 @@
     }
     .dateTitle small{color:var(--muted); font-weight:900}
 
-    /* Modal */
+    /* ✅ Modal */
     .modalOverlay{
       position:fixed; inset:0;
       background: rgba(0,0,0,.62);
@@ -666,7 +746,7 @@
     .chip.bad{border-color: rgba(251,113,133,.35); background: rgba(251,113,133,.10); color:#ffd1da}
     .chip.info{border-color: rgba(96,165,250,.30); background: rgba(96,165,250,.10); color:#d5e8ff}
 
-    /* Jump to next match */
+    /* ✅ Jump to next match */
     .jumpNext{
       position: fixed;
       right: 16px;
@@ -682,7 +762,7 @@
     .jumpNext.show{display:inline-flex}
     .jumpNext:hover{filter: brightness(1.05)}
 
-    /* Mobile responsiveness */
+    /* ✅ Mobile responsiveness */
     @media (max-width: 680px){
       .wrap{padding:14px 12px}
       .brand{min-width:auto}
@@ -693,12 +773,10 @@
       .card .bd{padding:12px}
       .card .hd{padding:12px}
       .legend .kbd{font-size:11px}
-
-      /* ✅ mobil tablo PC gibi kalsın ama sıkışsın */
-      table{font-size:12px; min-width: 620px;}
-      th,td{padding:9px 8px}
-
-      .fixture{grid-template-columns: 1fr; gap:10px;}
+      .fixture{
+        grid-template-columns: 1fr;
+        gap:10px;
+      }
       .timeSlot{
         flex-direction:row;
         justify-content:flex-start;
@@ -712,6 +790,13 @@
       .mRow{grid-template-columns: 1fr; gap:8px}
       .mScore{justify-self:start}
       .jumpNext{right:12px; bottom:12px}
+    }
+
+    /* ✅ tablo mobil sıkılaştırma (ama kart dönüşümü YOK) */
+    @media (max-width: 560px){
+      table{font-size:12px; min-width: 700px;}
+      th, td{padding:9px 8px;}
+      :root{ --rankW: 44px; }
     }
   </style>
 </head>
@@ -733,6 +818,7 @@
       </div>
     </div>
 
+    <!-- ✅ Grup seçici + Takım arama -->
     <div class="filtersRow">
       <div class="segWrap" id="groupSeg"></div>
 
@@ -746,6 +832,7 @@
       </div>
     </div>
 
+    <!-- ✅ Favoriler -->
     <div class="favRow">
       <div class="favLeft">
         <div class="favTitle">⭐ Favoriler</div>
@@ -758,6 +845,7 @@
 
 <main class="wrap">
   <div class="grid">
+    <!-- LEFT -->
     <section class="card">
       <div class="hd">
         <div>
@@ -776,6 +864,7 @@
       </div>
     </section>
 
+    <!-- RIGHT -->
     <aside class="card">
       <div class="hd">
         <div>
@@ -816,6 +905,7 @@
 
 <button class="jumpNext" id="btnJumpNext" title="Sonraki maça git">⏭ Sonraki Maç</button>
 
+<!-- ✅ TEAM MODAL -->
 <div class="modalOverlay" id="teamModalOverlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="teamModalTitle">
     <div class="modalHd">
@@ -834,9 +924,9 @@
 </div>
 
 <script>
-/** publish key */
+/** ✅ publish key */
 const SHEET_PUB_KEY = "2PACX-1vTpmP3ySVA56yUD5mGcBBvOyxclZ3TnsALVamAj7gsKj-ve_DWZqDd3XsUbiNssM3XiAXPeXuSef0AQ";
-/** gid */
+/** ✅ gid */
 const TEAMS_GID   = "0";
 const MATCHES_GID = "1436904924";
 
@@ -845,7 +935,7 @@ let state = { groups: {}, matches: {} };
 
 /** ui state */
 const ui = {
-  group: localStorage.getItem("selectedGroup") || "ALL",
+  group: localStorage.getItem("selectedGroup") || "ALL", // ALL veya A-H
   query: localStorage.getItem("teamQuery") || "",
   favorites: new Set(JSON.parse(localStorage.getItem("favTeams") || "[]")),
   currentModalTeam: null,
@@ -854,7 +944,7 @@ const ui = {
 
 init();
 
-/* Google Sheets CSV fetch (gid ile) */
+/* ---------------- Google Sheets CSV fetch (gid ile) ---------------- */
 async function fetchSheetAsObjectsByGid(gid){
   const url = `https://docs.google.com/spreadsheets/d/e/${SHEET_PUB_KEY}/pub?output=csv&gid=${gid}&single=true`;
   const res = await fetch(url, { cache: "no-store" });
@@ -863,14 +953,14 @@ async function fetchSheetAsObjectsByGid(gid){
   return csvToObjects(csv);
 }
 
-/* CSV parse */
+/* --- CSV parse --- */
 function csvToObjects(csvText){
   const rows = parseCSV(csvText);
   if(rows.length === 0) return [];
 
   const headers = rows[0].map((h, idx) => {
     let s = String(h || "").trim();
-    if(idx === 0) s = s.replace(/^\uFEFF/, "");
+    if(idx === 0) s = s.replace(/^\uFEFF/, ""); // BOM
     return s;
   });
 
@@ -913,7 +1003,7 @@ function parseCSV(text){
   return out;
 }
 
-/* helpers */
+/* ---------------- helpers ---------------- */
 function normalizeStr(v){ return (v === null || v === undefined) ? "" : String(v).trim(); }
 function toIntOrNull(v){
   if(v === null || v === undefined) return null;
@@ -945,12 +1035,13 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 function isPlayed(m){ return Number.isInteger(m.hs) && Number.isInteger(m.as); }
+
 function includesQ(text, q){
   if(!q) return true;
   return String(text || "").toLocaleLowerCase("tr-TR").includes(q.toLocaleLowerCase("tr-TR"));
 }
 
-/* load */
+/* ---------------- load ---------------- */
 async function loadFromSheets(){
   const teamsRows = await fetchSheetAsObjectsByGid(TEAMS_GID);
   const matchRows = await fetchSheetAsObjectsByGid(MATCHES_GID);
@@ -1003,7 +1094,7 @@ function getVisibleGroups(){
   return groups.includes(ui.group) ? [ui.group] : groups;
 }
 
-/* standings */
+/* ---------------- standings ---------------- */
 function computeTable(groupLetter){
   const teams = (state.groups[groupLetter] || []).map(t => t.name);
   const matches = state.matches[groupLetter] || [];
@@ -1095,7 +1186,7 @@ function stableHash(str){
   return h >>> 0;
 }
 
-/* Favorites */
+/* ---------------- Favorites ---------------- */
 function saveFavorites(){
   localStorage.setItem("favTeams", JSON.stringify([...ui.favorites]));
   renderFavoritesBar();
@@ -1139,7 +1230,7 @@ function renderFavoritesBar(){
   });
 }
 
-/* Group selector render */
+/* ---------------- Group selector render ---------------- */
 function renderGroupSelector(){
   const seg = document.getElementById("groupSeg");
   const groups = getGroupLetters();
@@ -1168,7 +1259,7 @@ function renderGroupSelector(){
   groups.forEach(g => seg.appendChild(mk("Grup " + g, g)));
 }
 
-/* render */
+/* ---------------- render ---------------- */
 function renderAll(){
   renderGroups();
   renderFixtures();
@@ -1205,6 +1296,7 @@ function renderGroups(){
         <span class="pill">Maç: <b>${playedCount}/${totalCount || "-"}</b></span>
         <span class="pill">İlk 2: <b>Yeşil</b></span>
         <span class="pill ${miniActive ? "warn" : ""}">Mini Averaj: <b>${miniActive ? "Aktif" : "Yok"}</b></span>
+        <span class="pill swipeHint">↔ <b>Kaydır</b></span>
       </div>
     `;
     details.appendChild(summary);
@@ -1244,22 +1336,26 @@ function renderGroups(){
       const rank = (table.findIndex(x => x.team === row.team) + 1) || (idx+1);
       const tr = document.createElement("tr");
       if(rank <= 2) tr.classList.add("top2");
+      if(isFav(row.team)) tr.classList.add("fav");
+
+      const btnCls = "teamBtn" + (isFav(row.team) ? " isFav" : "");
 
       tr.innerHTML = `
-        <td class="rank">${rank}</td>
-        <td class="name">
-          <button class="teamBtn" data-team="${escapeHtml(row.team)}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
-            ${escapeHtml(row.team)}
+        <td class="rank" data-label="#">${rank}</td>
+        <td class="name" data-label="Takım">
+          <button class="${btnCls}" data-team="${escapeHtml(row.team)}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
+            <span class="favMark">★</span>
+            <span>${escapeHtml(row.team)}</span>
           </button>
         </td>
-        <td>${row.P}</td>
-        <td>${row.W}</td>
-        <td>${row.D}</td>
-        <td>${row.L}</td>
-        <td>${row.GF}</td>
-        <td>${row.GA}</td>
-        <td>${row.GD}</td>
-        <td><b>${row.Pts}</b></td>
+        <td data-label="P">${row.P}</td>
+        <td data-label="W">${row.W}</td>
+        <td data-label="D">${row.D}</td>
+        <td data-label="L">${row.L}</td>
+        <td data-label="GF">${row.GF}</td>
+        <td data-label="GA">${row.GA}</td>
+        <td data-label="GD">${row.GD}</td>
+        <td data-label="Pts"><b>${row.Pts}</b></td>
       `;
       tbody.appendChild(tr);
     });
@@ -1391,17 +1487,21 @@ function renderFixtures(){
         `;
 
         const home = document.createElement("div");
+        const homeCls = "teamBtn" + (isFav(m.home) ? " isFav" : "");
         home.className = "home";
         home.innerHTML = `
-          <button class="teamBtn" data-team="${escapeHtml(m.home || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
+          <button class="${homeCls}" data-team="${escapeHtml(m.home || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
+            <span class="favMark">★</span>
             <span>${escapeHtml(m.home || "-")}</span>
           </button>
         `;
 
         const away = document.createElement("div");
+        const awayCls = "teamBtn" + (isFav(m.away) ? " isFav" : "");
         away.className = "away";
         away.innerHTML = `
-          <button class="teamBtn" data-team="${escapeHtml(m.away || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
+          <button class="${awayCls}" data-team="${escapeHtml(m.away || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
+            <span class="favMark">★</span>
             <span>${escapeHtml(m.away || "-")}</span>
           </button>
         `;
@@ -1460,7 +1560,7 @@ function renderFixtures(){
   }
 }
 
-/* accordion */
+/* ✅ accordion: ALL modda sadece bir grup açık kalsın */
 function wireAccordion(){
   const root = document.getElementById("groups");
   const details = [...root.querySelectorAll("details.group")];
@@ -1474,7 +1574,7 @@ function wireAccordion(){
   });
 }
 
-/* next upcoming logic */
+/* ---------------- ✅ Next upcoming logic ---------------- */
 function matchKey(m, g){
   return `${g}|${m.datetime}|${m.home}|${m.away}|${m.hs ?? ""}|${m.as ?? ""}`;
 }
@@ -1496,7 +1596,7 @@ function findNextUpcomingMatch(matches, group){
   return null;
 }
 
-/* TEAM MODAL */
+/* ---------------- ✅ TEAM MODAL LOGIC ---------------- */
 const modalOverlay = document.getElementById("teamModalOverlay");
 const modalCloseBtn = document.getElementById("teamModalClose");
 const modalTitle = document.getElementById("teamModalTitle");
@@ -1696,6 +1796,7 @@ function closeTeamModal(){
   ui.currentModalGroup = null;
 }
 
+/* ✅ click handlers (event delegation) */
 document.addEventListener("click", (e) => {
   const btn = e.target.closest(".teamBtn");
   if(btn){
@@ -1727,7 +1828,7 @@ favToggleBtn.addEventListener("click", () => {
   }
 });
 
-/* app init / refresh */
+/* ---------------- app init / refresh ---------------- */
 async function init(){
   wireButtons();
   const inp = document.getElementById("teamSearch");
