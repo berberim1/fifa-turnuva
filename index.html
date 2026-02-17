@@ -102,6 +102,17 @@
         linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55)) border-box;
     }
 
+    /* ✅ small icon button */
+    .iconBtn{
+      width:40px;height:40px;
+      padding:0;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      font-weight:1000;
+      line-height:1;
+    }
+
     /* ✅ Filters row */
     .filtersRow{
       margin-top:12px;
@@ -216,6 +227,8 @@
       gap:8px;
       flex-wrap:wrap;
       align-items:center;
+      justify-content:flex-end;
+      flex:1;
     }
     .favChip{
       cursor:pointer;
@@ -334,7 +347,7 @@
       .swipeHint{display:inline-flex}
     }
 
-    /* ✅ TABLE (Modern + Mobile same) */
+    /* ✅ TABLE */
     .tableWrap{
       overflow:auto;
       -webkit-overflow-scrolling: touch;
@@ -345,7 +358,6 @@
       overscroll-behavior: contain;
     }
 
-    /* scrollbar */
     .tableWrap::-webkit-scrollbar{height:10px}
     .tableWrap::-webkit-scrollbar-track{background: rgba(255,255,255,.06); border-radius:999px}
     .tableWrap::-webkit-scrollbar-thumb{background: rgba(96,165,250,.25); border-radius:999px}
@@ -356,7 +368,7 @@
       border-collapse:separate;
       border-spacing:0;
       font-size:13px;
-      min-width:720px; /* ✅ mobilde de satır satır, yatay kaydırma ile */
+      min-width:720px;
     }
 
     th, td{
@@ -370,8 +382,6 @@
       color:var(--muted);
       font-weight:900;
       letter-spacing:.2px;
-
-      /* ✅ sticky header */
       position:sticky;
       top:0;
       z-index:6;
@@ -379,36 +389,22 @@
       backdrop-filter: blur(10px);
     }
 
-    /* row backgrounds */
     tbody tr{
       background: rgba(0,0,0,.06);
       transition: background .15s ease, transform .15s ease;
     }
-    tbody tr:nth-child(even){
-      background: rgba(0,0,0,.10);
-    }
-    tbody tr:hover{
-      background: rgba(96,165,250,.10);
-    }
+    tbody tr:nth-child(even){ background: rgba(0,0,0,.10); }
+    tbody tr:hover{ background: rgba(96,165,250,.10); }
 
-    /* ✅ top2 highlight (row bazlı) */
-    tr.top2{
-      background: linear-gradient(90deg, rgba(52,211,153,.18), rgba(52,211,153,.05));
-    }
-    tr.top2:hover{
-      background: linear-gradient(90deg, rgba(52,211,153,.22), rgba(96,165,250,.08));
-    }
+    tr.top2{ background: linear-gradient(90deg, rgba(52,211,153,.18), rgba(52,211,153,.05)); }
+    tr.top2:hover{ background: linear-gradient(90deg, rgba(52,211,153,.22), rgba(96,165,250,.08)); }
 
-    /* ✅ favorite row highlight */
-    tr.fav{
-      box-shadow: inset 0 0 0 1px rgba(251,191,36,.18);
-    }
+    tr.fav{ box-shadow: inset 0 0 0 1px rgba(251,191,36,.18); }
 
     td.name{text-align:left;font-weight:1000}
     td.rank{color:var(--muted);font-family:var(--mono);font-weight:900}
     tr:last-child td{border-bottom:0}
 
-    /* ✅ sticky columns: # ve takım */
     thead th:first-child,
     tbody td.rank{
       position: sticky;
@@ -428,21 +424,18 @@
       box-shadow: 12px 0 18px rgba(0,0,0,.22);
     }
 
-    /* ✅ body sticky cell background row ile uyumlu */
     tbody td.rank,
     tbody td.name{
       background: inherit;
       backdrop-filter: blur(8px);
     }
 
-    /* top2 tick */
     tr.top2 td.name::before{
       content:"✓ ";
       color:var(--ok);
       font-weight:1000;
     }
 
-    /* ✅ clickable team */
     .teamBtn{
       all:unset;
       cursor:pointer;
@@ -452,35 +445,46 @@
       padding:6px 8px;
       border-radius:10px;
       transition:.15s background, .15s transform;
+      min-width:0;
+      max-width:100%;
     }
-    .teamBtn:hover{
-      background: rgba(96,165,250,.12);
-      transform: translateY(-1px);
-    }
-    .teamBtn:focus-visible{
-      outline:2px solid rgba(96,165,250,.7);
-      outline-offset:2px;
-    }
+    .teamBtn:hover{ background: rgba(96,165,250,.12); transform: translateY(-1px); }
+    .teamBtn:focus-visible{ outline:2px solid rgba(96,165,250,.7); outline-offset:2px; }
+
     .teamBtn.isFav .favMark{display:inline-flex}
     .favMark{
       display:none;
       color: var(--warn);
       font-size:12px;
       filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
+      flex:0 0 auto;
+    }
+
+    /* ✅ takım ismi ellipsis (tablo + fixture) */
+    .teamBtn span:last-child{
+      display:inline-block;
+      min-width:0;
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
     }
 
     /* fixtures */
     .fixture{
       display:grid;
-      grid-template-columns: 92px 1fr 170px 1fr; /* ✅ time | home | score | away */
+      grid-template-columns: 92px 1fr 170px 1fr;
       gap:12px;
-      align-items:stretch;
+      align-items:center;
       padding:12px;
       border-radius: 16px;
       border:1px solid var(--line);
       background: rgba(0,0,0,.10);
       position:relative;
       margin:10px 0;
+
+      /* ✅ area ile kontrol */
+      grid-template-areas: "time home score away";
     }
     .fixture.upcoming{
       border-color: rgba(251,191,36,.22);
@@ -496,7 +500,11 @@
       background: rgba(96,165,250,.08);
     }
 
-    /* ✅ time pill (saat ortalı) */
+    .timeSlot{ grid-area: time; }
+    .home{ grid-area: home; }
+    .scoreBadge{ grid-area: score; }
+    .away{ grid-area: away; }
+
     .timeSlot{
       border:1px solid var(--line);
       border-radius: 14px;
@@ -505,7 +513,7 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center; /* ✅ dikey ortalama */
+      justify-content:center;
       gap:4px;
       padding:10px 10px;
       font-family: var(--mono);
@@ -526,19 +534,27 @@
     .timeSlot.nextUp .tDot{background: rgba(96,165,250,.95); box-shadow: 0 0 0 6px rgba(96,165,250,.14)}
 
     .home,.away{
-      display:flex;gap:10px;align-items:center;
-      justify-content:flex-end;
+      display:flex;
+      align-items:center;
       font-weight:1000;
-      min-width:0;
+      min-width:0; /* ✅ ellipsis çalışsın */
     }
-    .home span, .away span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .away{justify-content:flex-start}
+    .home{ justify-content:flex-end; }
+    .away{ justify-content:flex-start; }
+
+    /* ✅ fixture içindeki butonlar satırı doldursun + hizalı olsun */
+    .fixture .home .teamBtn{ width:100%; justify-content:flex-end; }
+    .fixture .away .teamBtn{ width:100%; justify-content:flex-start; }
+
     .scoreBadge{
-      display:flex;align-items:center;justify-content:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       gap:10px;
       font-family:var(--mono);
       font-size:13px;color:var(--text);
       flex-wrap:wrap;
+      min-width:0;
     }
     .sb{
       min-width:42px;text-align:center;
@@ -592,12 +608,17 @@
       z-index:9999;
     }
     .modalOverlay.show{display:flex;}
+
+    /* ✅ modal: ekran içine sığ + iç scroll */
     .modal{
       width:min(900px, 100%);
+      max-height: calc(100vh - 28px);
       border:1px solid transparent;
       border-radius: 18px;
       box-shadow: var(--shadow);
       overflow:hidden;
+      display:flex;
+      flex-direction:column;
       transform: translateY(10px);
       opacity: 0;
       animation: pop .18s ease-out forwards;
@@ -606,6 +627,7 @@
         linear-gradient(135deg, rgba(94,234,212,.32), rgba(96,165,250,.32), rgba(251,113,133,.22)) border-box;
     }
     @keyframes pop{ to{transform: translateY(0); opacity:1} }
+
     .modalHd{
       padding:14px 14px 12px;
       border-bottom:1px solid var(--line);
@@ -613,6 +635,11 @@
       align-items:flex-start;
       justify-content:space-between;
       gap:12px;
+      position:sticky; /* ✅ kapanma tuşu hep üstte */
+      top:0;
+      z-index:10;
+      background: rgba(18,26,51,.96);
+      backdrop-filter: blur(12px);
     }
     .modalHd h3{margin:0;font-size:15px;line-height:1.2;letter-spacing:.2px}
     .modalHd .meta{
@@ -628,6 +655,7 @@
       display:flex;
       align-items:flex-start;
       gap:10px;
+      flex:0 0 auto;
     }
     .xBtn{
       border:1px solid var(--line);
@@ -656,7 +684,11 @@
         linear-gradient(135deg, rgba(251,191,36,.60), rgba(96,165,250,.40)) border-box;
     }
 
-    .modalBd{padding:14px;}
+    .modalBd{
+      padding:14px;
+      overflow:auto; /* ✅ içerik uzunsa kaydır */
+      -webkit-overflow-scrolling: touch;
+    }
 
     .twoCols{
       display:grid;
@@ -773,30 +805,164 @@
       .card .bd{padding:12px}
       .card .hd{padding:12px}
       .legend .kbd{font-size:11px}
-      .fixture{
-        grid-template-columns: 1fr;
-        gap:10px;
-      }
-      .timeSlot{
-        flex-direction:row;
-        justify-content:flex-start;
-        gap:10px;
-        padding:8px 10px;
-        width: fit-content;
-      }
-      .home,.away{justify-content:flex-start}
-      .scoreBadge{justify-content:flex-start}
       .twoCols{grid-template-columns:1fr}
       .mRow{grid-template-columns: 1fr; gap:8px}
       .mScore{justify-self:start}
       .jumpNext{right:12px; bottom:12px}
     }
 
-    /* ✅ tablo mobil sıkılaştırma (ama kart dönüşümü YOK) */
+    /* ✅ MOBİL: fixtures takım isimleri YAN YANA (home-score-away) */
+    @media (max-width: 680px){
+      .fixture{
+        grid-template-columns: 1fr 128px 1fr;
+        grid-template-areas:
+          "time time time"
+          "home score away";
+        gap:10px;
+        align-items:center;
+      }
+      .timeSlot{
+        width:100%;
+        flex-direction:row;
+        justify-content:center;
+        gap:10px;
+        padding:8px 10px;
+      }
+      .home{justify-content:flex-start;}
+      .away{justify-content:flex-end;}
+      .fixture .home .teamBtn{justify-content:flex-start;}
+      .fixture .away .teamBtn{justify-content:flex-end;}
+      .scoreBadge{justify-content:center;}
+    }
+
+    /* ✅ MOBİLDE TABLO BAŞLIĞI (BAR) GÖRÜNSÜN + STICKY ÇALIŞSIN */
     @media (max-width: 560px){
-      table{font-size:12px; min-width: 700px;}
-      th, td{padding:9px 8px;}
-      :root{ --rankW: 44px; }
+      thead{ display: table-header-group !important; }
+      tbody tr{ display: table-row !important; }
+      tbody td{ display: table-cell !important; }
+      tbody td::before{ content: none !important; }
+
+      .tableWrap{
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+      }
+
+      thead th{
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 30 !important;
+        background: rgba(7,11,24,.95) !important;
+        backdrop-filter: blur(10px);
+      }
+
+      thead th:first-child{ left: 0 !important; z-index: 50 !important; }
+      thead th:nth-child(2){ left: var(--rankW) !important; z-index: 49 !important; }
+
+      tbody td.rank{ position: sticky !important; left: 0 !important; z-index: 25 !important; }
+      tbody td.name{ position: sticky !important; left: var(--rankW) !important; z-index: 24 !important; }
+
+      table{ min-width: 720px !important; font-size: 12px !important; }
+      th,td{ padding: 9px 8px !important; }
+    }
+
+    /* ✅ MOBİLDE YATAY KAYDIRINCA BLUR OLMASIN (iOS fix) */
+    @media (max-width: 680px){
+      .tableWrap,
+      .tableWrap *{
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+      }
+      .tableWrap thead th{ background: rgba(7,11,24,.98) !important; }
+      .tableWrap tbody td.rank,
+      .tableWrap tbody td.name{ background: rgba(10,16,34,.98) !important; }
+
+      .tableWrap tbody tr:nth-child(even) td.rank,
+      .tableWrap tbody tr:nth-child(even) td.name{ background: rgba(12,18,38,.98) !important; }
+
+      .tableWrap tbody tr.top2 td.rank,
+      .tableWrap tbody tr.top2 td.name{ background: rgba(14,40,34,.98) !important; }
+    }
+
+    /* ✅ MOBİL: Mackolik gibi tek ekrana sığsın, full width, GF/GA yok */
+    @media (max-width: 560px){
+      main.wrap{ max-width:none; padding:0 !important; }
+
+      main.wrap .card{
+        border-radius:0 !important;
+        box-shadow:none !important;
+        border-left:0 !important;
+        border-right:0 !important;
+      }
+      main.wrap .card .bd{ padding:0 !important; }
+      main.wrap .card .hd{ padding:12px 12px !important; }
+
+      details.group{
+        border-left:0 !important;
+        border-right:0 !important;
+        border-radius:0 !important;
+        margin:0 0 12px !important;
+      }
+      summary{ padding:12px 12px !important; }
+      .groupBody{ padding:0 0 12px !important; }
+
+      .tableWrap{
+        border:0 !important;
+        border-radius:0 !important;
+        background: transparent !important;
+        overflow-x: hidden !important;
+        overflow-y: visible !important;
+      }
+
+      .tableWrap, .tableWrap *{
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+      }
+
+      .colGF, .colGA{ display:none !important; }
+
+      table{
+        min-width: 100% !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+        font-size: 12px !important;
+      }
+
+      th:nth-child(1), td:nth-child(1){ width:34px !important; }
+      th:nth-child(2), td:nth-child(2){ width:auto !important; }
+      th:nth-child(n+3), td:nth-child(n+3){ width:36px !important; }
+
+      td.name{ max-width:0; }
+      td.name .teamBtn{
+        width:100%;
+        display:flex;
+        align-items:center;
+        gap:8px;
+      }
+
+      tbody td.rank, tbody td.name{
+        position: static !important;
+        left:auto !important;
+        box-shadow:none !important;
+      }
+    }
+
+    /* ✅ MOBİL: Favoriler küçül + yanına mini yenile */
+    @media (max-width: 680px){
+      .actions{ display:none; } /* üstteki büyük Yenile gizle */
+      .favRow{ padding:8px 10px; }
+      .favTitle{ font-size:13px; }
+      .favChip{ padding:7px 9px; font-size:11.5px; }
+      .favHint{ font-size:11.5px; }
+    }
+
+    /* ✅ Modal header sağ tuşlar mobilde garanti görünsün */
+    @media (max-width: 560px){
+      .modalHd{ padding-right: 100px; }
+      .modalHdRight{
+        position:absolute;
+        right:12px;
+        top:12px;
+      }
     }
   </style>
 </head>
@@ -832,13 +998,17 @@
       </div>
     </div>
 
-    <!-- ✅ Favoriler -->
+    <!-- ✅ Favoriler + Mobil mini yenile -->
     <div class="favRow">
       <div class="favLeft">
         <div class="favTitle">⭐ Favoriler</div>
         <div class="favHint" id="favHint">Takım modalından ⭐ ile ekleyebilirsin.</div>
       </div>
+
       <div class="favChips" id="favBar"></div>
+
+      <!-- mobilde görünür (actions gizlendiği için) -->
+      <button class="iconBtn btnPrimary" id="btnRefreshMini" title="Yenile">⟳</button>
     </div>
   </div>
 </header>
@@ -879,18 +1049,6 @@
           <br>👆 Bir takım adına tıklayın → tüm maçları modalda görün.
           <br><span class="hint">İpucu: <span class="kbd">/</span> ile aramaya odaklan.</span>
         </p>
-        <div class="legend">
-          <span class="kbd">P: Oyn</span>
-          <span class="kbd">W: G</span>
-          <span class="kbd">D: B</span>
-          <span class="kbd">L: M</span>
-          <span class="kbd">GF/GA</span>
-          <span class="kbd">GD</span>
-          <span class="kbd">Pts</span>
-          <span class="kbd">🟡 Yaklaşan</span>
-          <span class="kbd">🟢 Oynandı</span>
-          <span class="kbd">⏭ Sonraki maç</span>
-        </div>
 
         <div style="height:12px"></div>
         <div id="fixtures"></div>
@@ -960,7 +1118,7 @@ function csvToObjects(csvText){
 
   const headers = rows[0].map((h, idx) => {
     let s = String(h || "").trim();
-    if(idx === 0) s = s.replace(/^\uFEFF/, ""); // BOM
+    if(idx === 0) s = s.replace(/^\uFEFF/, "");
     return s;
   });
 
@@ -1302,7 +1460,7 @@ function renderGroups(){
     details.appendChild(summary);
 
     const wrap = document.createElement("div");
-    wrap.style.padding = "10px 12px 12px";
+    wrap.className = "groupBody";
 
     if(filtered.length === 0){
       const empty = document.createElement("div");
@@ -1322,10 +1480,12 @@ function renderGroups(){
       <thead>
         <tr>
           <th>#</th>
-          <th style="text-align:left">Takım</th>
-          <th>P</th><th>W</th><th>D</th><th>L</th>
-          <th>GF</th><th>GA</th><th>GD</th>
-          <th>Pts</th>
+          <th style="text-align:left">TAKIM</th>
+          <th>O</th><th>G</th><th>B</th><th>M</th>
+          <th class="colGF">AG</th>
+          <th class="colGA">YG</th>
+          <th>AV</th>
+          <th>P</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -1348,14 +1508,14 @@ function renderGroups(){
             <span>${escapeHtml(row.team)}</span>
           </button>
         </td>
-        <td data-label="P">${row.P}</td>
-        <td data-label="W">${row.W}</td>
-        <td data-label="D">${row.D}</td>
-        <td data-label="L">${row.L}</td>
-        <td data-label="GF">${row.GF}</td>
-        <td data-label="GA">${row.GA}</td>
-        <td data-label="GD">${row.GD}</td>
-        <td data-label="Pts"><b>${row.Pts}</b></td>
+        <td data-label="O">${row.P}</td>
+        <td data-label="G">${row.W}</td>
+        <td data-label="B">${row.D}</td>
+        <td data-label="M">${row.L}</td>
+        <td class="colGF" data-label="AG">${row.GF}</td>
+        <td class="colGA" data-label="YG">${row.GA}</td>
+        <td data-label="AV">${row.GD}</td>
+        <td data-label="P"><b>${row.Pts}</b></td>
       `;
       tbody.appendChild(tr);
     });
@@ -1733,6 +1893,7 @@ function openTeamModal(team, group){
 
   modalOverlay.classList.add("show");
   modalOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden"; // ✅ arka plan scroll kapat
 
   syncFavButton();
   modalCloseBtn.focus();
@@ -1794,6 +1955,7 @@ function closeTeamModal(){
   modalOverlay.setAttribute("aria-hidden", "true");
   ui.currentModalTeam = null;
   ui.currentModalGroup = null;
+  document.body.style.overflow = ""; // ✅ geri aç
 }
 
 /* ✅ click handlers (event delegation) */
@@ -1841,7 +2003,9 @@ async function init(){
 }
 
 function wireButtons(){
-  document.getElementById("btnRefresh").onclick = refreshData;
+  const refresh = () => refreshData();
+  document.getElementById("btnRefresh").onclick = refresh;
+  document.getElementById("btnRefreshMini").onclick = refresh;
 
   const inp = document.getElementById("teamSearch");
   let tmr = null;
