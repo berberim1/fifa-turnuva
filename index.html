@@ -31,7 +31,7 @@
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
 
-      /* ✅ sticky sütun genişliği */
+      /* sticky sütun genişliği */
       --rankW: 46px;
     }
 
@@ -102,18 +102,7 @@
         linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55)) border-box;
     }
 
-    /* ✅ small icon button */
-    .iconBtn{
-      width:40px;height:40px;
-      padding:0;
-      border-radius:14px;
-      display:grid;
-      place-items:center;
-      font-weight:1000;
-      line-height:1;
-    }
-
-    /* ✅ Filters row */
+    /* Filters row (Sadece Grup Seçici kaldı) */
     .filtersRow{
       margin-top:12px;
       display:flex;
@@ -153,101 +142,6 @@
         linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55)) border-box;
       box-shadow: 0 8px 20px rgba(0,0,0,.22);
     }
-
-    .searchWrap{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex: 1 1 360px;
-      justify-content:flex-end;
-      min-width: 240px;
-    }
-    .search{
-      position:relative;
-      flex:1;
-      max-width:520px;
-    }
-    .search input{
-      width:100%;
-      padding:10px 12px 10px 36px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(18,26,51,.42);
-      color: var(--text);
-      outline:none;
-      transition:.15s border-color, .15s background;
-      font-weight:800;
-    }
-    .search input::placeholder{color: rgba(155,176,222,.75); font-weight:700}
-    .search input:focus{
-      border-color: rgba(96,165,250,.55);
-      background: rgba(18,26,51,.62);
-    }
-    .searchIcon{
-      position:absolute;
-      left:12px; top:50%;
-      transform: translateY(-50%);
-      color: rgba(155,176,222,.85);
-      font-size:14px;
-      user-select:none;
-      pointer-events:none;
-    }
-
-    /* ✅ Favorites row */
-    .favRow{
-      margin-top:10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      padding:10px 12px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background: rgba(0,0,0,.10);
-    }
-    .favLeft{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      min-width:240px;
-    }
-    .favTitle{
-      font-weight:1000;
-      letter-spacing:.2px;
-      color: var(--text);
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .favHint{color:var(--muted); font-size:12px}
-    .favChips{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
-      flex:1;
-    }
-    .favChip{
-      cursor:pointer;
-      user-select:none;
-      border:1px solid transparent;
-      border-radius:999px;
-      padding:8px 10px;
-      font-family:var(--mono);
-      font-size:12px;
-      font-weight:900;
-      color: var(--text);
-      background:
-        linear-gradient(rgba(18,26,51,.40), rgba(18,26,51,.40)) padding-box,
-        linear-gradient(135deg, rgba(251,191,36,.55), rgba(96,165,250,.35)) border-box;
-      transition:.15s transform, .15s filter;
-    }
-    .favChip:hover{transform: translateY(-1px); filter: brightness(1.05)}
-    .favChip:active{transform: translateY(0)}
-    .favChip small{opacity:.8; font-weight:900}
 
     /* layout */
     .grid{
@@ -341,13 +235,13 @@
     }
     .mini{color:var(--muted);font-size:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
 
-    /* ✅ swipe hint sadece mobil */
+    /* swipe hint sadece mobil */
     .swipeHint{display:none}
     @media (max-width: 640px){
       .swipeHint{display:inline-flex}
     }
 
-    /* ✅ TABLE */
+    /* TABLE */
     .tableWrap{
       overflow:auto;
       -webkit-overflow-scrolling: touch;
@@ -399,8 +293,6 @@
     tr.top2{ background: linear-gradient(90deg, rgba(52,211,153,.18), rgba(52,211,153,.05)); }
     tr.top2:hover{ background: linear-gradient(90deg, rgba(52,211,153,.22), rgba(96,165,250,.08)); }
 
-    tr.fav{ box-shadow: inset 0 0 0 1px rgba(251,191,36,.18); }
-
     td.name{text-align:left;font-weight:1000}
     td.rank{color:var(--muted);font-family:var(--mono);font-weight:900}
     tr:last-child td{border-bottom:0}
@@ -451,16 +343,7 @@
     .teamBtn:hover{ background: rgba(96,165,250,.12); transform: translateY(-1px); }
     .teamBtn:focus-visible{ outline:2px solid rgba(96,165,250,.7); outline-offset:2px; }
 
-    .teamBtn.isFav .favMark{display:inline-flex}
-    .favMark{
-      display:none;
-      color: var(--warn);
-      font-size:12px;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
-      flex:0 0 auto;
-    }
-
-    /* ✅ takım ismi ellipsis (tablo + fixture) */
+    /* takım ismi ellipsis (tablo + fixture) */
     .teamBtn span:last-child{
       display:inline-block;
       min-width:0;
@@ -482,8 +365,6 @@
       background: rgba(0,0,0,.10);
       position:relative;
       margin:10px 0;
-
-      /* ✅ area ile kontrol */
       grid-template-areas: "time home score away";
     }
     .fixture.upcoming{
@@ -537,12 +418,12 @@
       display:flex;
       align-items:center;
       font-weight:1000;
-      min-width:0; /* ✅ ellipsis çalışsın */
+      min-width:0;
     }
     .home{ justify-content:flex-end; }
     .away{ justify-content:flex-start; }
 
-    /* ✅ fixture içindeki butonlar satırı doldursun + hizalı olsun */
+    /* fixture içindeki butonlar satırı doldursun + hizalı olsun */
     .fixture .home .teamBtn{ width:100%; justify-content:flex-end; }
     .fixture .away .teamBtn{ width:100%; justify-content:flex-start; }
 
@@ -596,7 +477,7 @@
     }
     .dateTitle small{color:var(--muted); font-weight:900}
 
-    /* ✅ Modal */
+    /* Modal */
     .modalOverlay{
       position:fixed; inset:0;
       background: rgba(0,0,0,.62);
@@ -609,7 +490,6 @@
     }
     .modalOverlay.show{display:flex;}
 
-    /* ✅ modal: ekran içine sığ + iç scroll */
     .modal{
       width:min(900px, 100%);
       max-height: calc(100vh - 28px);
@@ -635,7 +515,7 @@
       align-items:flex-start;
       justify-content:space-between;
       gap:12px;
-      position:sticky; /* ✅ kapanma tuşu hep üstte */
+      position:sticky;
       top:0;
       z-index:10;
       background: rgba(18,26,51,.96);
@@ -669,24 +549,10 @@
       transition:.15s transform, .15s background, .15s border-color;
     }
     .xBtn:hover{background: rgba(0,0,0,.28); transform: translateY(-1px); border-color: var(--line2)}
-    .starBtn{
-      width:auto;
-      padding:10px 12px;
-      border-radius:14px;
-      font-family:var(--mono);
-      font-weight:1000;
-      letter-spacing:.2px;
-    }
-    .starBtn.on{
-      border:1px solid transparent;
-      background:
-        linear-gradient(rgba(18,26,51,.45), rgba(18,26,51,.45)) padding-box,
-        linear-gradient(135deg, rgba(251,191,36,.60), rgba(96,165,250,.40)) border-box;
-    }
 
     .modalBd{
       padding:14px;
-      overflow:auto; /* ✅ içerik uzunsa kaydır */
+      overflow:auto;
       -webkit-overflow-scrolling: touch;
     }
 
@@ -778,7 +644,7 @@
     .chip.bad{border-color: rgba(251,113,133,.35); background: rgba(251,113,133,.10); color:#ffd1da}
     .chip.info{border-color: rgba(96,165,250,.30); background: rgba(96,165,250,.10); color:#d5e8ff}
 
-    /* ✅ Jump to next match */
+    /* Jump to next match */
     .jumpNext{
       position: fixed;
       right: 16px;
@@ -794,14 +660,12 @@
     .jumpNext.show{display:inline-flex}
     .jumpNext:hover{filter: brightness(1.05)}
 
-    /* ✅ Mobile responsiveness */
+    /* Mobile */
     @media (max-width: 680px){
       .wrap{padding:14px 12px}
       .brand{min-width:auto}
       .sub{max-width: 70ch}
       .filtersRow{gap:10px}
-      .searchWrap{justify-content:stretch}
-      .search{max-width:none}
       .card .bd{padding:12px}
       .card .hd{padding:12px}
       .legend .kbd{font-size:11px}
@@ -811,7 +675,7 @@
       .jumpNext{right:12px; bottom:12px}
     }
 
-    /* ✅ MOBİL: fixtures takım isimleri YAN YANA (home-score-away) */
+    /* MOBİL: fixtures takım isimleri YAN YANA (home-score-away) */
     @media (max-width: 680px){
       .fixture{
         grid-template-columns: 1fr 128px 1fr;
@@ -835,7 +699,7 @@
       .scoreBadge{justify-content:center;}
     }
 
-    /* ✅ MOBİLDE TABLO BAŞLIĞI (BAR) GÖRÜNSÜN + STICKY ÇALIŞSIN */
+    /* MOBİLDE TABLO BAŞLIĞI + STICKY */
     @media (max-width: 560px){
       thead{ display: table-header-group !important; }
       tbody tr{ display: table-row !important; }
@@ -865,7 +729,7 @@
       th,td{ padding: 9px 8px !important; }
     }
 
-    /* ✅ MOBİLDE YATAY KAYDIRINCA BLUR OLMASIN (iOS fix) */
+    /* MOBİLDE YATAY KAYDIRINCA BLUR OLMASIN (iOS fix) */
     @media (max-width: 680px){
       .tableWrap,
       .tableWrap *{
@@ -883,7 +747,7 @@
       .tableWrap tbody tr.top2 td.name{ background: rgba(14,40,34,.98) !important; }
     }
 
-    /* ✅ MOBİL: Mackolik gibi tek ekrana sığsın, full width, GF/GA yok */
+    /* MOBİL: tek ekrana sığsın, full width, GF/GA yok */
     @media (max-width: 560px){
       main.wrap{ max-width:none; padding:0 !important; }
 
@@ -911,11 +775,6 @@
         background: transparent !important;
         overflow-x: hidden !important;
         overflow-y: visible !important;
-      }
-
-      .tableWrap, .tableWrap *{
-        -webkit-backdrop-filter: none !important;
-        backdrop-filter: none !important;
       }
 
       .colGF, .colGA{ display:none !important; }
@@ -946,18 +805,9 @@
       }
     }
 
-    /* ✅ MOBİL: Favoriler küçül + yanına mini yenile */
-    @media (max-width: 680px){
-      .actions{ display:none; } /* üstteki büyük Yenile gizle */
-      .favRow{ padding:8px 10px; }
-      .favTitle{ font-size:13px; }
-      .favChip{ padding:7px 9px; font-size:11.5px; }
-      .favHint{ font-size:11.5px; }
-    }
-
-    /* ✅ Modal header sağ tuşlar mobilde garanti görünsün */
+    /* Modal header sağ tuş mobilde garanti */
     @media (max-width: 560px){
-      .modalHd{ padding-right: 100px; }
+      .modalHd{ padding-right: 70px; }
       .modalHdRight{
         position:absolute;
         right:12px;
@@ -984,31 +834,9 @@
       </div>
     </div>
 
-    <!-- ✅ Grup seçici + Takım arama -->
+    <!-- Grup seçici (Takım arama kaldırıldı) -->
     <div class="filtersRow">
       <div class="segWrap" id="groupSeg"></div>
-
-      <div class="searchWrap">
-        <div class="search">
-          <span class="searchIcon">🔎</span>
-          <input id="teamSearch" type="text" inputmode="search" autocomplete="off"
-                 placeholder="Takım ara… (puan + maçlar filtrelenir)">
-        </div>
-        <button id="btnClear" title="Aramayı temizle">Temizle</button>
-      </div>
-    </div>
-
-    <!-- ✅ Favoriler + Mobil mini yenile -->
-    <div class="favRow">
-      <div class="favLeft">
-        <div class="favTitle">⭐ Favoriler</div>
-        <div class="favHint" id="favHint">Takım modalından ⭐ ile ekleyebilirsin.</div>
-      </div>
-
-      <div class="favChips" id="favBar"></div>
-
-      <!-- mobilde görünür (actions gizlendiği için) -->
-      <button class="iconBtn btnPrimary" id="btnRefreshMini" title="Yenile">⟳</button>
     </div>
   </div>
 </header>
@@ -1047,7 +875,6 @@
         <p class="hint">
           Skorlar Google Sheet’ten gelir. Bu sayfada <b>hiç kimse sonuç değiştiremez</b>.
           <br>👆 Bir takım adına tıklayın → tüm maçları modalda görün.
-          <br><span class="hint">İpucu: <span class="kbd">/</span> ile aramaya odaklan.</span>
         </p>
 
         <div style="height:12px"></div>
@@ -1063,7 +890,7 @@
 
 <button class="jumpNext" id="btnJumpNext" title="Sonraki maça git">⏭ Sonraki Maç</button>
 
-<!-- ✅ TEAM MODAL -->
+<!-- TEAM MODAL -->
 <div class="modalOverlay" id="teamModalOverlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="teamModalTitle">
     <div class="modalHd">
@@ -1073,7 +900,6 @@
       </div>
 
       <div class="modalHdRight">
-        <button class="xBtn starBtn" id="favToggle" title="Favorilere ekle/çıkar">☆</button>
         <button class="xBtn" id="teamModalClose" aria-label="Kapat">✕</button>
       </div>
     </div>
@@ -1082,9 +908,9 @@
 </div>
 
 <script>
-/** ✅ publish key */
+/** publish key */
 const SHEET_PUB_KEY = "2PACX-1vTpmP3ySVA56yUD5mGcBBvOyxclZ3TnsALVamAj7gsKj-ve_DWZqDd3XsUbiNssM3XiAXPeXuSef0AQ";
-/** ✅ gid */
+/** gid */
 const TEAMS_GID   = "0";
 const MATCHES_GID = "1436904924";
 
@@ -1094,8 +920,6 @@ let state = { groups: {}, matches: {} };
 /** ui state */
 const ui = {
   group: localStorage.getItem("selectedGroup") || "ALL", // ALL veya A-H
-  query: localStorage.getItem("teamQuery") || "",
-  favorites: new Set(JSON.parse(localStorage.getItem("favTeams") || "[]")),
   currentModalTeam: null,
   currentModalGroup: null,
 };
@@ -1193,11 +1017,6 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 function isPlayed(m){ return Number.isInteger(m.hs) && Number.isInteger(m.as); }
-
-function includesQ(text, q){
-  if(!q) return true;
-  return String(text || "").toLocaleLowerCase("tr-TR").includes(q.toLocaleLowerCase("tr-TR"));
-}
 
 /* ---------------- load ---------------- */
 async function loadFromSheets(){
@@ -1344,50 +1163,6 @@ function stableHash(str){
   return h >>> 0;
 }
 
-/* ---------------- Favorites ---------------- */
-function saveFavorites(){
-  localStorage.setItem("favTeams", JSON.stringify([...ui.favorites]));
-  renderFavoritesBar();
-  syncFavButton();
-}
-function isFav(team){ return ui.favorites.has(team); }
-function toggleFav(team){
-  if(!team) return;
-  if(ui.favorites.has(team)) ui.favorites.delete(team);
-  else ui.favorites.add(team);
-  saveFavorites();
-}
-function findTeamGroup(team){
-  const groups = getGroupLetters();
-  for(const g of groups){
-    if((state.groups[g] || []).some(x => x.name === team)) return g;
-  }
-  return null;
-}
-function renderFavoritesBar(){
-  const bar = document.getElementById("favBar");
-  const hint = document.getElementById("favHint");
-  bar.innerHTML = "";
-
-  const list = [...ui.favorites].filter(Boolean).sort((a,b)=>a.localeCompare(b,"tr"));
-  if(list.length === 0){
-    hint.textContent = "Takım modalından ⭐ ile ekleyebilirsin.";
-    return;
-  }
-  hint.textContent = "Tıkla → takım detayını aç.";
-  list.forEach(team => {
-    const g = findTeamGroup(team);
-    const el = document.createElement("div");
-    el.className = "favChip";
-    el.innerHTML = `★ ${escapeHtml(team)} ${g ? `<small>(G${escapeHtml(g)})</small>` : ""}`;
-    el.onclick = () => {
-      const gg = g || findTeamGroup(team);
-      if(gg) openTeamModal(team, gg);
-    };
-    bar.appendChild(el);
-  });
-}
-
 /* ---------------- Group selector render ---------------- */
 function renderGroupSelector(){
   const seg = document.getElementById("groupSeg");
@@ -1428,18 +1203,13 @@ function renderGroups(){
   const root = document.getElementById("groups");
   root.innerHTML = "";
 
-  const q = ui.query.trim();
   const groups = getVisibleGroups();
-
   let shownAny = false;
 
   for(const g of groups){
     const { list: table, miniActive } = computeTable(g);
     const playedCount = (state.matches[g] || []).filter(isPlayed).length;
     const totalCount = (state.matches[g] || []).length;
-
-    const filtered = q ? table.filter(r => includesQ(r.team, q)) : table;
-    if(ui.group === "ALL" && q && filtered.length === 0) continue;
 
     shownAny = true;
 
@@ -1462,16 +1232,6 @@ function renderGroups(){
     const wrap = document.createElement("div");
     wrap.className = "groupBody";
 
-    if(filtered.length === 0){
-      const empty = document.createElement("div");
-      empty.className = "hint";
-      empty.textContent = "Bu aramaya uygun takım bulunamadı.";
-      wrap.appendChild(empty);
-      details.appendChild(wrap);
-      root.appendChild(details);
-      continue;
-    }
-
     const tableWrap = document.createElement("div");
     tableWrap.className = "tableWrap";
 
@@ -1492,19 +1252,15 @@ function renderGroups(){
     `;
 
     const tbody = t.querySelector("tbody");
-    filtered.forEach((row, idx) => {
-      const rank = (table.findIndex(x => x.team === row.team) + 1) || (idx+1);
+    table.forEach((row, idx) => {
+      const rank = idx + 1;
       const tr = document.createElement("tr");
       if(rank <= 2) tr.classList.add("top2");
-      if(isFav(row.team)) tr.classList.add("fav");
-
-      const btnCls = "teamBtn" + (isFav(row.team) ? " isFav" : "");
 
       tr.innerHTML = `
         <td class="rank" data-label="#">${rank}</td>
         <td class="name" data-label="Takım">
-          <button class="${btnCls}" data-team="${escapeHtml(row.team)}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
-            <span class="favMark">★</span>
+          <button class="teamBtn" data-team="${escapeHtml(row.team)}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
             <span>${escapeHtml(row.team)}</span>
           </button>
         </td>
@@ -1527,7 +1283,7 @@ function renderGroups(){
   }
 
   if(!shownAny){
-    root.innerHTML = `<div class="hint">Aramaya uygun grup/takım bulunamadı.</div>`;
+    root.innerHTML = `<div class="hint">Grup verisi bulunamadı.</div>`;
   }
 }
 
@@ -1535,18 +1291,11 @@ function renderFixtures(){
   const root = document.getElementById("fixtures");
   root.innerHTML = "";
 
-  const q = ui.query.trim();
   const groups = getVisibleGroups();
-
   let firstNextEl = null;
 
   for(const g of groups){
-    const allMatches = state.matches[g] || [];
-    const matches = q
-      ? allMatches.filter(m => includesQ(m.home, q) || includesQ(m.away, q))
-      : allMatches;
-
-    if(ui.group === "ALL" && q && matches.length === 0) continue;
+    const matches = state.matches[g] || [];
 
     const card = document.createElement("div");
     card.style.border = "1px solid var(--line)";
@@ -1579,9 +1328,7 @@ function renderFixtures(){
     if(matches.length === 0){
       const empty = document.createElement("div");
       empty.className = "hint";
-      empty.textContent = q
-        ? "Arama filtresine uygun maç yok."
-        : "Bu grupta henüz maç verisi yok. Matches sayfasını kontrol edin.";
+      empty.textContent = "Bu grupta henüz maç verisi yok. Matches sayfasını kontrol edin.";
       card.appendChild(empty);
       root.appendChild(card);
       continue;
@@ -1647,21 +1394,17 @@ function renderFixtures(){
         `;
 
         const home = document.createElement("div");
-        const homeCls = "teamBtn" + (isFav(m.home) ? " isFav" : "");
         home.className = "home";
         home.innerHTML = `
-          <button class="${homeCls}" data-team="${escapeHtml(m.home || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
-            <span class="favMark">★</span>
+          <button class="teamBtn" data-team="${escapeHtml(m.home || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
             <span>${escapeHtml(m.home || "-")}</span>
           </button>
         `;
 
         const away = document.createElement("div");
-        const awayCls = "teamBtn" + (isFav(m.away) ? " isFav" : "");
         away.className = "away";
         away.innerHTML = `
-          <button class="${awayCls}" data-team="${escapeHtml(m.away || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
-            <span class="favMark">★</span>
+          <button class="teamBtn" data-team="${escapeHtml(m.away || "-")}" data-group="${escapeHtml(g)}" title="Maçlarını görüntüle">
             <span>${escapeHtml(m.away || "-")}</span>
           </button>
         `;
@@ -1706,10 +1449,6 @@ function renderFixtures(){
     root.appendChild(card);
   }
 
-  if(root.children.length === 0){
-    root.innerHTML = `<div class="hint">Arama filtresine uygun maç bulunamadı.</div>`;
-  }
-
   const btn = document.getElementById("btnJumpNext");
   if(firstNextEl){
     btn.classList.add("show");
@@ -1720,7 +1459,7 @@ function renderFixtures(){
   }
 }
 
-/* ✅ accordion: ALL modda sadece bir grup açık kalsın */
+/* accordion: ALL modda sadece bir grup açık kalsın */
 function wireAccordion(){
   const root = document.getElementById("groups");
   const details = [...root.querySelectorAll("details.group")];
@@ -1734,7 +1473,7 @@ function wireAccordion(){
   });
 }
 
-/* ---------------- ✅ Next upcoming logic ---------------- */
+/* Next upcoming logic */
 function matchKey(m, g){
   return `${g}|${m.datetime}|${m.home}|${m.away}|${m.hs ?? ""}|${m.as ?? ""}`;
 }
@@ -1756,26 +1495,12 @@ function findNextUpcomingMatch(matches, group){
   return null;
 }
 
-/* ---------------- ✅ TEAM MODAL LOGIC ---------------- */
+/* TEAM MODAL */
 const modalOverlay = document.getElementById("teamModalOverlay");
 const modalCloseBtn = document.getElementById("teamModalClose");
 const modalTitle = document.getElementById("teamModalTitle");
 const modalMeta = document.getElementById("teamModalMeta");
 const modalBody = document.getElementById("teamModalBody");
-const favToggleBtn = document.getElementById("favToggle");
-
-function syncFavButton(){
-  const t = ui.currentModalTeam;
-  if(!t){
-    favToggleBtn.textContent = "☆";
-    favToggleBtn.classList.remove("on");
-    return;
-  }
-  const on = isFav(t);
-  favToggleBtn.textContent = on ? "★" : "☆";
-  favToggleBtn.classList.toggle("on", on);
-  favToggleBtn.title = on ? "Favorilerden çıkar" : "Favorilere ekle";
-}
 
 function openTeamModal(team, group){
   const g = group;
@@ -1893,9 +1618,8 @@ function openTeamModal(team, group){
 
   modalOverlay.classList.add("show");
   modalOverlay.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden"; // ✅ arka plan scroll kapat
+  document.body.style.overflow = "hidden";
 
-  syncFavButton();
   modalCloseBtn.focus();
 }
 
@@ -1955,10 +1679,10 @@ function closeTeamModal(){
   modalOverlay.setAttribute("aria-hidden", "true");
   ui.currentModalTeam = null;
   ui.currentModalGroup = null;
-  document.body.style.overflow = ""; // ✅ geri aç
+  document.body.style.overflow = "";
 }
 
-/* ✅ click handlers (event delegation) */
+/* click handlers */
 document.addEventListener("click", (e) => {
   const btn = e.target.closest(".teamBtn");
   if(btn){
@@ -1978,53 +1702,17 @@ document.addEventListener("keydown", (e)=>{
   if(e.key === "Escape" && modalOverlay.classList.contains("show")){
     closeTeamModal();
   }
-  if(e.key === "/" && !modalOverlay.classList.contains("show")){
-    e.preventDefault();
-    document.getElementById("teamSearch").focus();
-  }
 });
 
-favToggleBtn.addEventListener("click", () => {
-  if(ui.currentModalTeam){
-    toggleFav(ui.currentModalTeam);
-  }
-});
-
-/* ---------------- app init / refresh ---------------- */
+/* app init / refresh */
 async function init(){
   wireButtons();
-  const inp = document.getElementById("teamSearch");
-  inp.value = ui.query;
-
-  renderFavoritesBar();
-
   await refreshData();
   setInterval(refreshData, 60000);
 }
 
 function wireButtons(){
-  const refresh = () => refreshData();
-  document.getElementById("btnRefresh").onclick = refresh;
-  document.getElementById("btnRefreshMini").onclick = refresh;
-
-  const inp = document.getElementById("teamSearch");
-  let tmr = null;
-  inp.addEventListener("input", () => {
-    clearTimeout(tmr);
-    tmr = setTimeout(() => {
-      ui.query = inp.value || "";
-      localStorage.setItem("teamQuery", ui.query);
-      renderAll();
-    }, 80);
-  });
-
-  document.getElementById("btnClear").onclick = () => {
-    ui.query = "";
-    localStorage.setItem("teamQuery", ui.query);
-    inp.value = "";
-    renderAll();
-    inp.focus();
-  };
+  document.getElementById("btnRefresh").onclick = () => refreshData();
 }
 
 async function refreshData(){
@@ -2034,9 +1722,8 @@ async function refreshData(){
     await loadFromSheets();
 
     renderGroupSelector();
-    renderFavoritesBar();
-
     renderAll();
+
     const now = new Date();
     status.textContent = `Güncellendi: ${now.toLocaleString("tr-TR")}`;
   }catch(e){
