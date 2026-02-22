@@ -270,6 +270,7 @@
       border-bottom:1px solid var(--line);
       text-align:center;
       white-space:nowrap;
+      vertical-align:middle;
     }
 
     thead th{
@@ -343,7 +344,7 @@
     .teamBtn:hover{ background: rgba(96,165,250,.12); transform: translateY(-1px); }
     .teamBtn:focus-visible{ outline:2px solid rgba(96,165,250,.7); outline-offset:2px; }
 
-    /* takım ismi ellipsis (tablo + fixture) */
+    /* masaüstü: takım ismi tek satırda kısalabilir */
     .teamBtn span:last-child{
       display:inline-block;
       min-width:0;
@@ -668,23 +669,23 @@
       .filtersRow{gap:10px}
       .card .bd{padding:12px}
       .card .hd{padding:12px}
-      .legend .kbd{font-size:11px}
       .twoCols{grid-template-columns:1fr}
       .mRow{grid-template-columns: 1fr; gap:8px}
       .mScore{justify-self:start}
       .jumpNext{right:12px; bottom:12px}
     }
 
-    /* MOBİL: fixtures takım isimleri YAN YANA (home-score-away) */
+    /* MOBİL: fixtures YAN YANA ama isimler TAM görünsün (wrap) */
     @media (max-width: 680px){
       .fixture{
-        grid-template-columns: 1fr 128px 1fr;
+        grid-template-columns: minmax(0,1fr) 128px minmax(0,1fr);
         grid-template-areas:
           "time time time"
           "home score away";
         gap:10px;
-        align-items:center;
+        align-items:start;
       }
+
       .timeSlot{
         width:100%;
         flex-direction:row;
@@ -692,11 +693,50 @@
         gap:10px;
         padding:8px 10px;
       }
+
       .home{justify-content:flex-start;}
       .away{justify-content:flex-end;}
-      .fixture .home .teamBtn{justify-content:flex-start;}
-      .fixture .away .teamBtn{justify-content:flex-end;}
+      .fixture .home .teamBtn{justify-content:flex-start; align-items:flex-start;}
+      .fixture .away .teamBtn{justify-content:flex-end; align-items:flex-start;}
+
+      /* ✅ mobilde takım adı: ellipsis kapalı, satır satır sarsın */
+      .fixture .teamBtn span:last-child{
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        display:block !important;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        hyphens:auto;
+        line-height:1.15;
+        font-size:14px;
+        max-width:100%;
+      }
+
+      .fixture .home .teamBtn span:last-child{ text-align:left; }
+      .fixture .away .teamBtn span:last-child{ text-align:right; }
+
       .scoreBadge{justify-content:center;}
+    }
+
+    /* ÇOK DAR EKRAN: isimlerin %100 görünmesi için dikey düzen */
+    @media (max-width: 420px){
+      .fixture{
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "time"
+          "home"
+          "score"
+          "away";
+        gap:10px;
+        align-items:stretch;
+      }
+      .home, .away{justify-content:flex-start;}
+      .fixture .home .teamBtn,
+      .fixture .away .teamBtn{justify-content:flex-start;}
+      .fixture .home .teamBtn span:last-child,
+      .fixture .away .teamBtn span:last-child{ text-align:left; }
+      .scoreBadge{justify-content:flex-start;}
     }
 
     /* MOBİLDE TABLO BAŞLIĞI + STICKY */
@@ -791,11 +831,17 @@
       th:nth-child(n+3), td:nth-child(n+3){ width:36px !important; }
 
       td.name{ max-width:0; }
-      td.name .teamBtn{
-        width:100%;
-        display:flex;
-        align-items:center;
-        gap:8px;
+
+      /* ✅ mobil tablo: isim TAM görünsün (ellipsis kapalı) */
+      td.name .teamBtn span:last-child{
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        display:block !important;
+        word-break: break-word;
+        overflow-wrap:anywhere;
+        hyphens:auto;
+        line-height:1.15;
       }
 
       tbody td.rank, tbody td.name{
@@ -803,6 +849,68 @@
         left:auto !important;
         box-shadow:none !important;
       }
+    }
+
+    /* ✅ MODAL: mobilde bottom-sheet gibi, daha güzel */
+    @media (max-width: 680px){
+      .modalOverlay{
+        align-items:flex-end;
+        justify-content:center;
+        padding:0;
+      }
+      .modal{
+        width:100%;
+        max-height: 92vh;
+        border-radius: 18px 18px 0 0;
+        animation: slideUp .18s ease-out forwards;
+      }
+      @keyframes slideUp{
+        from{ transform: translateY(18px); opacity:0; }
+        to{ transform: translateY(0); opacity:1; }
+      }
+      .modal::before{
+        content:"";
+        width:54px;
+        height:5px;
+        border-radius:999px;
+        background: rgba(255,255,255,.18);
+        margin:10px auto 0;
+      }
+      .modalHd{
+        padding:10px 12px 10px;
+        position:sticky;
+        top:0;
+      }
+      .modalHd h3{ font-size:14px; }
+      .modalBd{ padding:12px; }
+
+      .xBtn{ width:44px; height:44px; border-radius:14px; }
+
+      .modalHd .meta{
+        gap:6px;
+        font-size:11px;
+      }
+      .chip{
+        font-size:11px;
+        padding:5px 8px;
+      }
+
+      .nextPanel{ padding:10px; border-radius:14px; }
+
+      /* listeleri kart gibi yap */
+      .panel{ border-radius:14px; }
+      .panelBd{ padding:10px; }
+
+      .mRow{
+        display:block;
+        border:1px solid var(--line);
+        border-radius:14px;
+        background: rgba(0,0,0,.10);
+        padding:10px;
+        margin:10px 0;
+      }
+      .mWhen{ margin-bottom:6px; }
+      .mScore{ margin-top:8px; justify-content:flex-start; }
     }
 
     /* Modal header sağ tuş mobilde garanti */
@@ -814,42 +922,6 @@
         top:12px;
       }
     }
-    /* ✅ Mobilde takım isimlerini güzel göster (2 satır, clamp) */
-@media (max-width: 680px){
-  /* buton genişlesin, ortalansın */
-  .teamBtn{
-    width:100%;
-    justify-content:center;
-    padding:8px 10px;
-  }
-
-  /* artık tek satır + ellipsis değil, 2 satır */
-  .home span, .away span{
-    white-space: normal !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;   /* ✅ 2 satır göster */
-    line-clamp: 2;
-
-    max-width: 100%;
-    text-align: center;
-    font-size: 15px;
-    line-height: 1.15;
-  }
-
-  /* home/away hizası mobilde daha temiz */
-  .home, .away{
-    justify-content:center;
-  }
-
-  /* skor alanı da ortalansın */
-  .scoreBadge{
-    justify-content:center;
-  }
-}
   </style>
 </head>
 
