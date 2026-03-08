@@ -1059,6 +1059,114 @@
     @media (max-width: 900px){ .seedBoard{grid-template-columns:repeat(2,1fr)} }
     @media (max-width: 560px){ .seedBoard{grid-template-columns:1fr} }
 
+
+    /* === Mobile-first eleme iyileştirmeleri === */
+    .heroStats{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      margin-top:14px;
+    }
+    .heroStat{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+      background: rgba(0,0,0,.12);
+      box-shadow: 0 10px 28px rgba(0,0,0,.14);
+    }
+    .heroStat .k{color:var(--muted);font-size:11px;font-family:var(--mono);letter-spacing:.35px;text-transform:uppercase}
+    .heroStat .v{margin-top:8px;font-weight:1000;font-size:18px;line-height:1.12}
+    .heroStat .s{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.3}
+
+    .mobileBracketList{display:none;margin-top:14px;gap:12px}
+    .mobileTie{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background: rgba(0,0,0,.12);
+      padding:12px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.14);
+    }
+    .mobileTieHd{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}
+    .mobileTieHd b{font-size:14px}
+    .mobileAgg{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:4px}
+    .mobileTeams{display:grid;gap:8px}
+    .mobileTeamRow{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:14px;padding:10px 12px;background: rgba(255,255,255,.03);
+      font-weight:1000;
+    }
+    .mobileTeamName{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .mobileTeamScore{font-family:var(--mono);font-size:16px;min-width:32px;text-align:right}
+    .mobileTieMeta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+    .tieCard{border:1px solid var(--line);border-radius:18px;padding:12px;background: rgba(0,0,0,.10);margin-bottom:12px;box-shadow:0 10px 28px rgba(0,0,0,.12)}
+    .tieCardHd{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+    .tieCardTitle{font-weight:1000;letter-spacing:.2px}
+
+    @media (max-width: 860px){
+      .heroStats{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width: 680px){
+      .viewTabs{display:grid;grid-template-columns:1fr 1fr;width:100%}
+      .viewBtn{padding:13px 12px;font-size:14px;text-align:center}
+      .filtersRow{align-items:stretch}
+      .filtersRow > *{width:100%}
+      .segWrap{padding-bottom:0}
+
+      .knockoutHero,
+      .koPanel{
+        border-radius:20px;
+      }
+      .heroTop{display:grid;gap:10px}
+      .heroTop h2{margin:0 0 6px;font-size:20px}
+      .heroTop p{margin:0;color:var(--muted);line-height:1.45}
+      .heroStats{grid-template-columns:1fr 1fr;gap:10px}
+      .heroStat{padding:12px 11px}
+      .heroStat .v{font-size:17px}
+
+      .bracketWrap{display:none !important}
+      .mobileBracketList{display:grid}
+
+      .koGrid{gap:12px}
+      .koPanel .hd{padding:12px}
+      .koList{padding:10px}
+      .tieCard{padding:10px}
+      .tieCardHd{align-items:flex-start}
+      .tieCardTitle{font-size:14px}
+
+      .fixture{
+        grid-template-columns:1fr !important;
+        grid-template-areas:"time" "home" "score" "away" !important;
+        gap:10px !important;
+        padding:12px !important;
+      }
+      .fixture .home,
+      .fixture .away{justify-content:flex-start !important}
+      .fixture .teamBtn span:last-child{
+        white-space:normal !important;
+        overflow:visible !important;
+        text-overflow:clip !important;
+        word-break:break-word;
+        overflow-wrap:anywhere;
+        line-height:1.2;
+      }
+      .fixture .scoreBadge{justify-content:flex-start !important;gap:8px !important}
+      .fixture .sb{min-width:50px;font-size:16px;padding:10px 12px}
+      .fixture .timeSlot{flex-direction:row;justify-content:flex-start;text-align:left;padding:10px 12px;gap:10px}
+      .fixture .timeSlot .tMain{font-size:13px}
+      .fixture .timeSlot .tSub{font-size:11px}
+    }
+    @media (max-width: 480px){
+      .heroStats{grid-template-columns:1fr}
+      .wrap{padding:14px 12px}
+      .badge{width:42px;height:42px}
+      h1{font-size:15px}
+      .sub{font-size:11px}
+      .mobileTieHd{flex-direction:column}
+      .mobileTeamScore{font-size:18px}
+    }
+
   </style>
 </head>
 
@@ -1108,6 +1216,8 @@
           <div id="knockoutStatus" class="pill warn">Eleme verileri bekleniyor</div>
         </div>
 
+        <div class="heroStats" id="heroStats"></div>
+
         <div class="seedBoard" id="qualifiedBoard"></div>
 
         <div class="bracketWrap" style="margin-top:14px">
@@ -1120,6 +1230,8 @@
           </div>
           <div class="bracketSide right" id="bracketRight"></div>
         </div>
+
+        <div class="mobileBracketList" id="mobileBracketList"></div>
       </div>
     </section>
 
@@ -1470,6 +1582,86 @@ function formatDateTimeLabel(s){
   const d = parseDateTimeLoose(s);
   if(!d) return s || 'Tarih yok';
   return `${formatDateTR(new Date(d.toISOString().slice(0,10) + 'T00:00'))} • ${formatTimeTR(d)}`;
+}
+
+function getNextUpcomingStageMatch(stages){
+  const now = new Date();
+  const list = stages
+    .flat()
+    .filter(m => !isPlayed(m))
+    .map(m => ({ m, d: parseDateTimeLoose(m.datetime) }));
+
+  const dated = list.filter(x => x.d && Number.isFinite(x.d.getTime())).sort((a,b) => a.d - b.d);
+  const future = dated.find(x => x.d >= now);
+  if(future) return future.m;
+  if(dated[0]) return dated[0].m;
+  return list[0]?.m || null;
+}
+
+function renderHeroStats(qf, sf, finals){
+  const root = document.getElementById('heroStats');
+  if(!root) return;
+  const next = getNextUpcomingStageMatch([qf, sf, finals]);
+  const qfTies = groupStageByTie(qf).length;
+  const sfTies = groupStageByTie(sf).length;
+  const finalCount = finals.length;
+  const nextLabel = next ? formatDateTimeLabel(next.datetime) : 'Takvim bekleniyor';
+  const nextTeams = next ? `${next.home || '-'} vs ${next.away || '-'}` : 'Eşleşmeler hazır';
+
+  root.innerHTML = `
+    <div class="heroStat">
+      <div class="k">Çeyrek Final</div>
+      <div class="v">${qfTies} eşleşme</div>
+      <div class="s">Toplam ${qf.length} maç • Rövanşlı</div>
+    </div>
+    <div class="heroStat">
+      <div class="k">Yarı Final</div>
+      <div class="v">${sfTies} eşleşme</div>
+      <div class="s">Toplam ${sf.length} maç • Rövanşlı</div>
+    </div>
+    <div class="heroStat">
+      <div class="k">Final</div>
+      <div class="v">${finalCount} maç</div>
+      <div class="s">Tek maç • Kupa maçı</div>
+    </div>
+    <div class="heroStat">
+      <div class="k">Sıradaki Maç</div>
+      <div class="v">${escapeHtml(nextTeams)}</div>
+      <div class="s">${escapeHtml(nextLabel)}</div>
+    </div>
+  `;
+}
+
+function renderMobileBracketList(qf, sf, finals){
+  const root = document.getElementById('mobileBracketList');
+  if(!root) return;
+  const ties = [
+    ...groupStageByTie(qf),
+    ...groupStageByTie(sf),
+    ...groupStageByTie(finals)
+  ];
+  root.innerHTML = ties.map(rows => {
+    const tie = computeTieAggregate(rows);
+    return `
+      <div class="mobileTie">
+        <div class="mobileTieHd">
+          <div>
+            <b>${escapeHtml(tie.key)}</b>
+            <div class="mobileAgg">${escapeHtml(formatAggregateLabel(tie))}</div>
+          </div>
+          <span class="pill ${tie.playedLegs ? 'ok' : 'warn'}">${tie.totalLegs > 1 ? `${tie.playedLegs}/${tie.totalLegs} maç` : 'Tek maç'}</span>
+        </div>
+        <div class="mobileTeams">
+          <div class="mobileTeamRow"><span class="mobileTeamName">${escapeHtml(tie.teamA)}</span><span class="mobileTeamScore">${tie.playedLegs ? tie.aggA : '-'}</span></div>
+          <div class="mobileTeamRow"><span class="mobileTeamName">${escapeHtml(tie.teamB)}</span><span class="mobileTeamScore">${tie.playedLegs ? tie.aggB : '-'}</span></div>
+        </div>
+        <div class="mobileTieMeta">
+          <span class="pill">${escapeHtml(tie.stage || tie.key)}</span>
+          <span class="pill">${escapeHtml(tie.note || 'Eleme eşleşmesi')}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 /* ---------------- load ---------------- */
@@ -2007,6 +2199,8 @@ function renderKnockout(){
   }
 
   renderQualifiedBoard();
+  renderHeroStats(qf, sf, finals);
+  renderMobileBracketList(qf, sf, finals);
 
   const left = document.getElementById("bracketLeft");
   const right = document.getElementById("bracketRight");
@@ -2076,20 +2270,12 @@ function renderKnockoutList(root, list, stageTitle){
   ties.forEach((rows) => {
     const tie = computeTieAggregate(rows);
     const box = document.createElement('div');
-    box.style.border = '1px solid var(--line)';
-    box.style.borderRadius = '16px';
-    box.style.padding = '12px';
-    box.style.background = 'rgba(0,0,0,.10)';
-    box.style.marginBottom = '12px';
+    box.className = 'tieCard';
 
     const hd = document.createElement('div');
-    hd.style.display = 'flex';
-    hd.style.justifyContent = 'space-between';
-    hd.style.alignItems = 'center';
-    hd.style.gap = '10px';
-    hd.style.marginBottom = '10px';
+    hd.className = 'tieCardHd';
     hd.innerHTML = `
-      <div style="font-weight:1000;letter-spacing:.2px">${escapeHtml(tie.key)} • ${tie.totalLegs > 1 ? '2 maçlı eşleşme' : 'Tek maç'}</div>
+      <div class="tieCardTitle">${escapeHtml(tie.key)} • ${tie.totalLegs > 1 ? '2 maçlı eşleşme' : 'Tek maç'}</div>
       <div class="pill ${tie.playedLegs ? 'ok' : 'warn'}">${escapeHtml(formatAggregateLabel(tie))}</div>
     `;
     box.appendChild(hd);
