@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="tr">
 <head>
@@ -922,6 +923,142 @@
         top:12px;
       }
     }
+  
+
+    /* Knockout */
+    .stack{display:grid;gap:16px;margin-top:16px}
+    .knockoutHero{
+      border:1px solid transparent;
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      background:
+        radial-gradient(700px 340px at 50% 50%, rgba(96,165,250,.14), transparent 58%),
+        linear-gradient(180deg, var(--cardA), var(--cardB)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.28), rgba(96,165,250,.28), rgba(251,113,133,.20)) border-box;
+    }
+    .heroBd{padding:16px}
+    .heroTop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .heroTop h2{margin:0;font-size:16px}
+    .heroTop p{margin:4px 0 0;color:var(--muted);font-size:12px}
+    .bracketWrap{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1fr 170px 1fr;
+      gap:14px;
+      align-items:center;
+      min-height:420px;
+    }
+    .bracketSide{display:grid;gap:12px}
+    .bracketCenter{
+      min-height:320px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      background: radial-gradient(300px 220px at 50% 35%, rgba(96,165,250,.14), transparent 58%), rgba(0,0,0,.10);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:16px 10px;
+      position:relative;
+    }
+    .cupIcon{font-size:78px;line-height:1;filter: drop-shadow(0 12px 25px rgba(0,0,0,.35));}
+    .finalText{font-weight:1000;font-size:30px;letter-spacing:.8px}
+    .semiTag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.6px}
+    .bracketMatch{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+      background: rgba(0,0,0,.12);
+      min-height:94px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.16);
+    }
+    .bracketMatch::after{
+      content:"";
+      position:absolute;
+      top:50%;
+      width:18px;
+      border-top:2px solid rgba(96,165,250,.55);
+      opacity:.9;
+    }
+    .bracketSide.left .bracketMatch::after{right:-19px}
+    .bracketSide.right .bracketMatch::after{left:-19px}
+    .bracketMatch .stageMini{font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:8px}
+    .bmTeams{display:grid;gap:8px}
+    .bmTeam{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:12px;padding:8px 10px;background: rgba(255,255,255,.03);
+      font-weight:900;
+    }
+    .bmName{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .bmScore{font-family:var(--mono);color:var(--text);min-width:18px;text-align:right}
+    .bmFooter{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--muted)}
+    .koGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .koPanel{
+      border:1px solid transparent;
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, var(--cardA), var(--cardB)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.28), rgba(96,165,250,.28), rgba(251,113,133,.20)) border-box;
+    }
+    .koList{padding:12px}
+    .koEmpty{padding:18px 12px;color:var(--muted);font-size:13px}
+    @media (max-width: 980px){
+      .koGrid{grid-template-columns:1fr}
+    }
+    @media (max-width: 820px){
+      .bracketWrap{grid-template-columns:1fr;min-height:auto}
+      .bracketCenter{order:-1;min-height:220px}
+      .bracketMatch::after{display:none}
+    }
+
+
+    .viewTabs{display:flex;gap:8px;flex-wrap:wrap}
+    .viewBtn{
+      border:1px solid var(--line);
+      background: rgba(18,26,51,.35);
+      color:var(--muted);
+      padding:9px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:900;
+      transition:.15s transform,.15s background,.15s border-color;
+    }
+    .viewBtn:hover{transform:translateY(-1px);background: rgba(18,26,51,.55);border-color:var(--line2)}
+    .viewBtn.active{
+      color:var(--text);
+      border:1px solid transparent;
+      background:
+        linear-gradient(rgba(18,26,51,.45), rgba(18,26,51,.45)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.55), rgba(96,165,250,.55)) border-box;
+      box-shadow: 0 8px 20px rgba(0,0,0,.22);
+    }
+    .hidden{display:none !important}
+    .viewSection{margin-top:16px}
+    .viewHeaderNote{color:var(--muted);font-size:12px}
+    .seedBoard{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .seedMini{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.10);
+      padding:10px;
+    }
+    .seedMini h3{margin:0 0 8px;font-size:12px;color:var(--muted);letter-spacing:.3px}
+    .seedMini .line{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+    .seedMini .line:last-child{border-bottom:0}
+    @media (max-width: 900px){ .seedBoard{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width: 560px){ .seedBoard{grid-template-columns:1fr} }
+
   </style>
 </head>
 
@@ -933,7 +1070,7 @@
         <div class="badge">PS5</div>
         <div>
           <h1>Ramazan Kantin FIFA Turnuvası</h1>
-          <p class="sub">32 kişi — 8 grup (A–H) — Puan Durumları (Sadece Takip)</p>
+          <p class="sub">16 kişi — 4 grup (A–D) — Grup + Eleme Takibi</p>
         </div>
       </div>
 
@@ -942,57 +1079,118 @@
       </div>
     </div>
 
-    <!-- Grup seçici (Takım arama kaldırıldı) -->
     <div class="filtersRow">
-      <div class="segWrap" id="groupSeg"></div>
+      <div class="viewTabs" id="viewTabs">
+        <button class="viewBtn active" id="btnViewKnockout" type="button">🏆 Eleme Turu</button>
+        <button class="viewBtn" id="btnViewGroups" type="button">📊 Grup Aşaması</button>
+      </div>
+      <div class="segWrap hidden" id="groupSeg"></div>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <div class="grid">
-    <!-- LEFT -->
-    <section class="card">
+  <section id="viewKnockout" class="viewSection">
+    <section class="knockoutHero">
       <div class="hd">
         <div>
-          <h2>Gruplar — Puan Durumları</h2>
-          <small>İlk 2 ✓ → Son 16</small>
+          <h2>Eleme Turu</h2>
+          <small>Çeyrek Final (rövanşlı) • Yarı Final (rövanşlı) • Final</small>
         </div>
-        <span class="pill">Tie-break: <b>Mini Averaj</b> → <b>GD</b> → <b>GF</b></span>
+        <span class="pill">Varsayılan görünüm: <b>Eleme</b></span>
       </div>
-      <div class="bd">
-        <div class="statusLine" id="statusLeft">
-          <span class="pulseDot"></span>
-          Google Sheet’ten veriler yükleniyor...
+      <div class="heroBd">
+        <div class="heroTop">
+          <div>
+            <h2>Şampiyonluk Yolu</h2>
+            <p>İlk açılışta doğrudan eleme tablosu görünür. Grup aşaması alttaki sekmeden açılır.</p>
+          </div>
+          <div id="knockoutStatus" class="pill warn">Eleme verileri bekleniyor</div>
         </div>
-        <div style="height:10px"></div>
-        <div id="groups"></div>
+
+        <div class="seedBoard" id="qualifiedBoard"></div>
+
+        <div class="bracketWrap" style="margin-top:14px">
+          <div class="bracketSide left" id="bracketLeft"></div>
+          <div class="bracketCenter">
+            <div class="semiTag">YARI FİNAL</div>
+            <div class="cupIcon">🏆</div>
+            <div class="finalText">FİNAL</div>
+            <div class="semiTag" id="finalCenterText">Kazananlar burada buluşur</div>
+          </div>
+          <div class="bracketSide right" id="bracketRight"></div>
+        </div>
       </div>
     </section>
 
-    <!-- RIGHT -->
-    <aside class="card">
-      <div class="hd">
-        <div>
-          <h2>Maçlar</h2>
-          <small>Skorlar sadece organizatör tarafından girilir</small>
+    <section class="koGrid" style="margin-top:16px">
+      <section class="koPanel">
+        <div class="hd">
+          <div><h2>Çeyrek Final</h2><small>4 eşleşme • 8 maç</small></div>
+          <span class="pill" id="qfCount">0 maç</span>
         </div>
-        <span class="pill">Kaynak: <b>Google Sheets</b></span>
-      </div>
-      <div class="bd">
-        <p class="hint">
-          Skorlar Google Sheet’ten gelir. Bu sayfada <b>hiç kimse sonuç değiştiremez</b>.
-          <br>👆 Bir takım adına tıklayın → tüm maçları modalda görün.
-        </p>
+        <div class="koList" id="qfList"></div>
+      </section>
+      <section class="koPanel">
+        <div class="hd">
+          <div><h2>Yarı Final</h2><small>2 eşleşme • 4 maç</small></div>
+          <span class="pill" id="sfCount">0 maç</span>
+        </div>
+        <div class="koList" id="sfList"></div>
+      </section>
+      <section class="koPanel">
+        <div class="hd">
+          <div><h2>Final</h2><small>1 maç</small></div>
+          <span class="pill" id="finalCount">0 maç</span>
+        </div>
+        <div class="koList" id="finalList"></div>
+      </section>
+    </section>
+  </section>
 
-        <div style="height:12px"></div>
-        <div id="fixtures"></div>
-      </div>
-    </aside>
-  </div>
+  <section id="viewGroups" class="viewSection hidden">
+    <div class="grid">
+      <section class="card">
+        <div class="hd">
+          <div>
+            <h2>Gruplar — Puan Durumları</h2>
+            <small>İlk 2 ✓ → Çeyrek Final</small>
+          </div>
+          <span class="pill">Tie-break: <b>Mini Averaj</b> → <b>GD</b> → <b>GF</b></span>
+        </div>
+        <div class="bd">
+          <div class="statusLine" id="statusLeft">
+            <span class="pulseDot"></span>
+            Google Sheet’ten veriler yükleniyor...
+          </div>
+          <div style="height:10px"></div>
+          <div id="groups"></div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="hd">
+          <div>
+            <h2>Grup Maçları</h2>
+            <small>Skorlar sadece organizatör tarafından girilir</small>
+          </div>
+          <span class="pill">Kaynak: <b>Google Sheets</b></span>
+        </div>
+        <div class="bd">
+          <p class="hint">
+            Grup aşaması eski haliyle görünmeye devam eder.
+            <br>👆 Bir takım adına tıklayın → tüm maçları modalda görün.
+          </p>
+
+          <div style="height:12px"></div>
+          <div id="fixtures"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
 
   <div class="footer">
-    Tek sayfa • Sadece takip • Skorlar Google Sheet’ten güncellenir.
+    Tek sayfa • Grup aşaması + eleme turu birlikte çalışır • Skorlar Google Sheet’ten güncellenir.
   </div>
 </main>
 
@@ -1021,15 +1219,19 @@ const SHEET_PUB_KEY = "2PACX-1vTpmP3ySVA56yUD5mGcBBvOyxclZ3TnsALVamAj7gsKj-ve_DW
 /** gid */
 const TEAMS_GID   = "0";
 const MATCHES_GID = "1436904924";
+const QF_GID      = "";
+const SF_GID      = "";
+const FINAL_GID   = "";
 
 /** state */
-let state = { groups: {}, matches: {} };
+let state = { groups: {}, matches: {}, knockout: { QF: [], SF: [], FINAL: [] } };
 
 /** ui state */
 const ui = {
   group: localStorage.getItem("selectedGroup") || "ALL", // ALL veya A-H
   currentModalTeam: null,
   currentModalGroup: null,
+  view: localStorage.getItem("selectedView") || "knockout",
 };
 
 init();
@@ -1125,6 +1327,150 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 function isPlayed(m){ return Number.isInteger(m.hs) && Number.isInteger(m.as); }
+async function fetchKnockoutStage(gid, stage){
+  if(!gid) return [];
+  try{
+    const rows = await fetchSheetAsObjectsByGid(gid);
+    const list = rows.map((r, idx) => {
+      const slot = normalizeStr(r["Slot"]);
+      const parsed = parseKnockoutSlotInfo(slot, stage);
+      return {
+        stage,
+        slot: slot || `${stage}-${idx+1}`,
+        tie: normalizeStr(r["Tie"]) || normalizeStr(r["Pair"]) || parsed.tie,
+        leg: normalizeStr(r["Leg"]) || parsed.leg,
+        datetime: normalizeStr(r["DateTime"]),
+        home: normalizeStr(r["Home"]) || "Takım 1",
+        away: normalizeStr(r["Away"]) || "Takım 2",
+        hs: toIntOrNull(r["HS"]),
+        as: toIntOrNull(r["AS"]),
+        note: normalizeStr(r["Note"]),
+      };
+    });
+    list.sort((a,b) => {
+      const da = parseDateTimeLoose(a.datetime);
+      const db = parseDateTimeLoose(b.datetime);
+      if(da && db) return da - db;
+      if(da && !db) return -1;
+      if(!da && db) return 1;
+      return 0;
+    });
+    return list;
+  }catch(e){
+    console.warn(stage + ' sheet okunamadı', e);
+    return [];
+  }
+}
+function parseKnockoutSlotInfo(slot, stage){
+  const raw = normalizeStr(slot);
+  if(!raw){
+    return { tie: `${stage}-1`, leg: "" };
+  }
+
+  const upper = raw
+    .toUpperCase()
+    .replace(/Ç/g,'C').replace(/Ğ/g,'G').replace(/İ/g,'I')
+    .replace(/Ö/g,'O').replace(/Ş/g,'S').replace(/Ü/g,'U');
+
+  const match = upper.match(/^(QF|SF|FINAL)[-_ ]?(\d+)?(?:[-_ ]?(?:LEG|L|MAC|MATCH|M))?[-_ ]?([12])?$/i);
+  if(match){
+    const stageKey = match[1].toUpperCase() === 'FINAL' ? 'FINAL' : match[1].toUpperCase();
+    const num = match[2] ? `-${match[2]}` : (stageKey === 'FINAL' ? '' : '-1');
+    return { tie: `${stageKey}${num}`, leg: match[3] || "" };
+  }
+
+  if(/ROVANS|REVANS|ROVANŞ|RÖVANŞ|2\. ?MAC/i.test(upper)){
+    return { tie: raw.replace(/[-_ ]?(ROVANS|REVANS|ROVANŞ|RÖVANŞ|2\. ?MAC)$/i, '').trim(), leg: '2' };
+  }
+  if(/ILK ?MAC|1\. ?MAC/i.test(upper)){
+    return { tie: raw.replace(/[-_ ]?(ILK ?MAC|1\. ?MAC)$/i, '').trim(), leg: '1' };
+  }
+
+  return { tie: raw, leg: "" };
+}
+function getStageTieKey(m){
+  return normalizeStr(m.tie || parseKnockoutSlotInfo(m.slot, m.stage).tie || m.slot || m.stage || 'TIE');
+}
+function getLegNumber(m, fallbackIndex=0){
+  const legRaw = normalizeStr(m.leg);
+  if(legRaw === '1' || legRaw === '2') return Number(legRaw);
+  const parsed = parseKnockoutSlotInfo(m.slot, m.stage).leg;
+  if(parsed === '1' || parsed === '2') return Number(parsed);
+  return fallbackIndex + 1;
+}
+function groupStageByTie(list){
+  const map = new Map();
+  list.forEach((m) => {
+    const key = getStageTieKey(m);
+    if(!map.has(key)) map.set(key, []);
+    map.get(key).push(m);
+  });
+  return Array.from(map.values()).map(rows => rows.sort((a,b) => {
+    const da = parseDateTimeLoose(a.datetime);
+    const db = parseDateTimeLoose(b.datetime);
+    if(da && db && da.getTime() !== db.getTime()) return da - db;
+    if(da && !db) return -1;
+    if(!da && db) return 1;
+    return getLegNumber(a) - getLegNumber(b);
+  }));
+}
+function computeTieAggregate(rows){
+  const ordered = [...rows].sort((a,b) => getLegNumber(a) - getLegNumber(b));
+  const first = ordered[0] || {};
+  const teamA = first.home || '-';
+  const teamB = first.away || '-';
+
+  let aggA = 0;
+  let aggB = 0;
+  let playedLegs = 0;
+
+  ordered.forEach((m, idx) => {
+    m._legNumber = getLegNumber(m, idx);
+    if(!isPlayed(m)) return;
+    playedLegs++;
+    if(m.home === teamA && m.away === teamB){
+      aggA += m.hs;
+      aggB += m.as;
+    } else if(m.home === teamB && m.away === teamA){
+      aggA += m.as;
+      aggB += m.hs;
+    } else {
+      aggA += m.hs;
+      aggB += m.as;
+    }
+  });
+
+  return {
+    key: getStageTieKey(first),
+    stage: first.stage || '',
+    teamA,
+    teamB,
+    aggA,
+    aggB,
+    playedLegs,
+    totalLegs: ordered.length,
+    note: ordered.map(x => normalizeStr(x.note)).filter(Boolean)[0] || normalizeStr(first.note),
+    ordered,
+    played: playedLegs === ordered.length && ordered.length > 0,
+  };
+}
+function formatAggregateLabel(tie){
+  if(tie.totalLegs <= 1){
+    const only = tie.ordered[0];
+    return isPlayed(only) ? `${only.hs} - ${only.as}` : 'Skor bekleniyor';
+  }
+  if(!tie.playedLegs) return 'Toplam skor bekleniyor';
+  return `Toplam ${tie.aggA} - ${tie.aggB}`;
+}
+function formatStageCounter(list){
+  const ties = groupStageByTie(list);
+  return `${ties.length} eşleşme • ${list.length} maç`;
+}
+function formatDateTimeLabel(s){
+  const d = parseDateTimeLoose(s);
+  if(!d) return s || 'Tarih yok';
+  return `${formatDateTR(new Date(d.toISOString().slice(0,10) + 'T00:00'))} • ${formatTimeTR(d)}`;
+}
 
 /* ---------------- load ---------------- */
 async function loadFromSheets(){
@@ -1168,7 +1514,13 @@ async function loadFromSheets(){
     });
   }
 
-  state = { groups, matches };
+  const knockout = {
+    QF: await fetchKnockoutStage(QF_GID, "QF"),
+    SF: await fetchKnockoutStage(SF_GID, "SF"),
+    FINAL: await fetchKnockoutStage(FINAL_GID, "FINAL")
+  };
+
+  state = { groups, matches, knockout };
 }
 function getGroupLetters(){
   return Object.keys(state.groups).sort((a,b)=>a.localeCompare(b, "tr"));
@@ -1177,6 +1529,60 @@ function getVisibleGroups(){
   const groups = getGroupLetters();
   if(ui.group === "ALL") return groups;
   return groups.includes(ui.group) ? [ui.group] : groups;
+}
+
+function getQualifiedTeams(){
+  const groups = getGroupLetters();
+  return groups.map(g => {
+    const table = computeTable(g).list;
+    return {
+      group: g,
+      first: table[0]?.team || null,
+      second: table[1]?.team || null,
+      table
+    };
+  }).filter(x => x.first && x.second);
+}
+function buildAutoKnockout(){
+  const qualified = getQualifiedTeams();
+  const map = Object.fromEntries(qualified.map(x => [x.group, x]));
+  const groups = qualified.map(x => x.group).sort((a,b)=>a.localeCompare(b, 'tr'));
+  const haveEvenGroups = groups.length >= 4;
+
+  const qfTies = [];
+  if(haveEvenGroups && map["A"] && map["B"] && map["C"] && map["D"]){
+    qfTies.push(
+      { tie:"QF-1", home:map["A"].first, away:map["B"].second, note:"A1 vs B2" },
+      { tie:"QF-2", home:map["C"].first, away:map["D"].second, note:"C1 vs D2" },
+      { tie:"QF-3", home:map["B"].first, away:map["A"].second, note:"B1 vs A2" },
+      { tie:"QF-4", home:map["D"].first, away:map["C"].second, note:"D1 vs C2" }
+    );
+  } else {
+    for(let i=0;i<qualified.length;i+=2){
+      const left = qualified[i], right = qualified[i+1];
+      if(!left || !right) continue;
+      qfTies.push({ tie:`QF-${(i/2)+1}`, home:left.first, away:right.second, note:`${left.group}1 vs ${right.group}2` });
+    }
+  }
+
+  const qf = qfTies.flatMap(item => ([
+    { stage:"QF", tie:item.tie, slot:item.tie, leg:"1", home:item.home, away:item.away, datetime:"", hs:null, as:null, note:item.note },
+    { stage:"QF", tie:item.tie, slot:item.tie, leg:"2", home:item.away, away:item.home, datetime:"", hs:null, as:null, note:`${item.note} rövanş` },
+  ]));
+
+  const sfTies = [
+    { tie:"SF-1", home:"QF-1 Galibi", away:"QF-2 Galibi", note:"Sol yarı final" },
+    { tie:"SF-2", home:"QF-3 Galibi", away:"QF-4 Galibi", note:"Sağ yarı final" }
+  ];
+  const sf = sfTies.flatMap(item => ([
+    { stage:"SF", tie:item.tie, slot:item.tie, leg:"1", home:item.home, away:item.away, datetime:"", hs:null, as:null, note:item.note },
+    { stage:"SF", tie:item.tie, slot:item.tie, leg:"2", home:item.away, away:item.home, datetime:"", hs:null, as:null, note:`${item.note} rövanş` },
+  ]));
+
+  const finals = [
+    { stage:"FINAL", tie:"FINAL", slot:"FINAL", leg:"", home:"SF-1 Galibi", away:"SF-2 Galibi", datetime:"", hs:null, as:null, note:"Büyük final" }
+  ];
+  return { qf, sf, finals };
 }
 
 /* ---------------- standings ---------------- */
@@ -1304,7 +1710,9 @@ function renderGroupSelector(){
 function renderAll(){
   renderGroups();
   renderFixtures();
+  renderKnockout();
   wireAccordion();
+  applyView();
 }
 
 function renderGroups(){
@@ -1567,6 +1975,168 @@ function renderFixtures(){
   }
 }
 
+
+function renderKnockout(){
+  const auto = buildAutoKnockout();
+  const qf = (state.knockout?.QF?.length ? state.knockout.QF : auto.qf) || [];
+  const sf = (state.knockout?.SF?.length ? state.knockout.SF : auto.sf) || [];
+  const finals = (state.knockout?.FINAL?.length ? state.knockout.FINAL : auto.finals) || [];
+
+  const qfTies = groupStageByTie(qf);
+  const sfTies = groupStageByTie(sf);
+  const finalTies = groupStageByTie(finals);
+
+  renderKnockoutList(document.getElementById("qfList"), qf, "Çeyrek Final");
+  renderKnockoutList(document.getElementById("sfList"), sf, "Yarı Final");
+  renderKnockoutList(document.getElementById("finalList"), finals, "Final");
+
+  document.getElementById("qfCount").innerHTML = `<b>${formatStageCounter(qf)}</b>`;
+  document.getElementById("sfCount").innerHTML = `<b>${formatStageCounter(sf)}</b>`;
+  document.getElementById("finalCount").innerHTML = `<b>${finals.length}</b> maç`;
+
+  const hasManualQF = !!state.knockout?.QF?.length;
+  const hasManualSF = !!state.knockout?.SF?.length;
+  const hasManualFinal = !!state.knockout?.FINAL?.length;
+
+  const status = document.getElementById("knockoutStatus");
+  status.className = "pill " + (qf.length ? "ok" : "warn");
+  if(hasManualQF || hasManualSF || hasManualFinal){
+    status.innerHTML = `Eleme verisi hazır: <b>${qf.length + sf.length + finals.length} maç</b>`;
+  } else {
+    status.innerHTML = `Eşleşmeler otomatik üretildi: <b>QF ve SF rövanşlı</b>`;
+  }
+
+  renderQualifiedBoard();
+
+  const left = document.getElementById("bracketLeft");
+  const right = document.getElementById("bracketRight");
+  left.innerHTML = "";
+  right.innerHTML = "";
+
+  const qfLeft = qfTies.slice(0,2);
+  const qfRight = qfTies.slice(2,4);
+  const sfLeft = sfTies[0] ? [sfTies[0]] : [];
+  const sfRight = sfTies[1] ? [sfTies[1]] : [];
+
+  [...qfLeft, ...sfLeft].forEach(rows => left.appendChild(createBracketTie(rows)));
+  [...sfRight, ...qfRight].forEach(rows => right.appendChild(createBracketTie(rows)));
+
+  if(!left.children.length) left.innerHTML = `<div class="koEmpty">Çeyrek final eşleşmeleri gelince burada görünecek.</div>`;
+  if(!right.children.length) right.innerHTML = `<div class="koEmpty">Diğer taraftaki eşleşmeler burada görünecek.</div>`;
+
+  const centerText = document.getElementById("finalCenterText");
+  const finalMatch = finals[0];
+  centerText.textContent = finalMatch ? `${finalMatch.home || 'Takım 1'} vs ${finalMatch.away || 'Takım 2'}` : 'Kazananlar burada buluşur';
+}
+
+function renderQualifiedBoard(){
+  const root = document.getElementById("qualifiedBoard");
+  if(!root) return;
+  const qualified = getQualifiedTeams();
+  if(!qualified.length){
+    root.innerHTML = `<div class="koEmpty">Gruplar tamamlanınca çıkan takımlar burada görünecek.</div>`;
+    return;
+  }
+  root.innerHTML = qualified.map(item => `
+    <div class="seedMini">
+      <h3>GRUP ${escapeHtml(item.group)}</h3>
+      <div class="line"><span>1.</span><b>${escapeHtml(item.first || "-")}</b></div>
+      <div class="line"><span>2.</span><b>${escapeHtml(item.second || "-")}</b></div>
+    </div>
+  `).join("");
+}
+
+function createBracketTie(rows){
+  const tie = computeTieAggregate(rows);
+  const el = document.createElement("div");
+  el.className = "bracketMatch";
+  el.innerHTML = `
+    <div class="stageMini">${escapeHtml(tie.key)} • ${tie.totalLegs > 1 ? 'Rövanşlı eşleşme' : 'Tek maç'}</div>
+    <div class="bmTeams">
+      <div class="bmTeam"><span class="bmName">${escapeHtml(tie.teamA)}</span><span class="bmScore">${tie.playedLegs ? tie.aggA : '-'}</span></div>
+      <div class="bmTeam"><span class="bmName">${escapeHtml(tie.teamB)}</span><span class="bmScore">${tie.playedLegs ? tie.aggB : '-'}</span></div>
+    </div>
+    <div class="bmFooter">
+      <span>${escapeHtml(formatAggregateLabel(tie))}</span>
+      <span>${escapeHtml(tie.note || `${tie.playedLegs}/${tie.totalLegs} maç`)}</span>
+    </div>
+  `;
+  return el;
+}
+
+function renderKnockoutList(root, list, stageTitle){
+  if(!list.length){
+    root.innerHTML = `<div class="koEmpty">${stageTitle} için henüz veri girilmedi.</div>`;
+    return;
+  }
+
+  const ties = groupStageByTie(list);
+  root.innerHTML = "";
+
+  ties.forEach((rows) => {
+    const tie = computeTieAggregate(rows);
+    const box = document.createElement('div');
+    box.style.border = '1px solid var(--line)';
+    box.style.borderRadius = '16px';
+    box.style.padding = '12px';
+    box.style.background = 'rgba(0,0,0,.10)';
+    box.style.marginBottom = '12px';
+
+    const hd = document.createElement('div');
+    hd.style.display = 'flex';
+    hd.style.justifyContent = 'space-between';
+    hd.style.alignItems = 'center';
+    hd.style.gap = '10px';
+    hd.style.marginBottom = '10px';
+    hd.innerHTML = `
+      <div style="font-weight:1000;letter-spacing:.2px">${escapeHtml(tie.key)} • ${tie.totalLegs > 1 ? '2 maçlı eşleşme' : 'Tek maç'}</div>
+      <div class="pill ${tie.playedLegs ? 'ok' : 'warn'}">${escapeHtml(formatAggregateLabel(tie))}</div>
+    `;
+    box.appendChild(hd);
+
+    rows.forEach((m, idx) => {
+      const row = document.createElement("div");
+      const played = isPlayed(m);
+      const legNo = getLegNumber(m, idx);
+      row.className = "fixture " + (played ? "played" : "upcoming");
+      row.style.margin = "0 0 12px";
+      row.innerHTML = `
+        <div class="timeSlot ${played ? 'played' : 'upcoming'}">
+          <div class="tDot"></div>
+          <div class="tMain">${escapeHtml(tie.key)}</div>
+          <div class="tSub">${tie.totalLegs > 1 ? (legNo === 1 ? '1. Maç' : 'Rövanş') : 'Final'} • ${escapeHtml(formatDateTimeLabel(m.datetime))}</div>
+        </div>
+        <div class="home"><div class="teamBtn" style="cursor:default"><span>${escapeHtml(m.home || '-')}</span></div></div>
+        <div class="scoreBadge">
+          <div class="sb ${m.hs === null ? 'empty' : ''}">${m.hs === null ? '-' : m.hs}</div>
+          <span class="sep">-</span>
+          <div class="sb ${m.as === null ? 'empty' : ''}">${m.as === null ? '-' : m.as}</div>
+          <span class="pill ${played ? 'ok' : 'warn'}">${played ? '🟢 <b>Oynandı</b>' : '🟡 <b>Takvimde</b>'}</span>
+        </div>
+        <div class="away"><div class="teamBtn" style="cursor:default"><span>${escapeHtml(m.away || '-')}</span></div></div>
+      `;
+      box.appendChild(row);
+    });
+
+    root.appendChild(box);
+  });
+}
+
+function applyView(){
+  const ko = document.getElementById("viewKnockout");
+  const gr = document.getElementById("viewGroups");
+  const seg = document.getElementById("groupSeg");
+  const btnKo = document.getElementById("btnViewKnockout");
+  const btnGr = document.getElementById("btnViewGroups");
+  const isKo = ui.view === "knockout";
+  ko.classList.toggle("hidden", !isKo);
+  gr.classList.toggle("hidden", isKo);
+  seg.classList.toggle("hidden", isKo);
+  btnKo.classList.toggle("active", isKo);
+  btnGr.classList.toggle("active", !isKo);
+  localStorage.setItem("selectedView", ui.view);
+}
+
 /* accordion: ALL modda sadece bir grup açık kalsın */
 function wireAccordion(){
   const root = document.getElementById("groups");
@@ -1821,6 +2391,16 @@ async function init(){
 
 function wireButtons(){
   document.getElementById("btnRefresh").onclick = () => refreshData();
+  document.getElementById("btnViewKnockout").onclick = () => {
+    ui.view = "knockout";
+    applyView();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  document.getElementById("btnViewGroups").onclick = () => {
+    ui.view = "groups";
+    applyView();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 }
 
 async function refreshData(){
