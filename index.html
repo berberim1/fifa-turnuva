@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="tr">
 <head>
@@ -1167,6 +1166,367 @@
       .mobileTeamScore{font-size:18px}
     }
 
+    /* ===================================================
+       YENI: ROAD TO FINAL BANNER
+    =================================================== */
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;600;700&display=swap');
+
+    .roadBanner{
+      position:relative;
+      overflow:hidden;
+      border-radius:22px;
+      margin-bottom:20px;
+      padding:28px 20px 24px;
+      border:1px solid rgba(96,165,250,.22);
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(96,165,250,.18), transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 100%, rgba(94,234,212,.12), transparent 60%),
+        linear-gradient(160deg, rgba(10,16,40,.98), rgba(7,11,24,.97));
+      box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .roadBanner::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2360a5fa' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events:none;
+    }
+    .roadTitle{
+      text-align:center;
+      margin-bottom:20px;
+    }
+    .roadTitle .rtop{
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:13px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:rgba(155,176,222,.65);
+      margin-bottom:4px;
+    }
+    .roadTitle .rmain{
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:clamp(28px,7vw,42px);
+      font-weight:900;
+      letter-spacing:1px;
+      background: linear-gradient(135deg, #fff 30%, rgba(96,165,250,.9) 65%, rgba(94,234,212,.9));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      line-height:1;
+    }
+    .roadTitle .rsub{
+      font-size:12px;
+      color:rgba(155,176,222,.7);
+      margin-top:6px;
+      font-family:'Barlow', sans-serif;
+    }
+
+    /* Bracket flow visual */
+    .bracketFlow{
+      display:grid;
+      grid-template-columns: 1fr 36px 1fr 36px 80px 36px 1fr 36px 1fr;
+      align-items:center;
+      gap:4px;
+      margin-top:4px;
+    }
+    @media (max-width:680px){
+      .bracketFlow{
+        grid-template-columns: 1fr 20px 1fr 20px 56px 20px 1fr 20px 1fr;
+        gap:2px;
+      }
+    }
+    .bfCol{display:grid;gap:8px}
+    .bfSlot{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:10px;
+      padding:8px 10px;
+      background: rgba(255,255,255,.04);
+      font-size:12px;
+      font-weight:700;
+      color:var(--text);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      text-align:center;
+      min-height:38px;
+      display:flex;align-items:center;justify-content:center;
+      transition:.2s background, .2s border-color;
+    }
+    .bfSlot.tbd{color:rgba(155,176,222,.45);font-size:11px;border-style:dashed}
+    .bfSlot.winner{
+      border-color:rgba(94,234,212,.5);
+      background: rgba(94,234,212,.08);
+      color:#a0fde8;
+      box-shadow: 0 0 12px rgba(94,234,212,.15);
+    }
+    .bfSlot.eliminated{opacity:.35;text-decoration:line-through}
+    .bfArrow{
+      display:flex;align-items:center;justify-content:center;
+      color:rgba(96,165,250,.45);
+      font-size:14px;
+      flex-shrink:0;
+    }
+    .bfCenter{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;
+      padding:0 4px;
+    }
+    .bfTrophy{
+      font-size:clamp(28px,6vw,42px);
+      filter: drop-shadow(0 6px 16px rgba(251,191,36,.35));
+      line-height:1;
+    }
+    .bfFinalLabel{
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:11px;letter-spacing:2px;
+      color:rgba(251,191,36,.8);
+      text-transform:uppercase;
+      margin-top:4px;
+    }
+    @media (max-width:500px){
+      .bfSlot{font-size:10px;padding:6px 6px;min-height:32px}
+      .bfArrow{font-size:11px}
+    }
+
+    /* ===================================================
+       YENI: STAGE TABS NAVIGATION
+    =================================================== */
+    .stageTabs{
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      padding:4px 0 12px;
+      scrollbar-width:none;
+      margin-bottom:4px;
+    }
+    .stageTabs::-webkit-scrollbar{display:none}
+    .stageTabBtn{
+      flex:0 0 auto;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(18,26,51,.45);
+      color:rgba(155,176,222,.85);
+      padding:11px 16px;
+      border-radius:14px;
+      cursor:pointer;
+      font-family:'Barlow', 'Barlow Condensed', var(--sans);
+      font-size:13px;
+      font-weight:700;
+      white-space:nowrap;
+      transition:.15s all;
+      display:flex;align-items:center;gap:8px;
+      letter-spacing:.2px;
+      min-height:46px;
+    }
+    .stageTabBtn:hover{
+      background: rgba(18,26,51,.75);
+      border-color:rgba(96,165,250,.3);
+      color:var(--text);
+      transform:translateY(-1px);
+    }
+    .stageTabBtn.active{
+      border:1px solid transparent;
+      background:
+        linear-gradient(rgba(18,26,51,.6), rgba(18,26,51,.6)) padding-box,
+        linear-gradient(135deg, rgba(94,234,212,.7), rgba(96,165,250,.7)) border-box;
+      color:var(--text);
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+    }
+    .stageTabBtn .tabIcon{font-size:16px}
+    .stageTabBtn .tabBadge{
+      font-size:10px;
+      padding:3px 7px;
+      border-radius:999px;
+      background: rgba(255,255,255,.10);
+      color:rgba(155,176,222,.8);
+      font-weight:900;
+    }
+    .stageTabBtn.active .tabBadge{
+      background: rgba(94,234,212,.18);
+      color:#a0fde8;
+    }
+    @media (max-width:480px){
+      .stageTabBtn{padding:10px 12px;font-size:12px;gap:6px;min-height:42px}
+    }
+
+    /* ===================================================
+       YENI: STAGE CONTENT CARDS
+    =================================================== */
+    .stageContent{display:none}
+    .stageContent.active{display:block}
+
+    .stageHeader{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:12px;flex-wrap:wrap;
+      margin-bottom:14px;
+      padding-bottom:12px;
+      border-bottom:1px solid var(--line);
+    }
+    .stageHeaderLeft h3{
+      margin:0;
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:.5px;
+    }
+    .stageHeaderLeft p{margin:4px 0 0;color:var(--muted);font-size:12px}
+
+    /* Beautiful knockout match cards */
+    .koMatchCard{
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:20px;
+      overflow:hidden;
+      margin-bottom:14px;
+      background: rgba(15,20,45,.6);
+      box-shadow: 0 12px 36px rgba(0,0,0,.22);
+      transition:.2s border-color, .2s box-shadow;
+    }
+    .koMatchCard:hover{
+      border-color:rgba(96,165,250,.2);
+      box-shadow: 0 14px 42px rgba(0,0,0,.28);
+    }
+    .koMatchCard.played{
+      border-color:rgba(52,211,153,.18);
+      background: rgba(10,28,22,.5);
+    }
+    .koMatchCard.upcoming{
+      border-color:rgba(251,191,36,.15);
+      background: rgba(25,20,10,.45);
+    }
+
+    .koMatchCardHd{
+      padding:10px 16px;
+      background: rgba(0,0,0,.18);
+      border-bottom:1px solid rgba(255,255,255,.07);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    }
+    .koMatchCardHd .matchMeta{
+      font-size:11px;
+      color:rgba(155,176,222,.65);
+      font-family:var(--mono);
+      letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+    .koMatchCardHd .matchStatusBadge{
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:999px;
+      font-weight:900;
+      letter-spacing:.3px;
+    }
+    .matchStatusBadge.played-badge{
+      background: rgba(52,211,153,.15);
+      border:1px solid rgba(52,211,153,.3);
+      color:#a7f3d0;
+    }
+    .matchStatusBadge.upcoming-badge{
+      background: rgba(251,191,36,.12);
+      border:1px solid rgba(251,191,36,.25);
+      color:#fde68a;
+    }
+
+    .koMatchCardBody{
+      padding:16px;
+    }
+    .koTeamRow{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      align-items:center;
+      gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .koTeamRow:last-of-type{border-bottom:0}
+    .koTeamName{
+      font-size:16px;
+      font-weight:900;
+      color:var(--text);
+      font-family:'Barlow Condensed', sans-serif;
+      letter-spacing:.3px;
+    }
+    .koTeamName.tbd-name{color:rgba(155,176,222,.4);font-style:italic;font-size:14px}
+    .koTeamScore{
+      font-family:'Barlow Condensed', var(--mono);
+      font-size:28px;
+      font-weight:900;
+      min-width:44px;
+      text-align:center;
+      letter-spacing:1px;
+    }
+    .koTeamScore.no-score{color:rgba(155,176,222,.3);font-size:20px}
+    .koTeamScore.winner-score{color:#a0fde8;text-shadow: 0 0 14px rgba(94,234,212,.4)}
+
+    .koMatchCardFt{
+      padding:10px 16px;
+      background: rgba(0,0,0,.12);
+      border-top:1px solid rgba(255,255,255,.06);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    }
+    .koMatchDateTime{
+      font-size:11px;
+      color:rgba(155,176,222,.6);
+      font-family:var(--mono);
+    }
+    .koMatchNote{
+      font-size:11px;
+      color:rgba(155,176,222,.5);
+    }
+
+    /* Aggregate banner (tie aggregate) */
+    .aggBanner{
+      margin:0 -1px 0;
+      padding:10px 16px;
+      background: rgba(96,165,250,.06);
+      border:1px solid rgba(96,165,250,.15);
+      border-radius:12px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-bottom:14px;
+    }
+    .aggBannerTitle{font-size:12px;color:rgba(155,176,222,.8);font-weight:700}
+    .aggScore{
+      font-family:'Barlow Condensed', var(--mono);
+      font-size:22px;
+      font-weight:900;
+      color:var(--text);
+      letter-spacing:2px;
+    }
+
+    /* Empty state */
+    .stageEmpty{
+      text-align:center;
+      padding:40px 20px;
+      color:rgba(155,176,222,.5);
+    }
+    .stageEmpty .emptyIcon{font-size:40px;margin-bottom:12px}
+    .stageEmpty p{font-size:14px;margin:0}
+
+    /* Winner highlight */
+    .koMatchCard.winner-card{
+      border-color:rgba(251,191,36,.35) !important;
+      background: rgba(20,15,5,.6) !important;
+      box-shadow: 0 0 0 1px rgba(251,191,36,.15) inset, 0 20px 50px rgba(0,0,0,.35) !important;
+    }
+    .winnerGlow{
+      text-align:center;
+      padding:14px;
+      background: linear-gradient(135deg, rgba(251,191,36,.12), rgba(251,113,133,.08));
+      border-top:1px solid rgba(251,191,36,.15);
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:16px;
+      font-weight:900;
+      letter-spacing:.5px;
+      color:#fde68a;
+    }
+
+    /* Hide old sections now replaced by new UI */
+    #qualifiedBoard,
+    .heroStats,
+    .mobileBracketList,
+    .bracketWrap,
+    .koGrid{
+      display:none !important;
+    }
+
   </style>
 </head>
 
@@ -1175,10 +1535,10 @@
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <div class="badge">PS5</div>
+        <div class="badge">⚽</div>
         <div>
           <h1>Ramazan Kantin FIFA Turnuvası</h1>
-          <p class="sub">16 kişi — 4 grup (A–D) — Grup + Eleme Takibi</p>
+          <p class="sub">16 kişi — 4 grup — Eleme Turu Takibi</p>
         </div>
       </div>
 
@@ -1190,7 +1550,7 @@
     <div class="filtersRow">
       <div class="viewTabs" id="viewTabs">
         <button class="viewBtn active" id="btnViewKnockout" type="button">🏆 Eleme Turu</button>
-        <button class="viewBtn" id="btnViewGroups" type="button">📊 Grup Aşaması</button>
+        <button class="viewBtn" id="btnViewGroups" type="button">📊 Gruplar</button>
       </div>
       <div class="segWrap hidden" id="groupSeg"></div>
     </div>
@@ -1199,65 +1559,112 @@
 
 <main class="wrap">
   <section id="viewKnockout" class="viewSection">
-    <section class="knockoutHero">
-      <div class="hd">
-        <div>
-          <h2>Eleme Turu</h2>
-          <small>Çeyrek Final (rövanşlı) • Yarı Final (rövanşlı) • Final</small>
-        </div>
-        <span class="pill">Varsayılan görünüm: <b>Eleme</b></span>
+
+    <!-- ROAD TO FINAL BANNER -->
+    <div class="roadBanner">
+      <div class="roadTitle">
+        <div class="rtop">Ramazan Kantin FIFA Turnuvası</div>
+        <div class="rmain">ROAD TO FINAL</div>
+        <div class="rsub">Çeyrek Final &rarr; Yarı Final &rarr; 🏆 Büyük Final</div>
       </div>
-      <div class="heroBd">
-        <div class="heroTop">
-          <div>
-            <h2>Şampiyonluk Yolu</h2>
-            <p>İlk açılışta doğrudan eleme tablosu görünür. Grup aşaması alttaki sekmeden açılır.</p>
-          </div>
-          <div id="knockoutStatus" class="pill warn">Eleme verileri bekleniyor</div>
-        </div>
-
-        <div class="heroStats" id="heroStats"></div>
-
-        <div class="seedBoard" id="qualifiedBoard"></div>
-
-        <div class="bracketWrap" style="margin-top:14px">
-          <div class="bracketSide left" id="bracketLeft"></div>
-          <div class="bracketCenter">
-            <div class="semiTag">YARI FİNAL</div>
-            <div class="cupIcon">🏆</div>
-            <div class="finalText">FİNAL</div>
-            <div class="semiTag" id="finalCenterText">Kazananlar burada buluşur</div>
-          </div>
-          <div class="bracketSide right" id="bracketRight"></div>
-        </div>
-
-        <div class="mobileBracketList" id="mobileBracketList"></div>
+      <div class="bracketFlow" id="bracketFlow"></div>
+      <div style="text-align:center;margin-top:14px">
+        <span id="knockoutStatus" class="pill warn" style="font-size:12px">Eleme verileri yükleniyor…</span>
       </div>
-    </section>
+    </div>
 
-    <section class="koGrid" style="margin-top:16px">
-      <section class="koPanel">
-        <div class="hd">
-          <div><h2>Çeyrek Final</h2><small>4 eşleşme • 8 maç</small></div>
-          <span class="pill" id="qfCount">0 maç</span>
+    <!-- STAGE TABS -->
+    <div class="stageTabs" id="stageTabs">
+      <button class="stageTabBtn active" data-stage="qf1">
+        <span class="tabIcon">⚽</span>
+        <span>QF 1. Maç</span>
+        <span class="tabBadge" id="badgeQF1">—</span>
+      </button>
+      <button class="stageTabBtn" data-stage="qf2">
+        <span class="tabIcon">🔁</span>
+        <span>QF Rövanş</span>
+        <span class="tabBadge" id="badgeQF2">—</span>
+      </button>
+      <button class="stageTabBtn" data-stage="sf1">
+        <span class="tabIcon">🥈</span>
+        <span>YF 1. Maç</span>
+        <span class="tabBadge" id="badgeSF1">—</span>
+      </button>
+      <button class="stageTabBtn" data-stage="sf2">
+        <span class="tabIcon">🔁</span>
+        <span>YF Rövanş</span>
+        <span class="tabBadge" id="badgeSF2">—</span>
+      </button>
+      <button class="stageTabBtn" data-stage="final">
+        <span class="tabIcon">🏆</span>
+        <span>Büyük Final</span>
+        <span class="tabBadge" id="badgeFinal">—</span>
+      </button>
+    </div>
+
+    <!-- STAGE CONTENT -->
+    <div id="stageContentQF1" class="stageContent active">
+      <div class="stageHeader">
+        <div class="stageHeaderLeft">
+          <h3>⚽ Çeyrek Final — 1. Maçlar</h3>
+          <p>4 eşleşme • İlk rövanş öncesi</p>
         </div>
-        <div class="koList" id="qfList"></div>
-      </section>
-      <section class="koPanel">
-        <div class="hd">
-          <div><h2>Yarı Final</h2><small>2 eşleşme • 4 maç</small></div>
-          <span class="pill" id="sfCount">0 maç</span>
+      </div>
+      <div id="stageMatchesQF1"></div>
+    </div>
+    <div id="stageContentQF2" class="stageContent">
+      <div class="stageHeader">
+        <div class="stageHeaderLeft">
+          <h3>🔁 Çeyrek Final — Rövanş</h3>
+          <p>4 eşleşme • Rövanş maçları</p>
         </div>
-        <div class="koList" id="sfList"></div>
-      </section>
-      <section class="koPanel">
-        <div class="hd">
-          <div><h2>Final</h2><small>1 maç</small></div>
-          <span class="pill" id="finalCount">0 maç</span>
+      </div>
+      <div id="stageMatchesQF2"></div>
+    </div>
+    <div id="stageContentSF1" class="stageContent">
+      <div class="stageHeader">
+        <div class="stageHeaderLeft">
+          <h3>🥈 Yarı Final — 1. Maçlar</h3>
+          <p>2 eşleşme • İlk maçlar</p>
         </div>
-        <div class="koList" id="finalList"></div>
-      </section>
-    </section>
+      </div>
+      <div id="stageMatchesSF1"></div>
+    </div>
+    <div id="stageContentSF2" class="stageContent">
+      <div class="stageHeader">
+        <div class="stageHeaderLeft">
+          <h3>🔁 Yarı Final — Rövanş</h3>
+          <p>2 eşleşme • Rövanş maçları</p>
+        </div>
+      </div>
+      <div id="stageMatchesSF2"></div>
+    </div>
+    <div id="stageContentFinal" class="stageContent">
+      <div class="stageHeader">
+        <div class="stageHeaderLeft">
+          <h3>🏆 Büyük Final</h3>
+          <p>Şampiyonluk maçı • Tek karşılaşma</p>
+        </div>
+      </div>
+      <div id="stageMatchesFinal"></div>
+    </div>
+
+    <!-- Legacy hidden containers (JS still populates these) -->
+    <div style="display:none" aria-hidden="true">
+      <div id="heroStats"></div>
+      <div id="qualifiedBoard"></div>
+      <div id="mobileBracketList"></div>
+      <div id="bracketLeft"></div>
+      <div id="bracketRight"></div>
+      <span id="finalCenterText"></span>
+      <span id="qfCount"></span>
+      <span id="sfCount"></span>
+      <span id="finalCount"></span>
+      <div id="qfList"></div>
+      <div id="sfList"></div>
+      <div id="finalList"></div>
+    </div>
+
   </section>
 
   <section id="viewGroups" class="viewSection hidden">
@@ -2221,6 +2628,9 @@ function renderKnockout(){
   const centerText = document.getElementById("finalCenterText");
   const finalMatch = finals[0];
   centerText.textContent = finalMatch ? `${finalMatch.home || 'Takım 1'} vs ${finalMatch.away || 'Takım 2'}` : 'Kazananlar burada buluşur';
+
+  // Yeni güzel tab görünümü
+  renderStageTabs(qf, sf, finals);
 }
 
 function renderQualifiedBoard(){
@@ -2321,6 +2731,283 @@ function applyView(){
   btnKo.classList.toggle("active", isKo);
   btnGr.classList.toggle("active", !isKo);
   localStorage.setItem("selectedView", ui.view);
+}
+
+/* =========================================================
+   YENİ: Stage Tabs — Güzel mobil knockout görünümü
+   ========================================================= */
+function renderStageTabs(qf, sf, finals){
+  const qf1 = qf.filter(m => getLegNumber(m) === 1);
+  const qf2 = qf.filter(m => getLegNumber(m) === 2);
+  const sf1 = sf.filter(m => getLegNumber(m) === 1);
+  const sf2 = sf.filter(m => getLegNumber(m) === 2);
+
+  // Update badges
+  const setBadge = (id, count) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = count ? count + ' maç' : '—';
+  };
+  setBadge('badgeQF1', qf1.length);
+  setBadge('badgeQF2', qf2.length);
+  setBadge('badgeSF1', sf1.length);
+  setBadge('badgeSF2', sf2.length);
+  setBadge('badgeFinal', finals.length);
+
+  // Render matches into each section
+  renderBeautifulMatches('stageMatchesQF1', qf1, 'Çeyrek Final', '1. Maç');
+  renderBeautifulMatches('stageMatchesQF2', qf2, 'Çeyrek Final', 'Rövanş');
+  renderBeautifulMatches('stageMatchesSF1', sf1, 'Yarı Final', '1. Maç');
+  renderBeautifulMatches('stageMatchesSF2', sf2, 'Yarı Final', 'Rövanş');
+  renderBeautifulMatchesFinal('stageMatchesFinal', finals);
+
+  // Bracket flow visual
+  renderBracketFlow(qf, sf, finals);
+}
+
+function renderBeautifulMatches(containerId, matches, stageLabel, legLabel){
+  const root = document.getElementById(containerId);
+  if(!root) return;
+
+  if(!matches.length){
+    root.innerHTML = `
+      <div class="stageEmpty">
+        <div class="emptyIcon">📅</div>
+        <p>${escapeHtml(stageLabel)} ${escapeHtml(legLabel)} maçları henüz girilmedi.<br>
+        Veriler hazır olunca buraya yansıyacak.</p>
+      </div>`;
+    return;
+  }
+
+  // Group by tie
+  const ties = groupStageByTie(matches);
+  root.innerHTML = '';
+
+  ties.forEach(rows => {
+    const tie = computeTieAggregate(rows);
+    const allPlayed = rows.every(m => isPlayed(m));
+    const anyPlayed = rows.some(m => isPlayed(m));
+
+    const card = document.createElement('div');
+    card.className = 'koMatchCard ' + (allPlayed ? 'played' : anyPlayed ? 'upcoming' : 'upcoming');
+
+    // Header
+    const hd = document.createElement('div');
+    hd.className = 'koMatchCardHd';
+    hd.innerHTML = `
+      <span class="matchMeta">${escapeHtml(stageLabel)} • ${escapeHtml(tie.key)} • ${escapeHtml(legLabel)}</span>
+      <span class="matchStatusBadge ${allPlayed ? 'played-badge' : 'upcoming-badge'}">
+        ${allPlayed ? '✓ Tamamlandı' : anyPlayed ? '⏳ Devam Ediyor' : '📅 Takvimde'}
+      </span>
+    `;
+    card.appendChild(hd);
+
+    // Teams
+    const body = document.createElement('div');
+    body.className = 'koMatchCardBody';
+
+    rows.forEach(m => {
+      const played = isPlayed(m);
+      const hsWin = played && m.hs > m.as;
+      const asWin = played && m.as > m.hs;
+
+      const homeRow = document.createElement('div');
+      homeRow.className = 'koTeamRow';
+      const homeIsTBD = !m.home || m.home.includes('Galibi') || m.home.includes('Bekleniyor');
+      homeRow.innerHTML = `
+        <span class="koTeamName ${homeIsTBD ? 'tbd-name' : ''}">${escapeHtml(m.home || '—')}</span>
+        <span class="koTeamScore ${!played ? 'no-score' : ''} ${hsWin ? 'winner-score' : ''}">${played ? m.hs : '—'}</span>
+      `;
+
+      const awayRow = document.createElement('div');
+      awayRow.className = 'koTeamRow';
+      const awayIsTBD = !m.away || m.away.includes('Galibi') || m.away.includes('Bekleniyor');
+      awayRow.innerHTML = `
+        <span class="koTeamName ${awayIsTBD ? 'tbd-name' : ''}">${escapeHtml(m.away || '—')}</span>
+        <span class="koTeamScore ${!played ? 'no-score' : ''} ${asWin ? 'winner-score' : ''}">${played ? m.as : '—'}</span>
+      `;
+
+      body.appendChild(homeRow);
+      body.appendChild(awayRow);
+    });
+
+    card.appendChild(body);
+
+    // Footer
+    const ft = document.createElement('div');
+    ft.className = 'koMatchCardFt';
+    const dtLabel = rows[0]?.datetime ? escapeHtml(formatDateTimeLabel(rows[0].datetime)) : 'Tarih belirlenmedi';
+    ft.innerHTML = `
+      <span class="koMatchDateTime">📅 ${dtLabel}</span>
+      <span class="koMatchNote">${escapeHtml(tie.note || '')}</span>
+    `;
+    card.appendChild(ft);
+
+    root.appendChild(card);
+  });
+}
+
+function renderBeautifulMatchesFinal(containerId, finals){
+  const root = document.getElementById(containerId);
+  if(!root) return;
+
+  if(!finals.length){
+    root.innerHTML = `
+      <div class="stageEmpty">
+        <div class="emptyIcon">🏆</div>
+        <p>Final maçı henüz girilmedi.<br>Yarı final tamamlanınca finalist takımlar burada görünecek.</p>
+      </div>`;
+    return;
+  }
+
+  root.innerHTML = '';
+  const ties = groupStageByTie(finals);
+
+  ties.forEach(rows => {
+    const tie = computeTieAggregate(rows);
+    const m = rows[0];
+    const played = isPlayed(m);
+    const winner = played ? (m.hs > m.as ? m.home : m.as > m.hs ? m.away : null) : null;
+
+    const card = document.createElement('div');
+    card.className = 'koMatchCard winner-card';
+
+    const hd = document.createElement('div');
+    hd.className = 'koMatchCardHd';
+    hd.innerHTML = `
+      <span class="matchMeta">🏆 Büyük Final • Tek Maç</span>
+      <span class="matchStatusBadge ${played ? 'played-badge' : 'upcoming-badge'}">
+        ${played ? '✓ Oynandı' : '📅 Takvimde'}
+      </span>
+    `;
+    card.appendChild(hd);
+
+    const body = document.createElement('div');
+    body.className = 'koMatchCardBody';
+
+    const homeIsTBD = !m.home || m.home.includes('Galibi');
+    const awayIsTBD = !m.away || m.away.includes('Galibi');
+
+    body.innerHTML = `
+      <div class="koTeamRow">
+        <span class="koTeamName ${homeIsTBD ? 'tbd-name' : ''}">${escapeHtml(m.home || '—')}</span>
+        <span class="koTeamScore ${!played ? 'no-score' : ''} ${played && m.hs > m.as ? 'winner-score' : ''}">${played ? m.hs : '—'}</span>
+      </div>
+      <div class="koTeamRow">
+        <span class="koTeamName ${awayIsTBD ? 'tbd-name' : ''}">${escapeHtml(m.away || '—')}</span>
+        <span class="koTeamScore ${!played ? 'no-score' : ''} ${played && m.as > m.hs ? 'winner-score' : ''}">${played ? m.as : '—'}</span>
+      </div>
+    `;
+    card.appendChild(body);
+
+    if(winner){
+      const glow = document.createElement('div');
+      glow.className = 'winnerGlow';
+      glow.textContent = `🥇 Şampiyon: ${winner}`;
+      card.appendChild(glow);
+    }
+
+    const ft = document.createElement('div');
+    ft.className = 'koMatchCardFt';
+    const dtLabel = m?.datetime ? escapeHtml(formatDateTimeLabel(m.datetime)) : 'Tarih belirlenmedi';
+    ft.innerHTML = `<span class="koMatchDateTime">📅 ${dtLabel}</span>`;
+    card.appendChild(ft);
+
+    root.appendChild(card);
+  });
+}
+
+function renderBracketFlow(qf, sf, finals){
+  const root = document.getElementById('bracketFlow');
+  if(!root) return;
+
+  const qfTies = groupStageByTie(qf);
+  const sfTies = groupStageByTie(sf);
+
+  const getSlotClass = (tie) => {
+    if(!tie) return 'tbd';
+    const agg = computeTieAggregate(tie);
+    return agg.played ? 'winner' : '';
+  };
+
+  const slotHtml = (label, cls='') =>
+    `<div class="bfSlot ${cls || 'tbd'}">${escapeHtml(label)}</div>`;
+
+  const getTeamLabel = (team) => {
+    if(!team || team.includes('Galibi') || team.includes('Bekleniyor')) return '?';
+    const words = team.split(' ');
+    return words.length > 2 ? words.slice(0, 2).join(' ') : team;
+  };
+
+  const qfLabels = qfTies.map(rows => {
+    const tie = computeTieAggregate(rows);
+    const label = tie.played
+      ? (tie.aggA > tie.aggB ? getTeamLabel(tie.teamA) : tie.aggB > tie.aggA ? getTeamLabel(tie.teamB) : getTeamLabel(tie.teamA) + '?')
+      : `${getTeamLabel(tie.teamA)} vs ${getTeamLabel(tie.teamB)}`;
+    const cls = tie.played ? 'winner' : '';
+    return { label, cls, raw: tie };
+  });
+
+  const sfLabels = sfTies.map(rows => {
+    const tie = computeTieAggregate(rows);
+    const label = tie.played
+      ? (tie.aggA > tie.aggB ? getTeamLabel(tie.teamA) : tie.aggB > tie.aggA ? getTeamLabel(tie.teamB) : getTeamLabel(tie.teamA))
+      : `${getTeamLabel(tie.teamA)}`;
+    const cls = tie.played ? 'winner' : '';
+    return { label, cls };
+  });
+
+  const finalTies = groupStageByTie(finals);
+  const finalTeams = finalTies[0] ? computeTieAggregate(finalTies[0]) : null;
+
+  const pad = (arr, n, def='?') => {
+    const out = [...arr];
+    while(out.length < n) out.push({ label: def, cls: 'tbd' });
+    return out;
+  };
+
+  const qfP = pad(qfLabels, 4);
+  const sfP = pad(sfLabels, 2);
+
+  root.innerHTML = `
+    <div class="bfCol">
+      ${slotHtml(qfP[0].label, qfP[0].cls)}
+      ${slotHtml(qfP[1].label, qfP[1].cls)}
+    </div>
+    <div class="bfArrow">→</div>
+    <div class="bfCol">
+      ${slotHtml(sfP[0].label, sfP[0].cls)}
+    </div>
+    <div class="bfArrow">→</div>
+    <div class="bfCenter">
+      <div class="bfTrophy">🏆</div>
+      <div class="bfFinalLabel">FİNAL</div>
+    </div>
+    <div class="bfArrow">←</div>
+    <div class="bfCol">
+      ${slotHtml(sfP[1].label, sfP[1].cls)}
+    </div>
+    <div class="bfArrow">←</div>
+    <div class="bfCol">
+      ${slotHtml(qfP[2].label, qfP[2].cls)}
+      ${slotHtml(qfP[3].label, qfP[3].cls)}
+    </div>
+  `;
+}
+
+/* Stage tab click wiring */
+function wireStageTabButtons(){
+  const tabs = document.querySelectorAll('.stageTabBtn');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const stage = btn.getAttribute('data-stage');
+      document.querySelectorAll('.stageContent').forEach(c => c.classList.remove('active'));
+      const contentMap = { qf1:'stageContentQF1', qf2:'stageContentQF2', sf1:'stageContentSF1', sf2:'stageContentSF2', final:'stageContentFinal' };
+      const target = document.getElementById(contentMap[stage]);
+      if(target) target.classList.add('active');
+    });
+  });
 }
 
 /* accordion: ALL modda sadece bir grup açık kalsın */
@@ -2571,6 +3258,7 @@ document.addEventListener("keydown", (e)=>{
 /* app init / refresh */
 async function init(){
   wireButtons();
+  wireStageTabButtons();
   await refreshData();
   setInterval(refreshData, 60000);
 }
