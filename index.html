@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="tr">
 <head>
@@ -1738,9 +1739,9 @@ const SHEET_PUB_KEY = "2PACX-1vTpmP3ySVA56yUD5mGcBBvOyxclZ3TnsALVamAj7gsKj-ve_DW
 /** gid */
 const TEAMS_GID   = "0";
 const MATCHES_GID = "1436904924";
-const QF_GID      = "";
-const SF_GID      = "";
-const FINAL_GID   = "";
+const QF_GID    = "1351656810";
+const SF_GID    = "2106978637";
+const FINAL_GID = "";  // ← Final sekmesine tıklayıp URL'den gid= kısmını buraya yapıştırın
 
 /** state */
 let state = { groups: {}, matches: {}, knockout: { QF: [], SF: [], FINAL: [] } };
@@ -2737,10 +2738,13 @@ function applyView(){
    YENİ: Stage Tabs — Güzel mobil knockout görünümü
    ========================================================= */
 function renderStageTabs(qf, sf, finals){
-  const qf1 = qf.filter(m => getLegNumber(m) === 1);
-  const qf2 = qf.filter(m => getLegNumber(m) === 2);
-  const sf1 = sf.filter(m => getLegNumber(m) === 1);
-  const sf2 = sf.filter(m => getLegNumber(m) === 2);
+  const qfByTie = groupStageByTie(qf);
+const sfByTie = groupStageByTie(sf);
+
+const qf1 = qfByTie.map(rows => rows[0]).filter(Boolean);
+const qf2 = qfByTie.map(rows => rows[1]).filter(Boolean);
+const sf1 = sfByTie.map(rows => rows[0]).filter(Boolean);
+const sf2 = sfByTie.map(rows => rows[1]).filter(Boolean);
 
   // Update badges
   const setBadge = (id, count) => {
